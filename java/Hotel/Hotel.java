@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+// Decide on the design of the reservation and where to store it
 
 public class Hotel {
     private String name;

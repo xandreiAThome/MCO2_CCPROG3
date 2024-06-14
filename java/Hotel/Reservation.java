@@ -12,6 +12,7 @@ public class Reservation {
         this.checkOut = checkOut;
         this.chosenRoom = chosenRoom;
 
+        this.totalPrice = (checkOut.getDay() - checkIn.getDay()) * chosenRoom.getPrice();
     }
 
     public String getGuestName() {
@@ -28,5 +29,9 @@ public class Reservation {
 
     public Room getChosenRoom() {
         return this.chosenRoom;
+    }
+
+    public double getTotalPrice() {
+        return this.totalPrice;
     }
 }
