@@ -1,4 +1,4 @@
-package MCO1_CCPROG3.java.HotelClasses;
+package HotelClasses;
 
 public class Date {
     private int day;

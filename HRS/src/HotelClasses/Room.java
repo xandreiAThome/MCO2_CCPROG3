@@ -1,4 +1,4 @@
-package MCO1_CCPROG3.java.HotelClasses;
+package HotelClasses;
 
 import java.util.ArrayList;
 // Room stores its own reservations

@@ -1,8 +1,8 @@
-package MCO1_CCPROG3.java.UserInterface;
+package UserInterface;
 
 import java.util.ArrayList;
 
-import MCO1_CCPROG3.java.HotelClasses.Hotel;
+import HotelClasses.Hotel;
 
 public class SimulateBooking {
     ArrayList<Hotel> hotelList;
