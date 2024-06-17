@@ -8,13 +8,10 @@ public class Hotel {
 
     public Hotel(String name, int roomAmount) {
         this.name = name;
-
-        if (roomAmount < 1 || roomAmount > 50) {
-            throw new IllegalArgumentException("Amount of Room inputted outside of allowed range!");
-        }
+        this.roomList = new ArrayList<Room>();
 
         for (int i = 1; i <= roomAmount; i++) {
-            roomList.add(new Room("HR" + i));
+            this.roomList.add(new Room("HR" + i));
         }
     }
 
