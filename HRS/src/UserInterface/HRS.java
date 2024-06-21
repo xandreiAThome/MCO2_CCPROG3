@@ -1,8 +1,6 @@
 package UserInterface;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import HotelClasses.Hotel;
 
@@ -15,17 +13,7 @@ public class HRS {
     }
 
     public void AddHotel() {
-        // Display Create Hotel ascii text
-        try {
-            Scanner ascii = new Scanner(new File("textFiles/CreateHotel.txt"));
-            while (ascii.hasNextLine()) {
-                System.out.println(ascii.nextLine());
-            }
-
-            ascii.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        DisplayAscii.display("textFiles/CreateHotel.txt");
 
         // get user input
         System.out.print("Enter Hotel Name: ");
@@ -55,5 +43,9 @@ public class HRS {
         }
 
         return false;
+    }
+
+    public ArrayList<Hotel> getHotelList() {
+        return this.hotelList;
     }
 }

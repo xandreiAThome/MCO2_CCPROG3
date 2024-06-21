@@ -1,5 +1,6 @@
 import UserInterface.HRS;
 import UserInterface.MainMenu;
+import UserInterface.SimulateBooking;
 
 public class Driver {
     public static void main(String[] args) {
@@ -13,6 +14,12 @@ public class Driver {
                     hrs.AddHotel();
                     System.out.print("\033\143");
                     System.out.println("Succesfully added Hotel");
+                    break;
+
+                case 4:
+                    System.out.print("\033\143");
+                    SimulateBooking.BookReservation(hrs.getHotelList());
+                    System.out.print("\033\143");
                     break;
 
                 case 5:
