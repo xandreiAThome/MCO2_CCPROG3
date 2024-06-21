@@ -1,12 +1,12 @@
 package UserInterface;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 import HotelClasses.Hotel;
 import HotelClasses.Reservation;
 import HotelClasses.Room;
 import HotelClasses.Date;
+// Create an boolean array of days in the month for if that day is booked or not
 
 public class SimulateBooking {
 
