@@ -23,4 +23,8 @@ public class Hotel {
         this.name = name;
     }
 
+    public ArrayList<Room> getRoomList() {
+        return this.roomList;
+    }
+
 }

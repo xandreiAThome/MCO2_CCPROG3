@@ -1,4 +1,3 @@
-import UserInterface.HRS;
 import UserInterface.MainMenu;
 import UserInterface.SimulateBooking;
 
@@ -20,6 +19,7 @@ public class Driver {
                     System.out.print("\033\143");
                     SimulateBooking.BookReservation(hrs.getHotelList());
                     System.out.print("\033\143");
+                    System.out.println("Succesfully booked reservation");
                     break;
 
                 case 5:

@@ -3,9 +3,8 @@ package HotelClasses;
 public class Date {
     private int day;
     private int hour;
-    private int minute;
 
-    public Date(int day, int minute, int hour) {
+    public Date(int day, int hour) {
         if (day > 31 || day < 1) {
             throw new IllegalArgumentException("Incorrect Day format: Month only has 31 days!");
         }
@@ -14,13 +13,8 @@ public class Date {
             throw new IllegalArgumentException("Incorrect Hour format: 0000H - 2300H");
         }
 
-        if (minute > 59 || minute < 0) {
-            throw new IllegalArgumentException("Incorrect Minute format: 0 - 59 min");
-        }
-
         this.day = day;
         this.hour = hour;
-        this.minute = minute;
     }
 
     public int getDay() {
@@ -31,8 +25,14 @@ public class Date {
         return this.hour;
     }
 
-    public int getMinute() {
-        return this.minute;
+    public boolean isDateEarlier(Date date2) {
+        if (this.day < date2.getDay()) {
+            return true;
+        } else if (this.day == date2.getDay() && this.hour < date2.getHour()) {
+            return true;
+        }
+
+        return false;
     }
 
 }

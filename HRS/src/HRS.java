@@ -1,8 +1,9 @@
-package UserInterface;
 
 import java.util.ArrayList;
 
 import HotelClasses.Hotel;
+import UserInterface.DisplayAscii;
+import UserInterface.UserInput;
 
 // decide on how to book reservation and what classes are involved in it
 public class HRS {
