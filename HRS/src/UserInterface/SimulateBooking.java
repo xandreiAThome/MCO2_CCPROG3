@@ -20,14 +20,22 @@ public class SimulateBooking {
         for (int i = 0; i < hotelList.size(); i++) {
             System.out.println(i + " - " + hotelList.get(i).getName());
         }
+
         System.out.print("\nEnter chosen Hotel: ");
-        Hotel chosenHotel = hotelList.get(Integer.valueOf(UserInput.getScanner().nextLine()));
+        int hotelIndex = Integer.valueOf(UserInput.getScanner().nextLine());
+        while (hotelIndex < 0 || hotelIndex > hotelList.size() - 1) {
+            System.out.println("Invalid option");
+            System.out.print("Enter chosen Hotel: ");
+            hotelIndex = Integer.valueOf(UserInput.getScanner().nextLine());
+        }
+
+        Hotel chosenHotel = hotelList.get(hotelIndex);
 
         int checkInDay, checkOutDay, checkInHour, checkOutHour;
         Date checkIn, checkOut;
-        boolean noConflict = false;
-        while (!noConflict) {
-            noConflict = true;
+        Reservation reservation = null;
+        Room chosenRoom = null;
+        while (reservation == null) {
             System.out.print("Enter Check-In day(1-30): ");
             checkInDay = Integer.valueOf(UserInput.getScanner().nextLine());
             while (checkInDay < 1 || checkInDay > 30) {
@@ -35,50 +43,41 @@ public class SimulateBooking {
                 System.out.print("Enter Check-In day(1-30): ");
                 checkInDay = Integer.valueOf(UserInput.getScanner().nextLine());
             }
-            System.out.print("Enter Check-in Hour(24H): ");
+            System.out.print("Enter Check-in Hour(00H - 23H): ");
             checkInHour = Integer.valueOf(UserInput.getScanner().nextLine());
+            while (checkInHour < 0 || checkInHour > 23) {
+                System.out.println("Invalid Hour format");
+                System.out.print("Enter Check-in Hour(00H - 23H): ");
+                checkInHour = Integer.valueOf(UserInput.getScanner().nextLine());
+            }
             checkIn = new Date(checkInDay, checkInHour);
 
             System.out.print("Enter Check-out day(2-31): ");
             checkOutDay = Integer.valueOf(UserInput.getScanner().nextLine());
-            while (checkOutDay < 2 || checkOutDay > 31 || checkOutDay < checkInDay) {
+            while (checkOutDay < 2 || checkOutDay > 31 || checkOutDay <= checkInDay) {
                 System.out.println("Invalid Check-out date");
                 System.out.print("Enter Check-out day: ");
                 checkOutDay = Integer.valueOf(UserInput.getScanner().nextLine());
             }
-            System.out.print("Enter Check-out Hour(24H): ");
+            System.out.print("Enter Check-out Hour(00H - 23H): ");
             checkOutHour = Integer.valueOf(UserInput.getScanner().nextLine());
+            while (checkOutHour < 0 || checkOutHour > 23) {
+                System.out.println("Invalid Hour format");
+                System.out.print("Enter Check-in Hour(00H - 23H): ");
+                checkOutHour = Integer.valueOf(UserInput.getScanner().nextLine());
+            }
             checkOut = new Date(checkOutDay, checkOutHour);
 
-            boolean isPrinted = false;
-            for (Room room : chosenHotel.getRoomList()) {
-                for (Reservation reserve : room.getAllReservations()) {
-                    if (!reserve.getCheckOuDate().isDateEarlier(checkIn)) {
-                        noConflict = false;
-                        if (!isPrinted) {
-                            System.out.println("Conflicting schedule with prior reservation");
-                        }
-                        isPrinted = true;
-                    }
-                    if (reserve.getCheckInDate().isDateEarlier(checkOut)) {
-                        noConflict = false;
-                        if (!isPrinted) {
-                            System.out.println("Conflicting schedule with prior reservation");
-                        }
-                        isPrinted = true;
-
-                    }
-
-                    if (noConflict) {
-                        break;
-                    }
-                }
-                if (noConflict) {
-                    room.addReservation(new Reservation(userName, checkIn, checkOut, room));
+            for (Room r : chosenHotel.getRoomList()) {
+                Reservation temp = new Reservation(userName, checkIn, checkOut, r);
+                if (!r.getMonth().isConflict(temp)) {
+                    reservation = temp;
+                    chosenRoom = r;
                     break;
                 }
             }
+            System.out.println("Schedule is is conflict with prior Reservations");
         }
-
+        chosenRoom.addReservation(reservation);
     }
 }

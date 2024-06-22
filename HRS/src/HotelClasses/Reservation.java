@@ -23,7 +23,7 @@ public class Reservation {
         return this.checkIn;
     }
 
-    public Date getCheckOuDate() {
+    public Date getCheckOutDate() {
         return this.checkOut;
     }
 

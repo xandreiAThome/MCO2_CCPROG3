@@ -7,9 +7,15 @@ public class Room {
     private String name;
     private double price = 1299;
     private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
+    private Month month;
 
     public Room(String name) {
         this.name = name;
+        this.month = new Month(31);
+    }
+
+    public Month getMonth() {
+        return this.month;
     }
 
     public String getName() {
@@ -29,9 +35,9 @@ public class Room {
     }
 
     // can guests only reserve at most once cuncurrently
-    public Reservation getReservation(int day) {
+    public Reservation getReservation(String guest) {
         for (Reservation r : reservationList) {
-            if (r.getCheckInDate().getDay() == day) {
+            if (r.getGuestName() == guest) {
                 return r;
             }
         }
@@ -43,7 +49,23 @@ public class Room {
         return this.reservationList;
     }
 
+    public void removeReservation(String guest) {
+        Reservation toBeRemoved = null;
+        for (Reservation r : this.reservationList) {
+            if (r.getGuestName().equals(guest)) {
+                toBeRemoved = r;
+                break;
+            }
+        }
+
+        if (toBeRemoved != null) {
+            this.month.resetAvailability(toBeRemoved);
+        }
+
+    }
+
     public void addReservation(Reservation reservation) {
         this.reservationList.add(reservation);
+        this.month.setAvailability(reservation);
     }
 }
