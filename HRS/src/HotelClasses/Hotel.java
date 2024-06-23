@@ -65,6 +65,12 @@ public class Hotel {
         return total;
     }
 
+    /**
+     * 
+     * @param name
+     * @return true if guest already has reservation in the hotel instance, false
+     *         otherwise
+     */
     public boolean guestExists(String name) {
         for (Room room : this.roomList) {
             for (Reservation r : room.getAllReservations()) {
