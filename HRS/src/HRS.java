@@ -5,14 +5,22 @@ import HotelClasses.Hotel;
 import UserInterface.DisplayAscii;
 import UserInterface.UserInput;
 
-// decide on how to book reservation and what classes are involved in it
+/**
+ * Represents the Hotel Reservation System
+ */
 public class HRS {
     private ArrayList<Hotel> hotelList;
 
+    /**
+     * Constructs the HRS
+     */
     public HRS() {
         this.hotelList = new ArrayList<Hotel>();
     }
 
+    /**
+     * Adds a new hotel to the HRS
+     */
     public void AddHotel() {
         DisplayAscii.display("textFiles/CreateHotel.txt");
 
@@ -36,6 +44,13 @@ public class HRS {
         this.hotelList.add(new Hotel(name, amount));
     }
 
+    /**
+     * Checks if the given name of the hotel alreadys exists
+     * 
+     * @param hotel
+     * @param name
+     * @return true if there is a duplicate, false otherwise
+     */
     public boolean isHotelDup(ArrayList<Hotel> hotel, String name) {
         for (Hotel h : hotel) {
             if (name.equals(h)) {
@@ -46,6 +61,10 @@ public class HRS {
         return false;
     }
 
+    /**
+     * 
+     * @return Hotel List of the current HRS instance
+     */
     public ArrayList<Hotel> getHotelList() {
         return this.hotelList;
     }

@@ -3,7 +3,15 @@ package UserInterface;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * A Helper class for displaying ascii art given a text file of the ascii
+ */
 public class DisplayAscii {
+    /**
+     * Prints the ascii art
+     * 
+     * @param fileName
+     */
     public static void display(String fileName) {
         try {
             Scanner ascii = new Scanner(new File(fileName));

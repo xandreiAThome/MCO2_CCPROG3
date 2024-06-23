@@ -3,8 +3,14 @@ package UserInterface;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Main menu interface for the HRS
+ */
 public class MainMenu {
 
+    /**
+     * Displays the options for the main menu
+     */
     public static int showMenu() {
         try {
             Scanner ascii = new Scanner(new File("textFiles/HRS.txt"));

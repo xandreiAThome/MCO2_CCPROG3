@@ -6,10 +6,17 @@ import HotelClasses.Hotel;
 import HotelClasses.Reservation;
 import HotelClasses.Room;
 import HotelClasses.Date;
-// Create an boolean array of days in the month for if that day is booked or not
 
+/**
+ * Simulate booking interface for the HRS
+ */
 public class SimulateBooking {
 
+    /**
+     * Prompts user for hotel, check in and check out time
+     * 
+     * @param hotelList
+     */
     public static void BookReservation(ArrayList<Hotel> hotelList) {
         DisplayAscii.display("textFiles/SimulateBooking.txt");
 

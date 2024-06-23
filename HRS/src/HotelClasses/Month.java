@@ -1,8 +1,16 @@
 package HotelClasses;
 
+/**
+ * Represents a month calendar for the availability of a room for the month
+ */
 public class Month {
     private Day month[];
 
+    /**
+     * Constructs the Month object given the number of days in the month
+     * 
+     * @param numOfDays
+     */
     public Month(int numOfDays) {
         month = new Day[numOfDays];
         for (int i = 0; i < numOfDays; i++) {
@@ -10,10 +18,19 @@ public class Month {
         }
     }
 
+    /**
+     * 
+     * @return month of the current instance
+     */
     public Day[] getMonth() {
         return this.month;
     }
 
+    /**
+     * Sets the range of days of of the reservation to booked
+     * 
+     * @param reservation
+     */
     public void setAvailability(Reservation reservation) {
         int checkInDay = reservation.getCheckInDate().getDay();
         int checkOutDay = reservation.getCheckOutDate().getDay();
@@ -33,6 +50,11 @@ public class Month {
         }
     }
 
+    /**
+     * Sets the range of days in the reservation to available again
+     * 
+     * @param reservation
+     */
     public void resetAvailability(Reservation reservation) {
         int checkInDay = reservation.getCheckInDate().getDay();
         int checkOutDay = reservation.getCheckOutDate().getDay();
@@ -53,6 +75,10 @@ public class Month {
         }
     }
 
+    /**
+     * Displays the month and the availability of each of the days, - for booked, +
+     * for available
+     */
     public void displayMonth() {
         for (int i = 0; i < month.length; i++) {
             if (i % 10 == 0 && i != 0) {
@@ -76,10 +102,16 @@ public class Month {
         System.out.print("|\n");
     }
 
-    // checkin day - 1 so that it follows the array of indeces starting at 0
+    /**
+     * Checks if the given reservation is in conflict with prior reservations
+     * 
+     * @param reservation the reservation to be checked
+     * @return true if there is a conflict, false otherwise
+     */
     public boolean isConflict(Reservation reservation) {
         boolean isConflict = false;
-        int checkInDay = reservation.getCheckInDate().getDay() - 1;
+        int checkInDay = reservation.getCheckInDate().getDay() - 1;// checkin day - 1 so that it follows the array of
+                                                                   // indeces starting at 0
         int checkOutDay = reservation.getCheckOutDate().getDay() - 1;
         for (int i = checkInDay; i <= checkOutDay && !isConflict; i++) {
             if (this.month[i].getIsCheckIn() && i == checkOutDay) {
