@@ -71,7 +71,7 @@ public class Room {
      */
     public Reservation getReservation(String guest) {
         for (Reservation r : reservationList) {
-            if (r.getGuestName() == guest) {
+            if (r.getGuestName().equals(guest)) {
                 return r;
             }
         }

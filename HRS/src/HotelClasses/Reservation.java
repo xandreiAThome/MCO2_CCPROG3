@@ -22,7 +22,7 @@ public class Reservation {
         this.guest = guest;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-
+        this.chosenRoom = chosenRoom;
         this.totalPrice = (checkOut.getDay() - checkIn.getDay()) * chosenRoom.getPrice();
     }
 

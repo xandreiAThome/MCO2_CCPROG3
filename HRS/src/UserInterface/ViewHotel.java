@@ -72,7 +72,7 @@ public class ViewHotel {
     }
 
     private static void displayReservationInfo(Hotel hotel) {
-        System.out.println("\nEnter name: ");
+        System.out.print("\nEnter name: ");
         String name = UserInput.getScanner().nextLine();
 
         Reservation chosenReservation = null;
@@ -85,15 +85,16 @@ public class ViewHotel {
         }
         if (chosenReservation == null) {
             System.out.println("Guest has no prior reservation");
+            System.out.print("Press any key to return to Main Menu: ");
+            UserInput.getScanner().nextLine();
         } else {
             Room chosenRoom = chosenReservation.getChosenRoom();
             System.out.println("\nGuest name: " + chosenReservation.getGuestName());
             System.out.print("Check in date: ");
             chosenReservation.getCheckInDate().displayDate();
-            System.out.println("Check out date: ");
+            System.out.print("Check out date: ");
             chosenReservation.getCheckOutDate().displayDate();
-            System.out.println("Total price: " + chosenReservation.getTotalPrice() + "\tPrice per night: "
-                    + chosenRoom.getPrice());
+            System.out.println("Total price: " + chosenReservation.getTotalPrice());
             displayRoomInformation(chosenRoom);
         }
     }
@@ -108,11 +109,12 @@ public class ViewHotel {
         }
 
         Room chosenRoom = hotel.getRoomList().get(roomIndex - 1);
+        System.out.println();
         displayRoomInformation(chosenRoom);
     }
 
     private static void displayRoomInformation(Room chosenRoom) {
-        System.out.println("\nRoom name: " + chosenRoom.getName() + "\tPrice per night: " + chosenRoom.getPrice());
+        System.out.println("Room name: " + chosenRoom.getName() + "\tPrice per night: " + chosenRoom.getPrice());
         System.out.println("Room availability (- booked, + available)");
         chosenRoom.displayMonthAvailability();
         System.out.print("Press any key to return to Main Menu: ");
