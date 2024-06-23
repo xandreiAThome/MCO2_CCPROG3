@@ -42,4 +42,11 @@ public class Date {
     public int getHour() {
         return this.hour;
     }
+
+    /**
+     * prints the current date
+     */
+    public void displayDate() {
+        System.out.println("Day " + this.day + " - " + this.hour + "H");
+    }
 }

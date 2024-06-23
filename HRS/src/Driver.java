@@ -1,6 +1,7 @@
 import HotelClasses.HRS;
 import UserInterface.MainMenu;
 import UserInterface.SimulateBooking;
+import UserInterface.ViewHotel;
 
 public class Driver {
     public static void main(String[] args) {
@@ -15,13 +16,17 @@ public class Driver {
                     System.out.print("\033\143");
                     System.out.println("Succesfully added Hotel");
                     break;
+                case 2:
+                    System.out.print("\033\143");
+                    ViewHotel.DisplayHotelInformation(hrs);
+                    System.out.print("\033\143");
+                    break;
 
                 case 4:
                     System.out.print("\033\143");
-                    SimulateBooking.BookReservation(hrs.getHotelList());
+                    SimulateBooking.BookReservation(hrs);
                     System.out.print("\033\143");
                     System.out.println("Succesfully booked reservation");
-                    hrs.getHotelList().get(0).getRoomList().get(0).displayMonthAvailability();
                     break;
 
                 case 5:

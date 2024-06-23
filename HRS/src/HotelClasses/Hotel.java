@@ -20,7 +20,7 @@ public class Hotel {
         this.roomList = new ArrayList<Room>();
 
         for (int i = 1; i <= roomAmount; i++) {
-            this.roomList.add(new Room("HR" + i));
+            this.roomList.add(new Room(name + "00" + i));
         }
     }
 
@@ -47,6 +47,22 @@ public class Hotel {
      */
     public ArrayList<Room> getRoomList() {
         return this.roomList;
+    }
+
+    /**
+     * 
+     * @return The total estimated revenue for the month of the hotel across all
+     *         reservations in the hotel
+     */
+    public double earningForMonth() {
+        double total = 0;
+        for (Room room : this.roomList) {
+            for (Reservation r : room.getAllReservations()) {
+                total += r.getTotalPrice();
+            }
+        }
+
+        return total;
     }
 
 }

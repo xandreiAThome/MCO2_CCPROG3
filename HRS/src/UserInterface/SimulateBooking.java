@@ -1,11 +1,10 @@
 package UserInterface;
 
-import java.util.ArrayList;
-
 import HotelClasses.Hotel;
 import HotelClasses.Reservation;
 import HotelClasses.Room;
 import HotelClasses.Date;
+import HotelClasses.HRS;
 
 /**
  * Simulate booking interface for the HRS
@@ -15,28 +14,28 @@ public class SimulateBooking {
     /**
      * Prompts user for hotel, check in and check out time
      * 
-     * @param hotelList
+     * @param hrs
      */
-    public static void BookReservation(ArrayList<Hotel> hotelList) {
+    public static void BookReservation(HRS hrs) {
         DisplayAscii.display("textFiles/SimulateBooking.txt");
 
         System.out.print("Enter Name: ");
         String userName = UserInput.getScanner().nextLine();
 
         System.out.println("Choose a hotel");
-        for (int i = 0; i < hotelList.size(); i++) {
-            System.out.println(i + " - " + hotelList.get(i).getName());
+        for (int i = 0; i < hrs.getHotelList().size(); i++) {
+            System.out.println(i + " - " + hrs.getHotelList().get(i).getName());
         }
 
         System.out.print("\nEnter chosen Hotel: ");
         int hotelIndex = Integer.valueOf(UserInput.getScanner().nextLine());
-        while (hotelIndex < 0 || hotelIndex > hotelList.size() - 1) {
+        while (hotelIndex < 0 || hotelIndex > hrs.getHotelList().size() - 1) {
             System.out.println("Invalid option");
             System.out.print("Enter chosen Hotel: ");
             hotelIndex = Integer.valueOf(UserInput.getScanner().nextLine());
         }
 
-        Hotel chosenHotel = hotelList.get(hotelIndex);
+        Hotel chosenHotel = hrs.getHotelList().get(hotelIndex);
 
         int checkInDay, checkOutDay, checkInHour, checkOutHour;
         Date checkIn, checkOut;
