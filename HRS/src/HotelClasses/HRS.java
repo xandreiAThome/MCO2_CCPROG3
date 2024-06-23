@@ -28,7 +28,7 @@ public class HRS {
         System.out.print("Enter Hotel Name: ");
         String name = UserInput.getScanner().nextLine();
 
-        while (isHotelDup(this.hotelList, name)) {
+        while (isHotelDup(name)) {
             System.out.print("Name already exists, Enter a new name: ");
             name = UserInput.getScanner().nextLine();
         }
@@ -51,9 +51,9 @@ public class HRS {
      * @param name
      * @return true if there is a duplicate, false otherwise
      */
-    public boolean isHotelDup(ArrayList<Hotel> hotel, String name) {
-        for (Hotel h : hotel) {
-            if (name.equals(h)) {
+    public boolean isHotelDup(String name) {
+        for (Hotel h : this.hotelList) {
+            if (name.equals(h.getName())) {
                 return true;
             }
         }
