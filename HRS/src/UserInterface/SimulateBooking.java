@@ -19,14 +19,10 @@ public class SimulateBooking {
     public static void BookReservation(HRS hrs) {
         DisplayAscii.display("textFiles/SimulateBooking.txt");
 
-        System.out.print("Enter Name: ");
-        String userName = UserInput.getScanner().nextLine();
-
         System.out.println("Choose a hotel");
         for (int i = 0; i < hrs.getHotelList().size(); i++) {
             System.out.println(i + " - " + hrs.getHotelList().get(i).getName());
         }
-
         System.out.print("\nEnter chosen Hotel: ");
         int hotelIndex = Integer.valueOf(UserInput.getScanner().nextLine());
         while (hotelIndex < 0 || hotelIndex > hrs.getHotelList().size() - 1) {
@@ -36,6 +32,14 @@ public class SimulateBooking {
         }
 
         Hotel chosenHotel = hrs.getHotelList().get(hotelIndex);
+        System.out.print("Enter Name: ");
+        String userName = UserInput.getScanner().nextLine();
+        boolean guestExists = chosenHotel.guestExists(userName);
+        while (guestExists) {
+            System.out.print("Guest already has prior reservation in this hotel\nEnter Name: ");
+            userName = UserInput.getScanner().nextLine();
+            guestExists = chosenHotel.guestExists(userName);
+        }
 
         int checkInDay, checkOutDay, checkInHour, checkOutHour;
         Date checkIn, checkOut;

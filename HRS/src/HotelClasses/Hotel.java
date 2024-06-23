@@ -65,4 +65,15 @@ public class Hotel {
         return total;
     }
 
+    public boolean guestExists(String name) {
+        for (Room room : this.roomList) {
+            for (Reservation r : room.getAllReservations()) {
+                if (r.getGuestName().equals(name)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
