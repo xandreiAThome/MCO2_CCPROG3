@@ -1,3 +1,4 @@
+import HotelClasses.HRS;
 import UserInterface.MainMenu;
 import UserInterface.SimulateBooking;
 
@@ -20,7 +21,7 @@ public class Driver {
                     SimulateBooking.BookReservation(hrs.getHotelList());
                     System.out.print("\033\143");
                     System.out.println("Succesfully booked reservation");
-                    hrs.getHotelList().get(0).getRoomList().get(0).getMonth().displayMonth();
+                    hrs.getHotelList().get(0).getRoomList().get(0).displayMonthAvailability();
                     break;
 
                 case 5:

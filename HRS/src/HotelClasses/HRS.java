@@ -1,7 +1,7 @@
+package HotelClasses;
 
 import java.util.ArrayList;
 
-import HotelClasses.Hotel;
 import UserInterface.DisplayAscii;
 import UserInterface.UserInput;
 

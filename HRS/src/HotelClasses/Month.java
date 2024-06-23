@@ -85,19 +85,20 @@ public class Month {
                 System.out.print("|\n");
             }
             if (month[i].getIsBooked()) {
-                if (i < 10) {
+                if (i < 9) {
                     System.out.print("| " + (i + 1) + " - ");
                 } else {
                     System.out.print("|" + (i + 1) + " - ");
                 }
 
             } else {
-                if (i < 10) {
+                if (i < 9) {
                     System.out.print("| " + (i + 1) + " + ");
                 } else {
                     System.out.print("|" + (i + 1) + " + ");
                 }
             }
+
         }
         System.out.print("|\n");
     }

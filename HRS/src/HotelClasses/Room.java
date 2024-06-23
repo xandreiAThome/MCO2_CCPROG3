@@ -116,4 +116,12 @@ public class Room {
         this.reservationList.add(reservation);
         this.month.setAvailability(reservation);
     }
+
+    /**
+     * Displays the availability of the room for the month
+     */
+    public void displayMonthAvailability() {
+        System.out.println("Room " + this.name + " availability for the Month");
+        this.month.displayMonth();
+    }
 }
