@@ -98,15 +98,15 @@ public class Hotel {
      */
     public void addRooms(int newAmt) {
 
-        int currentAmt = this.roomList.size() - 1;
-        for (int i = currentAmt + 1; i <= currentAmt + newAmt; i++) {
-            this.roomList.add(new Room(name + "00" + i));
+        int currentAmt = this.roomList.size();
+        for (int i = currentAmt; i < currentAmt + newAmt; i++) {
+            this.roomList.add(new Room(name + "00" + (i + 1)));
         }
     }
 
     public void changeAllRoomNames() {
-        for (int i = 1; i <= this.roomList.size(); i++) {
-            this.roomList.get(i).setName(this.name + "00" + i);
+        for (int i = 0; i < this.roomList.size(); i++) {
+            this.roomList.get(i).setName(this.name + "00" + (i + 1));
         }
     }
 
