@@ -1,5 +1,6 @@
 import HotelClasses.HRS;
 import UserInterface.MainMenu;
+import UserInterface.ManageHotel;
 import UserInterface.SimulateBooking;
 import UserInterface.ViewHotel;
 
@@ -24,8 +25,10 @@ public class Driver {
 
                 case 3:
                     System.out.print("\033\143");
-
-
+                    ManageHotel.ManageHotelMain(hrs);
+                    System.out.print("\033\143");
+                    break;
+                    
                 case 4:
                     System.out.print("\033\143");
                     SimulateBooking.BookReservation(hrs);

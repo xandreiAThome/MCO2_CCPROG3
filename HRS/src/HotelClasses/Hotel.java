@@ -91,7 +91,7 @@ public class Hotel {
 
     public void addRooms(int newAmt){
 
-        int currentAmt = roomList.size();
+        int currentAmt = roomList.size()-1;
         for (int i = currentAmt + 1; i <= currentAmt + newAmt; i++){
             this.roomList.add(new Room("HR" + i));
         }

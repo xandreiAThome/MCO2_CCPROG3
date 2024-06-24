@@ -129,7 +129,7 @@ public class Room {
 
         boolean result = false;
 
-        if(this.reservationList.size() > 0){
+        if(this.reservationList.size()-1 > 0){
             result = true;
         } 
 

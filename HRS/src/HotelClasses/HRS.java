@@ -76,13 +76,16 @@ public class HRS {
         }
     }
 
-    public void changeHotelName(){
+    public void changeHotelName(int index){
+        
         Scanner scanner = new Scanner(System.in);
     
+        /*
         printHotels();
         System.out.print("Enter the index of the hotel you want to change: ");
         int index = scanner.nextInt();
         scanner.nextLine(); 
+        */
 
         System.out.print("Enter New Hotel Name: ");
         String name = scanner.nextLine();
@@ -92,7 +95,7 @@ public class HRS {
             name = scanner.nextLine();
         }
     
-        if(index >= 0 && index < hotelList.size()) {
+        if(index >= 0 && index < hotelList.size()-1) {
             hotelList.get(index).setName(name); 
         } else {
             System.out.println("Invalid index. Hotel not found.");
@@ -101,13 +104,15 @@ public class HRS {
         scanner.close();
     }
 
-    public void addRoomstoHotel(){
+    public void addRoomstoHotel(int index){
+        
         Scanner scanner = new Scanner(System.in);
-
+        /*
         printHotels();
         System.out.print("Enter the index of the hotel you want to modify: ");
         int index = scanner.nextInt();
         scanner.nextLine(); 
+        */
 
         System.out.print("Enter the amount of rooms to be added: ");
         int amount = Integer.valueOf(UserInput.getScanner().nextLine());
@@ -128,14 +133,15 @@ public class HRS {
     }
 
 
-    public void removeRoomsfromHotel(){
+    public void removeRoomsfromHotel(int index){
+        
         Scanner scanner = new Scanner(System.in);
-
+        /*
         printHotels();
         System.out.print("Enter the index of the hotel you want to modify: ");
         int index = scanner.nextInt();
         scanner.nextLine(); 
-
+        */
 
         System.out.println("Enter the range of rooms you want to delete: ");
         System.out.print("From: ");
@@ -145,7 +151,7 @@ public class HRS {
         int To = scanner.nextInt();
         scanner.nextLine(); 
 
-        if (from < 1 || To > hotelList.get(index).getRoomList().size()){
+        if (from < 1 || To > hotelList.get(index).getRoomList().size()-1){
             System.out.println("Invalid range");
             scanner.close();
             return;
@@ -164,13 +170,15 @@ public class HRS {
         scanner.close();
     }
 
-    public void updateBasePrice(){
+    public void updateBasePrice(int index){
         Scanner scanner = new Scanner(System.in);
 
+        /* 
         printHotels();
         System.out.print("Enter the index of the hotel you want to modify: ");
         int index = scanner.nextInt();
         scanner.nextLine(); 
+        */
 
         boolean result = false;
 
@@ -195,13 +203,15 @@ public class HRS {
         scanner.close();
     }
 
-    public void removeReservation(){
+    public void removeReservation(int index){
         Scanner scanner = new Scanner(System.in);
 
+        /* 
         printHotels();
         System.out.print("Enter the index of the hotel you want to modify: ");
         int index = scanner.nextInt();
         scanner.nextLine(); 
+        */
 
         System.out.print("Enter the guest name: ");
         String guestName = scanner.nextLine();
@@ -220,15 +230,17 @@ public class HRS {
         scanner.close();
     }
 
-    public void removeHotel(){
+    public void removeHotel(int index){
         Scanner scanner = new Scanner(System.in);
 
+        /* 
         printHotels();
         System.out.print("Enter the index of the hotel you want to remove: ");
         int index = scanner.nextInt();
         scanner.nextLine(); 
+        */
 
-        if(index > hotelList.size()){
+        if(index > hotelList.size()-1){
             System.out.println("Invalid index");
         } else {
             hotelList.remove(index);
