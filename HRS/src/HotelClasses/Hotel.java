@@ -41,7 +41,7 @@ public class Hotel {
         this.name = name;
     }
 
-    /** 
+    /**
      * 
      * @return ArrayList of roomList
      */
@@ -87,8 +87,8 @@ public class Hotel {
      * @retun size - the total number of rooms in the Hotel
      */
 
-    public int getRoomAmt(){
-        int size = this.roomList.size()-1;
+    public int getRoomAmt() {
+        int size = this.roomList.size() - 1;
 
         return size;
     }
@@ -96,28 +96,50 @@ public class Hotel {
     /*
      * @param newAmt
      */
-    public void addRooms(int newAmt){
+    public void addRooms(int newAmt) {
 
-        int currentAmt = roomList.size()-1;
-        for (int i = currentAmt + 1; i <= currentAmt + newAmt; i++){
-            this.roomList.add(new Room("HR" + i));
+        int currentAmt = this.roomList.size() - 1;
+        for (int i = currentAmt + 1; i <= currentAmt + newAmt; i++) {
+            this.roomList.add(new Room(name + "00" + i));
         }
+    }
 
+    public void changeAllRoomNames() {
+        for (int i = 1; i <= this.roomList.size(); i++) {
+            this.roomList.get(i).setName(this.name + "00" + i);
+        }
     }
 
     /*
      * @param index
-    */
+     */
 
-    public void removeRoom(int index){
+    public void removeRoom(int index) {
         roomList.remove(index);
     }
 
-    /*
+    /**
+     * 
      * @param index
-    */
-    public Room checkRoom (int index){
+     * @return Room given index
+     */
+    public Room getRoom(int index) {
 
         return this.roomList.get(index);
+    }
+
+    /**
+     * 
+     * @param name
+     * @return Room given name
+     */
+    public Room getRoom(String name) {
+        for (Room room : this.roomList) {
+            if (room.getName().equals(name)) {
+                return room;
+            }
+        }
+
+        return null;
     }
 }

@@ -102,6 +102,7 @@ public class Room {
         }
 
         if (toBeRemoved != null) {
+            reservationList.remove(toBeRemoved);
             this.month.resetAvailability(toBeRemoved);
         }
 
@@ -129,13 +130,13 @@ public class Room {
      * @return true if it is reserved, false otherwise
      * 
      */
-    public boolean hasReservation(){
+    public boolean hasReservation() {
 
         boolean result = false;
 
-        if(this.reservationList.size()-1 > 0){
+        if (this.reservationList.size() > 0) {
             result = true;
-        } 
+        }
 
         return result;
     }

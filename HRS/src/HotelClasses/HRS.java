@@ -1,7 +1,6 @@
 package HotelClasses;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import UserInterface.DisplayAscii;
 import UserInterface.UserInput;
@@ -70,8 +69,8 @@ public class HRS {
         return this.hotelList;
     }
 
-     public void printHotels(){
-        for(Hotel h : this.hotelList){
+    public void printHotels() {
+        for (Hotel h : this.hotelList) {
             System.out.println(h.getName());
         }
     }
@@ -82,32 +81,32 @@ public class HRS {
      * @param index
      */
 
-    public void changeHotelName(int index){
-        
-        Scanner scanner = new Scanner(System.in);
-    
+    public void changeHotelName(Hotel hotel) {
+
         /*
-        printHotels();
-        System.out.print("Enter the index of the hotel you want to change: ");
-        int index = scanner.nextInt();
-        scanner.nextLine(); 
-        */
+         * printHotels();
+         * System.out.print("Enter the index of the hotel you want to change: ");
+         * int index = scanner.nextInt();
+         * scanner.nextLine();
+         */
 
         System.out.print("Enter New Hotel Name: ");
-        String name = scanner.nextLine();
-    
+        String name = UserInput.getScanner().nextLine();
+
         while (isHotelDup(name)) {
             System.out.print("Name already exists, Enter a new name: ");
-            name = scanner.nextLine();
+            name = UserInput.getScanner().nextLine();
         }
-    
-        if(index >= 0 && index < hotelList.size()-1) {
-            hotelList.get(index).setName(name); 
+        System.out.println("Confirm change(y/n): ");
+        String confirm = UserInput.getScanner().nextLine();
+        if (confirm.equals("Y") || confirm.equals("y")) {
+            hotel.setName(name);
+            hotel.changeAllRoomNames();
+            System.out.println("Successfully changed name");
         } else {
-            System.out.println("Invalid index. Hotel not found.");
+            System.out.println("Canceled name change");
         }
 
-        //scanner.close();
     }
 
     /*
@@ -116,21 +115,19 @@ public class HRS {
      * @param index
      * 
      */
-    public void addRoomstoHotel(int index){
-        
-        Scanner scanner = new Scanner(System.in);
+    public void addRoomstoHotel(Hotel hotel) {
         /*
-        printHotels();
-        System.out.print("Enter the index of the hotel you want to modify: ");
-        int index = scanner.nextInt();
-        scanner.nextLine(); 
-        */
+         * printHotels();
+         * System.out.print("Enter the index of the hotel you want to modify: ");
+         * int index = scanner.nextInt();
+         * scanner.nextLine();
+         */
 
-        System.out.println("Current Amount of rooms "+ hotelList.get(index).getRoomAmt());
+        System.out.println("Current Amount of rooms " + hotel.getRoomAmt());
         System.out.print("Enter the amount of rooms to be added: ");
         int amount = Integer.valueOf(UserInput.getScanner().nextLine());
 
-        int currentAmount = hotelList.get(index).getRoomAmt();
+        int currentAmount = hotel.getRoomAmt();
 
         int finalAmount = currentAmount + amount;
 
@@ -140,9 +137,16 @@ public class HRS {
             finalAmount = currentAmount + amount;
         }
 
-        hotelList.get(index).addRooms(amount);
+        System.out.println("Confirm change(y/n): ");
+        String confirm = UserInput.getScanner().nextLine();
+        if (confirm.equals("Y") || confirm.equals("y")) {
+            hotel.addRooms(amount);
+            System.out.println("Successfully added rooms");
+        } else {
+            System.out.println("Canceled adding of rooms");
+        }
 
-        //scanner.close();
+        // scanner.close();
     }
 
     /*
@@ -151,42 +155,45 @@ public class HRS {
      * @param index
      */
 
-    public void removeRoomsfromHotel(int index){
-        
-        Scanner scanner = new Scanner(System.in);
-        /*
-        printHotels();
-        System.out.print("Enter the index of the hotel you want to modify: ");
-        int index = scanner.nextInt();
-        scanner.nextLine(); 
-        */
+    public void removeRoomsfromHotel(Hotel hotel) {
 
-        System.out.println("Current Amount of rooms "+ hotelList.get(index).getRoomAmt());
+        /*
+         * printHotels();
+         * System.out.print("Enter the index of the hotel you want to modify: ");
+         * int index = scanner.nextInt();
+         * scanner.nextLine();
+         */
+
+        System.out.println("Current Amount of rooms " + hotel.getRoomAmt());
         System.out.println("Enter the range of rooms you want to delete: ");
         System.out.print("From: ");
-        int from = scanner.nextInt();
-        scanner.nextLine(); 
+        int from = Integer.valueOf(UserInput.getScanner().nextLine());
         System.out.print("To: ");
-        int To = scanner.nextInt();
-        scanner.nextLine(); 
+        int To = Integer.valueOf(UserInput.getScanner().nextLine());
 
-        if (from < 1 || To > hotelList.get(index).getRoomList().size()-1){
+        if (from < 1 || To > hotel.getRoomList().size() - 1) {
             System.out.println("Invalid range");
-            scanner.close();
             return;
         } else {
-            for (int i = from; i < To; i++){
-                Room room = hotelList.get(index).getRoomList().get(i-1);
-                if (room.hasReservation()){
-                    System.out.println("Room " + i + " is reserved, cannot be deleted.");
-                } else {
-                    hotelList.get(index).removeRoom(i-1);
-                    System.out.println("Room " + i + " deleted successfully.");
+            System.out.println("Confirm to delete rooms(y/n): ");
+            String confirm = UserInput.getScanner().nextLine();
+            if (confirm.equals("Y") || confirm.equals("y")) {
+                for (int i = from; i < To; i++) {
+                    Room room = hotel.getRoomList().get(i - 1);
+                    if (room.hasReservation()) {
+                        System.out.println("Room " + i + " is reserved, cannot be deleted.");
+                    } else {
+                        hotel.removeRoom(i - 1);
+                        System.out.println("Room " + i + " deleted successfully.");
+                    }
                 }
+            } else {
+                System.out.println("Canceled room deletion");
             }
+
         }
-       
-        //scanner.close();
+
+        // scanner.close();
     }
 
     /*
@@ -195,48 +202,51 @@ public class HRS {
      * @param index
      */
 
-    public void updateBasePrice(int index){
-        Scanner scanner = new Scanner(System.in);
+    public void updateBasePrice(Hotel hotel) {
 
-        /* 
-        printHotels();
-        System.out.print("Enter the index of the hotel you want to modify: ");
-        int index = scanner.nextInt();
-        scanner.nextLine(); 
-        */
+        /*
+         * printHotels();
+         * System.out.print("Enter the index of the hotel you want to modify: ");
+         * int index = scanner.nextInt();
+         * scanner.nextLine();
+         */
 
-        Room temp =hotelList.get(index).checkRoom(0);
-
-        System.out.println("Current Price "+ temp.getPrice());
+        System.out.println("Current Price " + hotel.getRoom(0).getPrice());
 
         boolean result = false;
 
-        for (Room i : hotelList.get(index).getRoomList()){
-            if(i.hasReservation() == true){
+        for (Room i : hotel.getRoomList()) {
+            if (i.hasReservation()) {
                 System.out.println("Hotel has active reservations, cannot update base price");
                 result = true;
+                break;
             }
-            break;
+
         }
 
-        if (result == false){
+        if (result == false) {
             System.out.print("Enter the new base price: ");
-            double newPrice = scanner.nextDouble();
-            scanner.nextLine();
+            double newPrice = Double.valueOf(UserInput.getScanner().nextLine());
 
-            while (!(newPrice >= 100.0)){
+            while (!(newPrice >= 100.0)) {
                 System.out.println("Price must be at least $100.00");
                 System.out.print("Enter the new base price: ");
-                newPrice = scanner.nextDouble();
-                scanner.nextLine();
+                newPrice = Double.valueOf(UserInput.getScanner().nextLine());
+            }
+            System.out.println("Confirm to change base price(y/n): ");
+            String confirm = UserInput.getScanner().nextLine();
+            if (confirm.equals("Y") || confirm.equals("y")) {
+                for (Room j : hotel.getRoomList()) {
+                    j.setPrice(newPrice);
+                }
+                System.out.println("Successfully changed base price");
+            } else {
+                System.out.println("Canceled price change");
             }
 
-            for(Room j: hotelList.get(index).getRoomList()){
-                j.setPrice(newPrice);
-            }
         }
 
-        //scanner.close();
+        // scanner.close();
     }
 
     /*
@@ -245,31 +255,39 @@ public class HRS {
      * @param index
      */
 
-    public void removeReservation(int index){
-        Scanner scanner = new Scanner(System.in);
+    public void removeReservation(Hotel hotel) {
 
-        /* 
-        printHotels();
-        System.out.print("Enter the index of the hotel you want to modify: ");
-        int index = scanner.nextInt();
-        scanner.nextLine(); 
-        */
+        /*
+         * printHotels();
+         * System.out.print("Enter the index of the hotel you want to modify: ");
+         * int index = scanner.nextInt();
+         * scanner.nextLine();
+         */
 
         System.out.print("Enter the guest name: ");
-        String guestName = scanner.nextLine();
-
-        for(Room i : hotelList.get(index).getRoomList()){
-            if(i.getReservation(guestName) != null){
-                i.removeReservation(guestName);
-                System.out.println("Reservation removed successfully!");
-                scanner.close();
-                return;
+        String guestName = UserInput.getScanner().nextLine();
+        Reservation chosenReservation = null;
+        for (Room room : hotel.getRoomList()) {
+            chosenReservation = room.getReservation(guestName);
+            if (chosenReservation != null) {
+                break;
             }
         }
 
-        System.out.println("No reservation found for guest " + guestName);
+        if (chosenReservation != null) {
+            System.out.println("Confirm to remove reservation(y/n): ");
+            String confirm = UserInput.getScanner().nextLine();
+            if (confirm.equals("Y") || confirm.equals("y")) {
+                chosenReservation.getChosenRoom().removeReservation(guestName);
+                System.out.println("Reservation removed successfully!");
+            } else {
+                System.out.println("Canceled price change");
+            }
+        } else {
+            System.out.println("No reservation found for guest " + guestName);
+        }
 
-        //scanner.close();
+        // scanner.close();
     }
 
     /*
@@ -278,22 +296,23 @@ public class HRS {
      * @param index
      */
 
-    public void removeHotel(int index){
-        Scanner scanner = new Scanner(System.in);
+    public void removeHotel(Hotel hotel) {
 
-        /* 
-        printHotels();
-        System.out.print("Enter the index of the hotel you want to remove: ");
-        int index = scanner.nextInt();
-        scanner.nextLine(); 
-        */
-
-        if(index > hotelList.size()-1){
-            System.out.println("Invalid index");
+        /*
+         * printHotels();
+         * System.out.print("Enter the index of the hotel you want to remove: ");
+         * int index = scanner.nextInt();
+         * scanner.nextLine();
+         */
+        System.out.println("Confirm to delete hotel(y/n):");
+        String confirm = UserInput.getScanner().nextLine();
+        if (confirm.equals("Y") || confirm.equals("y")) {
+            this.hotelList.remove(hotel);
+            System.out.println("Successfully removed hotel");
         } else {
-            hotelList.remove(index);
+            System.out.println("Canceled hotel removal");
         }
 
-        //scanner.close();
+        // scanner.close();
     }
 }

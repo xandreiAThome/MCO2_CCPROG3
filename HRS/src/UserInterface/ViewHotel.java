@@ -100,15 +100,24 @@ public class ViewHotel {
     }
 
     private static void getRoomToDisplay(Hotel hotel) {
-        System.out.print("Enter Room number: ");
-        int roomIndex = Integer.valueOf(UserInput.getScanner().nextLine());
-        while (roomIndex < 1 || roomIndex > hotel.getRoomList().size()) {
-            System.out.println("Invalid Option");
-            System.out.print("Enter Room number: ");
-            roomIndex = Integer.valueOf(UserInput.getScanner().nextLine());
+        System.out.println("\nCurrent rooms: ");
+        for (int i = 0; i < hotel.getRoomList().size(); i++) {
+            System.out.print(hotel.getRoomList().get(i).getName() + "   ");
+            if (i % 9 == 0 && i != 0) {
+                System.out.println();
+            }
         }
 
-        Room chosenRoom = hotel.getRoomList().get(roomIndex - 1);
+        System.out.print("\nEnter Room name: ");
+        String roomName = UserInput.getScanner().nextLine();
+        Room chosenRoom = hotel.getRoom(roomName);
+        while (chosenRoom == null) {
+            System.out.println("Invalid Option");
+            System.out.print("Enter Room name: ");
+            roomName = UserInput.getScanner().nextLine();
+            chosenRoom = hotel.getRoom(roomName);
+        }
+
         System.out.println();
         displayRoomInformation(chosenRoom);
     }

@@ -1,14 +1,11 @@
 package UserInterface;
 
-import HotelClasses.Date;
 import HotelClasses.HRS;
 import HotelClasses.Hotel;
-import HotelClasses.Reservation;
-import HotelClasses.Room;
 
-public class ManageHotel{
+public class ManageHotel {
 
-    public static void ManageHotelMain (HRS hrs){
+    public static void ManageHotelMain(HRS hrs) {
         DisplayAscii.display("textFiles/ManageHotel.txt");
 
         System.out.println("Choose a hotel");
@@ -22,6 +19,7 @@ public class ManageHotel{
             System.out.print("Enter chosen Hotel: ");
             hotelIndex = Integer.valueOf(UserInput.getScanner().nextLine());
         }
+        Hotel chosenHotel = hrs.getHotelList().get(hotelIndex);
 
         System.out.println("What would you like to do: ");
         System.out.println("1 - Change Hotel Name");
@@ -41,26 +39,26 @@ public class ManageHotel{
 
         switch (option) {
             case 1:
-                hrs.changeHotelName(hotelIndex);
+                hrs.changeHotelName(chosenHotel);
                 break;
             case 2:
-                hrs.addRoomstoHotel(hotelIndex);
+                hrs.addRoomstoHotel(chosenHotel);
                 break;
             case 3:
-                hrs.removeRoomsfromHotel(hotelIndex);
+                hrs.removeRoomsfromHotel(chosenHotel);
                 break;
             case 4:
-                hrs.updateBasePrice(hotelIndex);
+                hrs.updateBasePrice(chosenHotel);
                 break;
             case 5:
-                hrs.removeReservation(hotelIndex);
+                hrs.removeReservation(chosenHotel);
                 break;
             case 6:
-                hrs.removeHotel(hotelIndex);
+                hrs.removeHotel(chosenHotel);
                 break;
             default:
                 break;
         }
     }
-    
+
 }
