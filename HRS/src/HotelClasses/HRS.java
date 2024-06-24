@@ -76,6 +76,12 @@ public class HRS {
         }
     }
 
+    /*
+     * Change a hotel's name
+     * 
+     * @param index
+     */
+
     public void changeHotelName(int index){
         
         Scanner scanner = new Scanner(System.in);
@@ -101,9 +107,15 @@ public class HRS {
             System.out.println("Invalid index. Hotel not found.");
         }
 
-        scanner.close();
+        //scanner.close();
     }
 
+    /*
+     * Add a certain amount of rooms to a hotel
+     * 
+     * @param index
+     * 
+     */
     public void addRoomstoHotel(int index){
         
         Scanner scanner = new Scanner(System.in);
@@ -114,6 +126,7 @@ public class HRS {
         scanner.nextLine(); 
         */
 
+        System.out.println("Current Amount of rooms "+ hotelList.get(index).getRoomAmt());
         System.out.print("Enter the amount of rooms to be added: ");
         int amount = Integer.valueOf(UserInput.getScanner().nextLine());
 
@@ -129,9 +142,14 @@ public class HRS {
 
         hotelList.get(index).addRooms(amount);
 
-        scanner.close();
+        //scanner.close();
     }
 
+    /*
+     * Removes rooms from a hotel
+     * 
+     * @param index
+     */
 
     public void removeRoomsfromHotel(int index){
         
@@ -143,6 +161,7 @@ public class HRS {
         scanner.nextLine(); 
         */
 
+        System.out.println("Current Amount of rooms "+ hotelList.get(index).getRoomAmt());
         System.out.println("Enter the range of rooms you want to delete: ");
         System.out.print("From: ");
         int from = scanner.nextInt();
@@ -167,8 +186,14 @@ public class HRS {
             }
         }
        
-        scanner.close();
+        //scanner.close();
     }
+
+    /*
+     * Updates the price of the Hotel
+     *
+     * @param index
+     */
 
     public void updateBasePrice(int index){
         Scanner scanner = new Scanner(System.in);
@@ -179,6 +204,10 @@ public class HRS {
         int index = scanner.nextInt();
         scanner.nextLine(); 
         */
+
+        Room temp =hotelList.get(index).checkRoom(0);
+
+        System.out.println("Current Price "+ temp.getPrice());
 
         boolean result = false;
 
@@ -195,13 +224,26 @@ public class HRS {
             double newPrice = scanner.nextDouble();
             scanner.nextLine();
 
+            while (!(newPrice >= 100.0)){
+                System.out.println("Price must be at least $100.00");
+                System.out.print("Enter the new base price: ");
+                newPrice = scanner.nextDouble();
+                scanner.nextLine();
+            }
+
             for(Room j: hotelList.get(index).getRoomList()){
                 j.setPrice(newPrice);
             }
         }
 
-        scanner.close();
+        //scanner.close();
     }
+
+    /*
+     * Removes a reservation from a hotel
+     * 
+     * @param index
+     */
 
     public void removeReservation(int index){
         Scanner scanner = new Scanner(System.in);
@@ -227,8 +269,14 @@ public class HRS {
 
         System.out.println("No reservation found for guest " + guestName);
 
-        scanner.close();
+        //scanner.close();
     }
+
+    /*
+     * Removes a hotel from the list
+     * 
+     * @param index
+     */
 
     public void removeHotel(int index){
         Scanner scanner = new Scanner(System.in);
@@ -246,6 +294,6 @@ public class HRS {
             hotelList.remove(index);
         }
 
-        scanner.close();
+        //scanner.close();
     }
 }

@@ -125,6 +125,10 @@ public class Room {
         this.month.displayMonth();
     }
 
+    /*
+     * @return true if it is reserved, false otherwise
+     * 
+     */
     public boolean hasReservation(){
 
         boolean result = false;

@@ -83,12 +83,19 @@ public class Hotel {
         return false;
     }
 
+    /*
+     * @retun size - the total number of rooms in the Hotel
+     */
+
     public int getRoomAmt(){
-        int size = this.roomList.size();
+        int size = this.roomList.size()-1;
 
         return size;
     }
 
+    /*
+     * @param newAmt
+     */
     public void addRooms(int newAmt){
 
         int currentAmt = roomList.size()-1;
@@ -98,7 +105,19 @@ public class Hotel {
 
     }
 
+    /*
+     * @param index
+    */
+
     public void removeRoom(int index){
         roomList.remove(index);
+    }
+
+    /*
+     * @param index
+    */
+    public Room checkRoom (int index){
+
+        return this.roomList.get(index);
     }
 }
