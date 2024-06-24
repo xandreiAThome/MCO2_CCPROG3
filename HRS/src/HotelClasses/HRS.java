@@ -78,7 +78,7 @@ public class HRS {
         }
     }
 
-    /*
+    /**
      * Change a hotel's name
      * 
      * @param index
@@ -152,8 +152,8 @@ public class HRS {
         // scanner.close();
     }
 
-    /*
-     * Removes rooms from a hotel
+    /**
+     * Removes room from a hotel
      * 
      * @param index
      */
@@ -199,7 +199,7 @@ public class HRS {
         // scanner.close();
     }
 
-    /*
+    /**
      * Updates the price of the Hotel
      *
      * @param index
@@ -252,7 +252,7 @@ public class HRS {
         // scanner.close();
     }
 
-    /*
+    /**
      * Removes a reservation from a hotel
      * 
      * @param index
@@ -293,7 +293,7 @@ public class HRS {
         // scanner.close();
     }
 
-    /*
+    /**
      * Removes a hotel from the list
      * 
      * @param index
