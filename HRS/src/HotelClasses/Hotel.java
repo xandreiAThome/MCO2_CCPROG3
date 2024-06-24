@@ -41,7 +41,7 @@ public class Hotel {
         this.name = name;
     }
 
-    /**
+    /** 
      * 
      * @return ArrayList of roomList
      */
@@ -81,5 +81,24 @@ public class Hotel {
         }
 
         return false;
+    }
+
+    public int getRoomAmt(){
+        int size = this.roomList.size();
+
+        return size;
+    }
+
+    public void addRooms(int newAmt){
+
+        int currentAmt = roomList.size();
+        for (int i = currentAmt + 1; i <= currentAmt + newAmt; i++){
+            this.roomList.add(new Room("HR" + i));
+        }
+
+    }
+
+    public void removeRoom(int index){
+        roomList.remove(index);
     }
 }

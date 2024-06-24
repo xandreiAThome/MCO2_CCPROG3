@@ -124,4 +124,15 @@ public class Room {
         System.out.println("Room " + this.name + " availability for the Month");
         this.month.displayMonth();
     }
+
+    public boolean hasReservation(){
+
+        boolean result = false;
+
+        if(this.reservationList.size() > 0){
+            result = true;
+        } 
+
+        return result;
+    }
 }
