@@ -110,12 +110,28 @@ public class Hotel {
         }
     }
 
-    /*
+    /**
+     * remove room given room index
+     * 
      * @param index
      */
 
     public void removeRoom(int index) {
         roomList.remove(index);
+    }
+
+    /**
+     * remove room given room name
+     * 
+     * @param name
+     */
+    public void removeRoom(String name) {
+        for (int i = 0; i < this.roomList.size(); i++) {
+            Room room = this.roomList.get(i);
+            if (room.getName().equals(name)) {
+                this.roomList.remove(room);
+            }
+        }
     }
 
     /**

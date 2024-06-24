@@ -69,6 +69,9 @@ public class HRS {
         return this.hotelList;
     }
 
+    /**
+     * Prints all the hotel in hrs
+     */
     public void printHotels() {
         for (Hotel h : this.hotelList) {
             System.out.println(h.getName());
@@ -164,29 +167,29 @@ public class HRS {
          * scanner.nextLine();
          */
 
-        System.out.println("Current Amount of rooms " + hotel.getRoomAmt());
-        System.out.println("Enter the range of rooms you want to delete: ");
-        System.out.print("From: ");
-        int from = Integer.valueOf(UserInput.getScanner().nextLine());
-        System.out.print("To: ");
-        int To = Integer.valueOf(UserInput.getScanner().nextLine());
-
-        if (from < 1 || To > hotel.getRoomList().size() - 1) {
-            System.out.println("Invalid range");
+        System.out.println("\nCurrent rooms: ");
+        for (int i = 0; i < hotel.getRoomList().size(); i++) {
+            System.out.print(hotel.getRoomList().get(i).getName() + "   ");
+            if (i % 9 == 0 && i != 0) {
+                System.out.println();
+            }
+        }
+        System.out.print("\nEnter the name of the room to delete: ");
+        String roomName = UserInput.getScanner().nextLine();
+        Room room = hotel.getRoom(roomName);
+        if (room == null) {
+            System.out.println("Room doesn't exist");
             return;
+        } else if (room.hasReservation()) {
+            System.out.println(room.getName() + " is reserved, cannot be deleted.");
         } else {
-            System.out.println("Confirm to delete rooms(y/n): ");
+            System.out.println("Confirm to delete room(y/n): ");
             String confirm = UserInput.getScanner().nextLine();
             if (confirm.equals("Y") || confirm.equals("y")) {
-                for (int i = from; i < To; i++) {
-                    Room room = hotel.getRoomList().get(i - 1);
-                    if (room.hasReservation()) {
-                        System.out.println("Room " + i + " is reserved, cannot be deleted.");
-                    } else {
-                        hotel.removeRoom(i - 1);
-                        System.out.println("Room " + i + " deleted successfully.");
-                    }
-                }
+
+                hotel.removeRoom(roomName);
+                System.out.println(room.getName() + " deleted successfully.");
+
             } else {
                 System.out.println("Canceled room deletion");
             }
