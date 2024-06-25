@@ -10,7 +10,7 @@ public class Hotel {
     private ArrayList<Room> roomList;
 
     /**
-     * Constructs the Hotel Object
+     * Constructs a Hotel object with a specified name and a number of rooms.
      * 
      * @param name
      * @param roomAmount
@@ -25,6 +25,7 @@ public class Hotel {
     }
 
     /**
+     * Retrieves the name of the current instance of Hotel.
      * 
      * @return name
      */
@@ -33,7 +34,7 @@ public class Hotel {
     }
 
     /**
-     * Sets the name of the current instance
+     *  Sets the name of the current instance of Hotel.
      * 
      * @param name
      */
@@ -42,6 +43,7 @@ public class Hotel {
     }
 
     /**
+     * Retrieves the list of rooms roomList in the current instance of Hotel.
      * 
      * @return ArrayList of roomList
      */
@@ -50,6 +52,7 @@ public class Hotel {
     }
 
     /**
+     * Calculates the total estimated revenue for the month across all reservations in the hotel.
      * 
      * @return The total estimated revenue for the month of the hotel across all
      *         reservations in the hotel
@@ -66,6 +69,7 @@ public class Hotel {
     }
 
     /**
+     * Checks if a guest with the specified name already has a reservation in the hotel.
      * 
      * @param name
      * @return true if guest already has reservation in the hotel instance, false
@@ -84,6 +88,7 @@ public class Hotel {
     }
 
     /**
+     * Retrieves the number of rooms in the current instance of Hotel.
      * 
      * @return size
      */
@@ -92,7 +97,9 @@ public class Hotel {
         return this.roomList.size();
     }
 
-    /*
+    /**
+     * Adds a specified number of rooms (newAmt) to the hotel.
+     * 
      * @param newAmt
      */
     public void addRooms(int newAmt) {
@@ -103,6 +110,10 @@ public class Hotel {
         }
     }
 
+    /**
+     * Updates the names of all rooms in the hotel based on the hotel's name and room index.
+     * 
+     */
     public void changeAllRoomNames() {
         for (int i = 0; i < this.roomList.size(); i++) {
             this.roomList.get(i).setName(this.name + "00" + (i + 1));
@@ -110,7 +121,7 @@ public class Hotel {
     }
 
     /**
-     * remove room given room index
+     * Removes a room from the hotel based on its index in roomList.
      * 
      * @param index
      */
@@ -120,7 +131,7 @@ public class Hotel {
     }
 
     /**
-     * remove room given room name
+     * Removes a room from the hotel based on its name.
      * 
      * @param name
      */
@@ -134,6 +145,7 @@ public class Hotel {
     }
 
     /**
+     * Retrieves a Room object from roomList based on its index.
      * 
      * @param index
      * @return Room given index
@@ -144,6 +156,7 @@ public class Hotel {
     }
 
     /**
+     * Retrieves a Room object from roomList based on its name.
      * 
      * @param name
      * @return Room given name
