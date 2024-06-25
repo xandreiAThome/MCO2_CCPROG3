@@ -7,7 +7,7 @@ public class Month {
     private Day month[];
 
     /**
-     * Constructs the Month object given the number of days in the month
+     * Constructs a Month object for a given number of days.
      * 
      * @param numOfDays
      */
@@ -19,6 +19,7 @@ public class Month {
     }
 
     /**
+     * Retrieves the array of Day objects representing each day in the month.
      * 
      * @return month of the current instance
      */
@@ -27,7 +28,7 @@ public class Month {
     }
 
     /**
-     * Sets the range of days of of the reservation to booked
+     * Sets the availability of days in the month for a specific reservation.
      * 
      * @param reservation
      */
@@ -51,7 +52,7 @@ public class Month {
     }
 
     /**
-     * Sets the range of days in the reservation to available again
+     * Resets the availability of days in the month for a specific reservation.
      * 
      * @param reservation
      */
@@ -104,7 +105,7 @@ public class Month {
     }
 
     /**
-     * Checks if the given reservation is in conflict with prior reservations
+     *  Checks if a given reservation conflicts with existing reservations in the month.
      * 
      * @param reservation the reservation to be checked
      * @return true if there is a conflict, false otherwise
