@@ -31,8 +31,6 @@ public class Driver {
                 case 4:
                     System.out.print("\033\143");
                     SimulateBooking.BookReservation(hrs);
-                    System.out.print("\033\143");
-                    System.out.println("Succesfully booked reservation");
                     break;
 
                 case 5:

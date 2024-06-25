@@ -32,6 +32,20 @@ public class SimulateBooking {
         }
 
         Hotel chosenHotel = hrs.getHotelList().get(hotelIndex);
+        boolean hotelFull = true;
+        for (Room room : chosenHotel.getRoomList()) {
+            for (int i = 0; i < room.getMonth().getMonth().length; i++) {
+                if (!room.getMonth().getMonth()[i].getIsBooked()) {
+                    hotelFull = false;
+                    break;
+                }
+            }
+        }
+        if (hotelFull) {
+            System.out.println("Hotel is full");
+            return;
+        }
+
         System.out.print("Enter Name: ");
         String userName = UserInput.getScanner().nextLine();
         boolean guestExists = chosenHotel.guestExists(userName);
@@ -89,5 +103,6 @@ public class SimulateBooking {
             System.out.println("Schedule is is conflict with prior Reservations");
         }
         chosenRoom.addReservation(reservation);
+        System.out.println("Succesfully booked reservation");
     }
 }
