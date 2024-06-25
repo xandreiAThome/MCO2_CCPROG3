@@ -18,7 +18,7 @@ public class Date {
             throw new IllegalArgumentException("Incorrect Day format: Month only has 31 days!");
         }
 
-        if (hour > 23 || hour < 1) {
+        if (hour > 23 || hour < 0) {
             throw new IllegalArgumentException("Incorrect Hour format: 0000H - 2300H");
         }
 
