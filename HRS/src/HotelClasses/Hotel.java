@@ -83,8 +83,9 @@ public class Hotel {
         return false;
     }
 
-    /*
-     * @retun size - the total number of rooms in the Hotel
+    /**
+     * 
+     * @return size
      */
 
     public int getRoomAmt() {
