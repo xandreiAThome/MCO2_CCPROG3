@@ -8,6 +8,11 @@ public class ManageHotel {
     public static void ManageHotelMain(HRS hrs) {
         DisplayAscii.display("textFiles/ManageHotel.txt");
 
+        if (hrs.getHotelList().isEmpty()) {
+            System.out.println("No current hotel in HRS");
+            return;
+        }
+
         System.out.println("Choose a hotel");
         for (int i = 0; i < hrs.getHotelList().size(); i++) {
             System.out.println(i + " - " + hrs.getHotelList().get(i).getName());

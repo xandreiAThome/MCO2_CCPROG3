@@ -20,7 +20,7 @@ public class Driver {
                 case 2:
                     System.out.print("\033\143");
                     ViewHotel.DisplayHotelInformation(hrs);
-                    System.out.print("\033\143");
+
                     break;
 
                 case 3:

@@ -19,6 +19,11 @@ public class ViewHotel {
     public static void DisplayHotelInformation(HRS hrs) {
         DisplayAscii.display("textFiles/ViewHotel.txt");
 
+        if (hrs.getHotelList().isEmpty()) {
+            System.out.println("No current hotel in HRS");
+            return;
+        }
+
         System.out.println("Choose a hotel");
         for (int i = 0; i < hrs.getHotelList().size(); i++) {
             System.out.println(i + " - " + hrs.getHotelList().get(i).getName());
@@ -72,6 +77,18 @@ public class ViewHotel {
     }
 
     private static void displayReservationInfo(Hotel hotel) {
+        boolean noCurrReservation = true;
+        for (Room room : hotel.getRoomList()) {
+            if (!room.getAllReservations().isEmpty()) {
+                noCurrReservation = false;
+                break;
+            }
+        }
+        if (noCurrReservation) {
+            System.out.println("No current reservation in the hotel");
+            return;
+        }
+
         System.out.print("\nEnter name: ");
         String name = UserInput.getScanner().nextLine();
 
