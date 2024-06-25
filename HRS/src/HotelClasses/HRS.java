@@ -186,6 +186,8 @@ public class HRS {
             return;
         } else if (room.hasReservation()) {
             System.out.println(room.getName() + " is reserved, cannot be deleted.");
+        } else if (hotel.getRoomAmt() == 1) {
+            System.out.println("Cannot delete room, Hotel must have atleast 1 room left");
         } else {
             System.out.println("Confirm to delete room(y/n): ");
             String confirm = UserInput.getScanner().nextLine();
