@@ -11,7 +11,8 @@ public class Day {
     private Reservation reservation;
 
     /**
-     * Constructs the Day object
+     * Constructs a Day object representing a day in the month's calendar with initial reservation status set to false.
+     * 
      */
     public Day() {
         isBooked = false;
@@ -20,6 +21,7 @@ public class Day {
     }
 
     /**
+     * Retrieves the booking status isBooked of the current instance of Day.
      * 
      * @return isBooked of the current instance
      */
@@ -28,7 +30,7 @@ public class Day {
     }
 
     /**
-     * Sets the isBooked variable
+     * Sets the booking status isBooked of the current instance of Day.
      * 
      * @param isBooked
      */
@@ -37,6 +39,7 @@ public class Day {
     }
 
     /**
+     * Retrieves the check-in status isCheckIn of the current instance of Day.
      * 
      * @return isCheckIn of the current instance
      */
@@ -45,6 +48,7 @@ public class Day {
     }
 
     /**
+     * Retrieves the check-out status isCheckOut of the current instance of Day.
      * 
      * @return isCheckOut of the current instance
      */
@@ -54,7 +58,7 @@ public class Day {
     }
 
     /**
-     * Sets the isCheckIn variable
+     * Sets the check-in status isCheckIn of the current instance of Day.
      * 
      * @param isCheckIn
      */
@@ -63,7 +67,7 @@ public class Day {
     }
 
     /**
-     * Sets the isCheckOut variable
+     * Sets the check-out status isCheckOut of the current instance of Day.
      * 
      * @param isCheckOut
      */
@@ -72,6 +76,7 @@ public class Day {
     }
 
     /**
+     * Retrieves the Reservation object associated with the current instance of Day.
      * 
      * @return reservation of the current instance
      */
@@ -80,7 +85,7 @@ public class Day {
     }
 
     /**
-     * Sets the reservation variable
+     * Sets the Reservation object for the current instance of Day.
      * 
      * @param reservation
      */
