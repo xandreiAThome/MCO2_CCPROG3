@@ -83,12 +83,13 @@ public class Hotel {
         return false;
     }
 
-    /*
-     * @retun size - the total number of rooms in the Hotel
+    /**
+     * 
+     * @return size
      */
 
     public int getRoomAmt() {
-        int size = this.roomList.size() - 1;
+        int size = this.roomList.size();
 
         return size;
     }
