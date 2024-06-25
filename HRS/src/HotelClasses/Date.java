@@ -8,7 +8,7 @@ public class Date {
     private int hour;
 
     /**
-     * Constructs the Date object
+     * Constructs a Date object representing a specific day and hour in the month.
      * 
      * @param day
      * @param hour
@@ -28,6 +28,7 @@ public class Date {
     }
 
     /**
+     * Retrieves the day of the month represented by the current instance of Date.
      * 
      * @return day variable of the current instance
      */
@@ -36,6 +37,7 @@ public class Date {
     }
 
     /**
+     * Retrieves the hour of the day represented by the current instance of Date.
      * 
      * @return hour variable of the current instance
      */
@@ -44,7 +46,8 @@ public class Date {
     }
 
     /**
-     * prints the current date
+     * Prints the current date in a specific format.
+     * 
      */
     public void displayDate() {
         System.out.println("Day " + this.day + " - " + this.hour + "H");
