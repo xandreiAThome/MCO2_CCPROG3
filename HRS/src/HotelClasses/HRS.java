@@ -82,9 +82,8 @@ public class HRS {
     /**
      * Changes the name of a specific hotel in the HRS.
      * 
-     * @param index
+     * @param hotel
      */
-
     public void changeHotelName(Hotel hotel) {
 
         /*
@@ -114,7 +113,7 @@ public class HRS {
     }
 
     /**
-     *  Adds a specified number of rooms to a specific hotel in the HRS.
+     * Adds a specified number of rooms to a specific hotel in the HRS.
      * 
      * @param hotel
      */
@@ -159,9 +158,8 @@ public class HRS {
     /**
      * Removes a room from a specific hotel in the HRS.
      * 
-     * @param index
+     * @param hotel
      */
-
     public void removeRoomsfromHotel(Hotel hotel) {
 
         /*
@@ -204,13 +202,12 @@ public class HRS {
 
         // scanner.close();
     }
-
+    
     /**
      * Updates the base price of all rooms in a specific hotel in the HRS.
-     *
-     * @param index
+     * 
+     * @param hotel
      */
-
     public void updateBasePrice(Hotel hotel) {
 
         /*
@@ -261,9 +258,8 @@ public class HRS {
     /**
      * Removes a reservation for a guest from a specific hotel in the HRS.
      * 
-     * @param index
+     * @param hotel
      */
-
     public void removeReservation(Hotel hotel) {
 
         /*
@@ -302,9 +298,8 @@ public class HRS {
     /**
      * Removes a specific hotel from the HRS.
      * 
-     * @param index
+     * @param hotel
      */
-
     public void removeHotel(Hotel hotel) {
 
         /*
