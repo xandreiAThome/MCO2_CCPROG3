@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class MainMenu {
 
     /**
-     * Displays the options for the main menu
+     * Displays the main menu options and prompts the user to choose an option.
      */
     public static int showMenu() {
         try {

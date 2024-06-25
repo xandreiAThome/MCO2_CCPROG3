@@ -5,6 +5,11 @@ import HotelClasses.Hotel;
 
 public class ManageHotel {
 
+    /**
+     * Executes the main functionality of managing hotels based on user input.
+     * 
+     * @param hrs
+     */
     public static void ManageHotelMain(HRS hrs) {
         DisplayAscii.display("textFiles/ManageHotel.txt");
 

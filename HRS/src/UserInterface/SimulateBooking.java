@@ -12,7 +12,7 @@ import HotelClasses.HRS;
 public class SimulateBooking {
 
     /**
-     * Prompts user for hotel, check in and check out time
+     * Executes the main functionality of booking a reservation based on user input.
      * 
      * @param hrs
      */

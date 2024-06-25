@@ -9,6 +9,7 @@ public class UserInput {
     private static final Scanner input = new Scanner(System.in);
 
     /**
+     * Returns the static Scanner instance (input) for reading user input.
      * 
      * @return scanner if system.in
      */
@@ -17,7 +18,8 @@ public class UserInput {
     }
 
     /**
-     * Closes the scanner of system.in
+     * Closes the static Scanner instance (input) to release associated resources when input operations are complete.
+     * 
      */
     public static void closeScanner() {
         input.close();

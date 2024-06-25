@@ -12,7 +12,7 @@ import HotelClasses.Room;
 public class ViewHotel {
 
     /**
-     * Display information of the selected hotel
+     * Display information about a selected hotel within HRS.
      * 
      * @param hrs
      */
@@ -47,6 +47,12 @@ public class ViewHotel {
         lowLevelInfo(chosenHotel);
     }
 
+    /**
+     * Provide secondary options after selecting a hotel (Check Room Availability, Check Room Information, Check Reservation Information).
+     * 
+     * @param hotel
+     */
+
     private static void lowLevelInfo(Hotel hotel) {
         System.out.println("1 - Check Room Availability");
         System.out.println("2 - Check Room Information");
@@ -76,6 +82,11 @@ public class ViewHotel {
         }
     }
 
+    /**
+     * Display detailed information about reservations within a selected hotel.
+     * 
+     * @param hotel
+     */
     private static void displayReservationInfo(Hotel hotel) {
         boolean noCurrReservation = true;
         for (Room room : hotel.getRoomList()) {
@@ -116,6 +127,11 @@ public class ViewHotel {
         }
     }
 
+    /**
+     * Display detailed information about a selected room within a hotel.
+     * 
+     * @param hotel
+     */
     private static void getRoomToDisplay(Hotel hotel) {
         System.out.println("\nCurrent rooms: ");
         for (int i = 0; i < hotel.getRoomList().size(); i++) {
@@ -139,6 +155,11 @@ public class ViewHotel {
         displayRoomInformation(chosenRoom);
     }
 
+    /**
+     * Display detailed information about a selected room within a hotel.
+     * 
+     * @param chosenRoom
+     */
     private static void displayRoomInformation(Room chosenRoom) {
         System.out.println("Room name: " + chosenRoom.getName() + "\tPrice per night: " + chosenRoom.getPrice());
         System.out.println("Room availability (- booked, + available)");
@@ -147,6 +168,11 @@ public class ViewHotel {
         UserInput.getScanner().nextLine();
     }
 
+    /**
+     * Display the availability of rooms within a selected hotel for a specified date range.
+     * 
+     * @param hotel
+     */
     private static void displayRoomAvailability(Hotel hotel) {
         System.out.print("\nEnter Check-In day(1-30): ");
         int checkInDay = Integer.valueOf(UserInput.getScanner().nextLine());

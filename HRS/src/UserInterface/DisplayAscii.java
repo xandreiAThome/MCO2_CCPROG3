@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class DisplayAscii {
     /**
-     * Prints the ascii art
+     * Reads ASCII art from a text file specified by fileName and prints it to the console.
      * 
      * @param fileName
      */
