@@ -85,7 +85,7 @@ public class ViewHotel {
         }
         if (chosenReservation == null) {
             System.out.println("Guest has no prior reservation");
-            System.out.print("Press any key to return to Main Menu: ");
+            System.out.print("Press Enter to return to Main Menu: ");
             UserInput.getScanner().nextLine();
         } else {
             Room chosenRoom = chosenReservation.getChosenRoom();
@@ -126,7 +126,7 @@ public class ViewHotel {
         System.out.println("Room name: " + chosenRoom.getName() + "\tPrice per night: " + chosenRoom.getPrice());
         System.out.println("Room availability (- booked, + available)");
         chosenRoom.displayMonthAvailability();
-        System.out.print("Press any key to return to Main Menu: ");
+        System.out.print("Press Enter to return to Main Menu: ");
         UserInput.getScanner().nextLine();
     }
 
@@ -174,7 +174,7 @@ public class ViewHotel {
         }
 
         System.out.println("\nAvailable Rooms: " + available + "\tBooked Rooms: " + booked);
-        System.out.print("Press any key to return to Main Menu: ");
+        System.out.print("Press Enter to return to Main Menu: ");
         UserInput.getScanner().nextLine();
     }
 }
