@@ -12,7 +12,7 @@ public class HRS {
     private ArrayList<Hotel> hotelList;
 
     /**
-     * Constructs the HRS
+     * Constructs an instance of the HRS, initializing an empty list of hotels (hotelList).
      */
     public HRS() {
         this.hotelList = new ArrayList<Hotel>();
@@ -45,7 +45,7 @@ public class HRS {
     }
 
     /**
-     * Checks if the given name of the hotel alreadys exists
+     * Checks if a hotel with the given name already exists in the HRS.
      * 
      * @param hotel
      * @param name
@@ -62,6 +62,7 @@ public class HRS {
     }
 
     /**
+     * Retrieves the list of hotels (hotelList) in the HRS.
      * 
      * @return Hotel List of the current HRS instance
      */
@@ -70,7 +71,7 @@ public class HRS {
     }
 
     /**
-     * Prints all the hotel in hrs
+     * Prints the names of all hotels in the HRS.
      */
     public void printHotels() {
         for (Hotel h : this.hotelList) {
@@ -79,7 +80,7 @@ public class HRS {
     }
 
     /**
-     * Change a hotel's name
+     * Changes the name of a specific hotel in the HRS.
      * 
      * @param index
      */
@@ -112,11 +113,10 @@ public class HRS {
 
     }
 
-    /*
-     * Add a certain amount of rooms to a hotel
+    /**
+     *  Adds a specified number of rooms to a specific hotel in the HRS.
      * 
-     * @param index
-     * 
+     * @param hotel
      */
     public void addRoomstoHotel(Hotel hotel) {
         /*
@@ -157,7 +157,7 @@ public class HRS {
     }
 
     /**
-     * Removes room from a hotel
+     * Removes a room from a specific hotel in the HRS.
      * 
      * @param index
      */
@@ -206,7 +206,7 @@ public class HRS {
     }
 
     /**
-     * Updates the price of the Hotel
+     * Updates the base price of all rooms in a specific hotel in the HRS.
      *
      * @param index
      */
@@ -259,7 +259,7 @@ public class HRS {
     }
 
     /**
-     * Removes a reservation from a hotel
+     * Removes a reservation for a guest from a specific hotel in the HRS.
      * 
      * @param index
      */
@@ -300,7 +300,7 @@ public class HRS {
     }
 
     /**
-     * Removes a hotel from the list
+     * Removes a specific hotel from the HRS.
      * 
      * @param index
      */
