@@ -88,9 +88,7 @@ public class Hotel {
      */
 
     public int getRoomAmt() {
-        int size = this.roomList.size() - 1;
-
-        return size;
+        return this.roomList.size();
     }
 
     /*

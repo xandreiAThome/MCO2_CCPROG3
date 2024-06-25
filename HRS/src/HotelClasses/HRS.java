@@ -129,15 +129,19 @@ public class HRS {
         System.out.println("Current Amount of rooms " + hotel.getRoomAmt());
         System.out.print("Enter the amount of rooms to be added: ");
         int amount = Integer.valueOf(UserInput.getScanner().nextLine());
-
         int currentAmount = hotel.getRoomAmt();
-
-        int finalAmount = currentAmount + amount;
-
-        while (finalAmount < 1 || finalAmount > 50) {
-            System.out.print("Number of rooms must be between 1 and 50\nTry again: ");
+        if (currentAmount > 50) {
+            System.out.println("Number of rooms already at maximum");
+            return;
+        }
+        while (amount < 1) {
+            System.out.print("Invalid number\nTry again: ");
             amount = Integer.valueOf(UserInput.getScanner().nextLine());
-            finalAmount = currentAmount + amount;
+        }
+
+        while (currentAmount + amount > 50) {
+            System.out.println("Number exceeds maximum rooms\nTry again: ");
+            amount = Integer.valueOf(UserInput.getScanner().nextLine());
         }
 
         System.out.println("Confirm change(y/n): ");
