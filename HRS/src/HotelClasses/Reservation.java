@@ -11,7 +11,8 @@ public class Reservation {
     private double totalPrice;
 
     /**
-     * Initializes a Reservation object with the provided guest name, check-in date, check-out date, and the room chosen for reservation.
+     * Initializes a Reservation object with the provided guest name, check-in date,
+     * check-out date, and the room chosen for reservation.
      * 
      * @param guest
      * @param checkIn
@@ -24,6 +25,41 @@ public class Reservation {
         this.checkOut = checkOut;
         this.chosenRoom = chosenRoom;
         this.totalPrice = (checkOut.getDay() - checkIn.getDay() + 1) * chosenRoom.getPrice();
+    }
+
+    public Reservation(String guest, Date checkIn, Date checkOut, Room chosenRoom, String discountCode) {
+        this.guest = guest;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.chosenRoom = chosenRoom;
+        this.totalPrice = (checkOut.getDay() - checkIn.getDay() + 1) * chosenRoom.getPrice();
+
+        switch (discountCode) {
+            case "I_WORK_HERE":
+                this.totalPrice = this.totalPrice + (this.totalPrice * 0.1);
+                break;
+            case "STAY4_GET1":
+                if (reservationDuration() >= 5) {
+                    this.totalPrice -= chosenRoom.getPrice();
+                }
+                break;
+            case "PAYDAY":
+                // TODO, ask sir if there is a limit to the duration of the reservation for the
+                // payday discount
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    // ADD TO NEW UML
+    /**
+     * 
+     * @return the number of days the reservation is booked for
+     */
+    public int reservationDuration() {
+        return getCheckOutDate().getDay() - getCheckInDate().getDay() + 1;
     }
 
     /**
