@@ -4,7 +4,7 @@ import UserInterface.ManageHotel;
 import UserInterface.SimulateBooking;
 import UserInterface.ViewHotel;
 
-public class Driver {
+public class OldDriver {
 
     /**
      * Entry point for the HRS application, manages the main flow of the program.
