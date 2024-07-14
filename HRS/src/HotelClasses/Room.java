@@ -11,7 +11,7 @@ public class Room {
     private double price = 1299;
     private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
     private Month month;
-    private ArrayList<DateModifier> modifiedDateList = new ArrayList<DateModifier>();
+    private DateModifier datePriceModifier;
 
     /**
      *  Initializes a Room object with a given name and creates a Month object to manage availability for 31 days (assuming a month with fixed days).
@@ -21,6 +21,7 @@ public class Room {
     public Room(String name) {
         this.name = name;
         this.month = new Month(31);
+        this.datePriceModifier = new DateModifier();
     }
 
     /**
@@ -50,13 +51,16 @@ public class Room {
         this.name = name;
     }
 
+
     /**
-     * Retrieves the price per day of the room.
      * 
-     * @return the Room price of the current Room instance
+     * @param day
+     * @return
      */
-    public double getPrice() {
-        return this.price;
+    public double getPrice(int day) {
+        double rate = this.datePriceModifier.getPriceRate(day);
+        double finalPrice = this.price * rate;
+        return finalPrice;
     }
 
     /**
