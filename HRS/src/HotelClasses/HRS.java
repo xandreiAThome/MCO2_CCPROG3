@@ -319,4 +319,8 @@ public class HRS {
 
         // scanner.close();
     }
+
+    public void dateModifier(Hotel hotel){
+        
+    }
 }

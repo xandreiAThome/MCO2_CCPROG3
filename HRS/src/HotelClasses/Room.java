@@ -53,9 +53,10 @@ public class Room {
 
 
     /**
+     * Gets the final price of the room with 
      * 
      * @param day
-     * @return
+     * @return finalPrice - computed by multiplying the base price from the price rate.
      */
     public double getPrice(int day) {
         double rate = this.datePriceModifier.getPriceRate(day);
@@ -64,7 +65,7 @@ public class Room {
     }
 
     /**
-     * Sets the price per day of the room.
+     * Sets the base price per day of the room.
      * 
      * @param price
      */
