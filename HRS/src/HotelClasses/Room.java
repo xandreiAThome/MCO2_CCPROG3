@@ -11,6 +11,7 @@ public class Room {
     private double price = 1299;
     private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
     private Month month;
+    private ArrayList<DateModifier> modifiedDateList = new ArrayList<DateModifier>();
 
     /**
      *  Initializes a Room object with a given name and creates a Month object to manage availability for 31 days (assuming a month with fixed days).
