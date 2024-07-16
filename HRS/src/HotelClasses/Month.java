@@ -5,7 +5,7 @@ package HotelClasses;
  */
 public class Month {
     private Day month[];
-
+    private double[] priceRateList;
     /**
      * Constructs a Month object for a given number of days.
      * 
@@ -15,6 +15,12 @@ public class Month {
         month = new Day[numOfDays];
         for (int i = 0; i < numOfDays; i++) {
             this.month[i] = new Day();
+        }
+
+        priceRateList = new double [numOfDays];
+
+        for(int i = 0; i < numOfDays; i++){
+            this.priceRateList[i] = 1.0;
         }
     }
 
@@ -133,6 +139,22 @@ public class Month {
         }
 
         return isConflict;
+    }
+
+    public void setPriceRate(int day, double rate){
+        if (day >= 1 && day <= 31){
+            this.priceRateList[day] = rate;
+        } else {
+            throw new IllegalArgumentException("Day must be between 1 and 31");
+        }
+    }
+
+    public double getPriceRate(int day){
+        if (day >= 1 && day <= 31){
+            return this.priceRateList[day-1];
+        } else {
+            throw new IllegalArgumentException("Day must be between 1 and 31");
+        }
     }
 
 }
