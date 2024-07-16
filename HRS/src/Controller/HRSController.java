@@ -30,14 +30,19 @@ public class HRSController implements ActionListener {
 
         this.hrsModel = hrsModel;
 
+        // setting up action listeners for all panels
         hrsWindow.setActionListener(this);
         ((CreateHotelView) createHotelView).setActionListener(this);
+        ((ManageHotelView) manageHotelView).setActionListener(this);
+        ((ViewHotelView) viewHotelView).setActionListener(this);
+        ((BookReservationView) bookReservationView).setActionListener(this);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        // Home Panel Events /////////////////////////////
         if (e.getActionCommand().equals("Create Hotel")) {
             hrsWindow.setContentPane(hrsWindow.getCreateHotelPanel());
             hrsWindow.invalidate();
@@ -55,11 +60,17 @@ public class HRSController implements ActionListener {
             hrsWindow.setContentPane(hrsWindow.getBookReservationPanel());
             hrsWindow.invalidate();
             hrsWindow.validate();
-        } else if (e.getActionCommand().equals("Home")) {
+        }
+        /////////////////////////////////////////////////////
+
+        // Universal Event ////////////////////////////////
+        else if (e.getActionCommand().equals("Home")) {
             hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
             hrsWindow.invalidate();
             hrsWindow.validate();
         }
+        //////////////////////////////////////////////////
+
         ///////// Create Hotel Events //////////////////
         else if (e.getActionCommand().equals("create")) {
 
@@ -97,6 +108,7 @@ public class HRSController implements ActionListener {
             }
 
         }
+        ///////////////////////////////////////////
 
     }
 
