@@ -304,7 +304,7 @@ public class HRS {
 
         /*
          * printHotels();
-         * System.out.print("Enter the index of the hotel you want to remove: ");
+         * System.out.print("Enter the index of the hotel you want to remove: ");   
          * int index = scanner.nextInt();
          * scanner.nextLine();
          */
@@ -321,25 +321,43 @@ public class HRS {
     }
 
     public void dateModifier(Hotel hotel){
-        System.out.print("Enter the day you want to the price rate: ");
-        int day = UserInput.getScanner().nextInt();
-        
-        if (day >= 1 && day <= 31 ){
-            System.out.print("Enter the price rate (Format: 12 = 12%): ");
-            int priceRate = UserInput.getScanner().nextInt();
 
-            System.out.println("Confirm tp change price rate(y/n):");
-            String confirm = UserInput.getScanner().nextLine();
-            if (confirm.equals("Y") || confirm.equals("y")) {
-                hotel.getRoom(day).getMonth().setPriceRate(day, priceRate);
-
-                System.out.println("Successfully changed price rate");
-            } else {
-                System.out.println("Canceled price rate change");
+        System.out.println("\nCurrent rooms: ");
+        for (int i = 0; i < hotel.getRoomList().size(); i++) {
+            System.out.print(hotel.getRoomList().get(i).getName() + "   ");
+            if (i % 9 == 0 && i != 0) {
+                System.out.println();
             }
-
+        }
+        
+        System.out.print("Enter the room you want to modify: "); 
+        String roomName = UserInput.getScanner().nextLine();  
+        Room room = hotel.getRoom(roomName);
+        if (room == null) {
+            System.out.println("Room doesn't exist");
+            return;
         } else {
-            throw new IllegalArgumentException("Day must be between 1 and 31");
+            System.out.print("Enter the day you want to the price rate: ");
+            int day = UserInput.getScanner().nextInt();
+            
+            if (day >= 1 && day <= 31 ){
+                System.out.print("Enter the price rate (Format: 12 = 12%): ");
+                int priceRate = UserInput.getScanner().nextInt();
+    
+                System.out.println("Confirm tp change price rate(y/n):");
+                String confirm = UserInput.getScanner().nextLine();
+                if (confirm.equals("Y") || confirm.equals("y")) {
+                    hotel.getRoom(day).getMonth().setPriceRate(day, priceRate);
+    
+                    System.out.println("Successfully changed price rate");
+                } else {
+                    System.out.println("Canceled price rate change");
+                }
+    
+            } else {
+                throw new IllegalArgumentException("Day must be between 1 and 31");
+            }
+            
         }
     }
 }
