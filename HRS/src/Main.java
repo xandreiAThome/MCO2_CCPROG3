@@ -1,9 +1,14 @@
+
 import Controller.HRSController;
+import Model.HRSModel;
+import View.CreateHotelView;
 import View.HRSView;
 
 public class Main {
     public static void main(String[] args) {
         HRSView hrsView = new HRSView();
-        HRSController hrsControl = new HRSController(hrsView);
+        HRSModel hrsModel = new HRSModel();
+        HRSController hrsControl = new HRSController(hrsView, hrsModel);
+
     }
 }

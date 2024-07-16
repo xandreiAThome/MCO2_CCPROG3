@@ -73,7 +73,7 @@ public class HRSView extends JFrame {
         centralPanel.add(this.goToManageHotelButton, gbc);
         centralPanel.add(this.goToViewHotelButton, gbc);
         centralPanel.add(this.goToBookReservationButton, gbc);
-        homeScreen.add(centralPanel);
+        homeScreen.add(centralPanel, BorderLayout.CENTER);
         ////////////////////////////////////////////////////
 
         // init other windows ///////////////////////////

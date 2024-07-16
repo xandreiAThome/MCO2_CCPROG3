@@ -13,7 +13,8 @@ public class Room {
     private Month month;
 
     /**
-     *  Initializes a Room object with a given name and creates a Month object to manage availability for 31 days (assuming a month with fixed days).
+     * Initializes a Room object with a given name and creates a Month object to
+     * manage availability for 31 days (assuming a month with fixed days).
      * 
      * @param name
      */
@@ -132,18 +133,19 @@ public class Room {
     }
 
     /**
-     * Displays the availability of the room for the entire month using the Month object's displayMonth() method.
+     * Displays the availability of the room for the entire month using the Month
+     * object's displayMonth() method.
      */
     public void displayMonthAvailability() {
         System.out.println("Room " + this.name + " availability for the Month");
         this.month.displayMonth();
     }
 
-
     /**
      * Checks if the room has any reservations.
-
-     * @return true if there are reservations (reservationList is not empty), false otherwise.
+     * 
+     * @return true if there are reservations (reservationList is not empty), false
+     *         otherwise.
      */
     public boolean hasReservation() {
 
