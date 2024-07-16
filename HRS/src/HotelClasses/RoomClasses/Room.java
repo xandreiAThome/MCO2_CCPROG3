@@ -1,7 +1,10 @@
-package HotelClasses;
+package HotelClasses.RoomClasses;
 
 import java.util.ArrayList;
 // Room stores its own reservations
+
+import HotelClasses.Month;
+import HotelClasses.Reservation;
 
 /**
  * Represents the room in the hotel
@@ -50,12 +53,12 @@ public class Room {
         this.name = name;
     }
 
-
     /**
-     * Gets the final price of the room with 
+     * Gets the final price of the room with
      * 
      * @param day
-     * @return finalPrice - computed by multiplying the base price from the price rate.
+     * @return finalPrice - computed by multiplying the base price from the price
+     *         rate.
      */
     public double getPrice(int day) {
         double rate = this.month.getPriceRate(day);
@@ -63,7 +66,7 @@ public class Room {
         return finalPrice;
     }
 
-    public double getBasePrice(){
+    public double getBasePrice() {
         return this.price;
     }
 

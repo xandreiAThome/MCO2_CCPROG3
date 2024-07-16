@@ -11,7 +11,8 @@ public class Day {
     private Reservation reservation;
 
     /**
-     * Constructs a Day object representing a day in the month's calendar with initial reservation status set to false.
+     * Constructs a Day object representing a day in the month's calendar with
+     * initial reservation status set to false.
      * 
      */
     public Day() {

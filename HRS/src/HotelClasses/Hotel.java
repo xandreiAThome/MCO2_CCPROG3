@@ -2,6 +2,8 @@ package HotelClasses;
 
 import java.util.ArrayList;
 
+import HotelClasses.RoomClasses.Room;
+
 /**
  * Represents a hotel in the Hotel Reservation System
  */
@@ -34,7 +36,7 @@ public class Hotel {
     }
 
     /**
-     *  Sets the name of the current instance of Hotel.
+     * Sets the name of the current instance of Hotel.
      * 
      * @param name
      */
@@ -52,7 +54,8 @@ public class Hotel {
     }
 
     /**
-     * Calculates the total estimated revenue for the month across all reservations in the hotel.
+     * Calculates the total estimated revenue for the month across all reservations
+     * in the hotel.
      * 
      * @return The total estimated revenue for the month of the hotel across all
      *         reservations in the hotel
@@ -69,7 +72,8 @@ public class Hotel {
     }
 
     /**
-     * Checks if a guest with the specified name already has a reservation in the hotel.
+     * Checks if a guest with the specified name already has a reservation in the
+     * hotel.
      * 
      * @param name
      * @return true if guest already has reservation in the hotel instance, false
@@ -111,7 +115,8 @@ public class Hotel {
     }
 
     /**
-     * Updates the names of all rooms in the hotel based on the hotel's name and room index.
+     * Updates the names of all rooms in the hotel based on the hotel's name and
+     * room index.
      * 
      */
     public void changeAllRoomNames() {

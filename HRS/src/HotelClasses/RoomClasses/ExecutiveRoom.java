@@ -1,7 +1,5 @@
 package HotelClasses.RoomClasses;
 
-import HotelClasses.Room;
-
 public class ExecutiveRoom extends Room {
     private double priceInc;
 

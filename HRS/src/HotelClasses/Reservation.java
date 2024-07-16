@@ -1,5 +1,7 @@
 package HotelClasses;
 
+import HotelClasses.RoomClasses.Room;
+
 /**
  * Represents a reservation for a room
  */
