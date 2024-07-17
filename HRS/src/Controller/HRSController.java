@@ -22,16 +22,20 @@ public class HRSController implements ActionListener {
     private JPanel bookReservationView;
 
     public HRSController(HRSView hrsWindow, HRSModel hrsModel) {
-        this.hrsWindow = hrsWindow;
-        this.createHotelView = hrsWindow.getCreateHotelPanel();
-        this.manageHotelView = hrsWindow.getManageHotelPanel();
-        this.viewHotelView = hrsWindow.getViewHotelPanel();
-        this.bookReservationView = hrsWindow.getBookReservationPanel();
-
         this.hrsModel = hrsModel;
+
+        this.hrsWindow = hrsWindow;
+
+        this.createHotelView = new CreateHotelView();
+        this.viewHotelView = new ViewHotelView();
+        this.manageHotelView = new ManageHotelView();
+        this.bookReservationView = new BookReservationView();
 
         hrsWindow.setActionListener(this);
         ((CreateHotelView) createHotelView).setActionListener(this);
+        ((ViewHotelView) viewHotelView).setActionListener(this);
+        ((ManageHotelView) manageHotelView).setActionListener(this);
+        ((BookReservationView) bookReservationView).setActionListener(this);
 
     }
 
@@ -39,20 +43,21 @@ public class HRSController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals("Create Hotel")) {
-            hrsWindow.setContentPane(hrsWindow.getCreateHotelPanel());
+            hrsWindow.setContentPane(this.createHotelView);
             hrsWindow.invalidate();
             hrsWindow.validate();
             ((CreateHotelView) createHotelView).resetTextFields();
         } else if (e.getActionCommand().equals("Manage Hotel")) {
-            hrsWindow.setContentPane(hrsWindow.getManageHotelPanel());
+            hrsWindow.setContentPane(this.manageHotelView);
             hrsWindow.invalidate();
             hrsWindow.validate();
         } else if (e.getActionCommand().equals("View Hotel")) {
-            hrsWindow.setContentPane(hrsWindow.getViewHotelPanel());
+            hrsWindow.setContentPane(this.viewHotelView);
             hrsWindow.invalidate();
             hrsWindow.validate();
         } else if (e.getActionCommand().equals("Book Reservation")) {
-            hrsWindow.setContentPane(hrsWindow.getBookReservationPanel());
+            ((BookReservationView) bookReservationView).updateHotelDisplay(hrsModel.getHotelList());
+            hrsWindow.setContentPane(this.bookReservationView);
             hrsWindow.invalidate();
             hrsWindow.validate();
         } else if (e.getActionCommand().equals("Home")) {
@@ -91,7 +96,7 @@ public class HRSController implements ActionListener {
                     hrsWindow.invalidate();
                     hrsWindow.validate();
                     JOptionPane.showMessageDialog(this.hrsWindow, "Succesfully added new Hotel",
-                            "Success", JOptionPane.WARNING_MESSAGE);
+                            "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
 
             }

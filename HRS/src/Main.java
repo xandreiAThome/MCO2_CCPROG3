@@ -1,7 +1,6 @@
 
 import Controller.HRSController;
 import Model.HRSModel;
-import View.CreateHotelView;
 import View.HRSView;
 
 public class Main {

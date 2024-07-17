@@ -11,6 +11,10 @@ public class HRSModel {
         this.hotelList = new ArrayList<Hotel>();
     }
 
+    public ArrayList<Hotel> getHotelList() {
+        return this.hotelList;
+    }
+
     public boolean addHotel(String hotelName, int roomAmount) {
         try {
             this.hotelList.add(new Hotel(hotelName, roomAmount));
