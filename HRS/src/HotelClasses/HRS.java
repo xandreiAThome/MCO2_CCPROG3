@@ -349,7 +349,7 @@ public class HRS {
                 System.out.println("Confirm tp change price rate(y/n):");
                 String confirm = UserInput.getScanner().nextLine();
                 if (confirm.equals("Y") || confirm.equals("y")) {
-                    hotel.getRoom(day).getMonth().setPriceRate(day, priceRate);
+                    room.getMonth().setPriceRate(day, priceRate);
 
                     System.out.println("Successfully changed price rate");
                 } else {
@@ -362,4 +362,4 @@ public class HRS {
 
         }
     }
-}
+}   
