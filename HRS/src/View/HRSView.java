@@ -20,10 +20,6 @@ public class HRSView extends JFrame {
     private JButton goToManageHotelButton;
     private JButton goToViewHotelButton;
     private JButton goToBookReservationButton;
-    private JPanel createHotelPanel;
-    private JPanel viewHotelPanel;
-    private JPanel manageHotelPanel;
-    private JPanel bookReservationPanel;
 
     public HRSView() {
         super("Hotel Reservation System");
@@ -76,13 +72,6 @@ public class HRSView extends JFrame {
         homeScreen.add(centralPanel, BorderLayout.CENTER);
         ////////////////////////////////////////////////////
 
-        // init other windows ///////////////////////////
-        this.createHotelPanel = new CreateHotelView();
-        this.viewHotelPanel = new ViewHotelView();
-        this.manageHotelPanel = new ManageHotelView();
-        this.bookReservationPanel = new BookReservationView();
-        /////////////////////////////////////////////////
-
         this.add(homeScreen);
     }
 
@@ -92,22 +81,6 @@ public class HRSView extends JFrame {
         this.goToViewHotelButton.addActionListener(listener);
         this.goToBookReservationButton.addActionListener(listener);
 
-    }
-
-    public JPanel getCreateHotelPanel() {
-        return this.createHotelPanel;
-    }
-
-    public JPanel getManageHotelPanel() {
-        return this.manageHotelPanel;
-    }
-
-    public JPanel getViewHotelPanel() {
-        return this.viewHotelPanel;
-    }
-
-    public JPanel getBookReservationPanel() {
-        return this.bookReservationPanel;
     }
 
     public JPanel getHomeScreenPanel() {
