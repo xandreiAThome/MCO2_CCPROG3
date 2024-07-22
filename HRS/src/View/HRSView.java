@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ModifiedClasses.JPanelWithBackground;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -12,10 +14,11 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class HRSView extends JFrame {
     private JLabel pageName;
-    private JPanel homeScreen;
+    private JPanelWithBackground homeScreen;
     private JButton goToCreateHotelButton;
     private JButton goToManageHotelButton;
     private JButton goToViewHotelButton;
@@ -24,7 +27,7 @@ public class HRSView extends JFrame {
     public HRSView() {
         super("Hotel Reservation System");
         setLayout(new BorderLayout());
-        setSize(1000, 600);
+        setSize(1380, 720);
 
         init();
 
@@ -38,26 +41,32 @@ public class HRSView extends JFrame {
     public void init() {
 
         // HomeScreen /////////
-        homeScreen = new JPanel();
+        try {
+            homeScreen = new JPanelWithBackground("View/hotel.jpeg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         homeScreen.setLayout(new BorderLayout());
         /////////////////////////
 
         // North Panel ////////////////////////////////////
         JPanel northPanel = new JPanel();
         northPanel.setLayout(new FlowLayout());
-        northPanel.setBackground(Color.BLUE);
+        northPanel.setOpaque(false);
+        // northPanel.setBackground(Color.BLUE);
         homeScreen.add(northPanel, BorderLayout.NORTH);
 
         this.pageName = new JLabel("Hotel Reservation System");
-        this.pageName.setForeground(Color.WHITE);
-        this.pageName.setFont(new Font("Verdana", Font.BOLD, 20));
+        this.pageName.setForeground(Color.BLACK);
+        this.pageName.setFont(new Font("Verdana", Font.BOLD, 36));
         northPanel.add(this.pageName);
         //////////////////////////////////////////////////
 
         // Central Panel //////////////////////////////////
         JPanel centralPanel = new JPanel();
         centralPanel.setLayout(new GridBagLayout());
-        centralPanel.setBackground(Color.RED);
+        // centralPanel.setBackground(Color.RED);
+        centralPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;

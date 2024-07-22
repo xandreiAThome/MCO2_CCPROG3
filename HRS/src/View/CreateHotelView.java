@@ -4,8 +4,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
+import ModifiedClasses.NumberFormatterChild;
+
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;;
+import java.text.NumberFormat;
+import ModifiedClasses.NumberFormatterChild;
 
 public class CreateHotelView extends JPanel {
     private JButton returnHomeButton;
