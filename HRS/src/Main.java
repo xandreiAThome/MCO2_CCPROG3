@@ -1,9 +1,7 @@
 
-import java.io.IOException;
-
 import Controller.HRSController;
 import Model.HRSModel;
-import ModifiedClasses.JPanelWithBackground;
+
 import View.HRSView;
 
 public class Main {

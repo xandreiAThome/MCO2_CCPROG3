@@ -8,7 +8,6 @@ import ModifiedClasses.NumberFormatterChild;
 
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import ModifiedClasses.NumberFormatterChild;
 
 public class CreateHotelView extends JPanel {
     private JButton returnHomeButton;
