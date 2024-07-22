@@ -26,7 +26,7 @@ public class Reservation {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.chosenRoom = chosenRoom;
-        this.totalPrice = (checkOut.getDay() - checkIn.getDay() + 1) * chosenRoom.getPrice();
+        this.totalPrice = chosenRoom.getPriceGivenDateRange(checkIn.getDay(), checkOut.getDay());
     }
 
     public Reservation(String guest, Date checkIn, Date checkOut, Room chosenRoom, String discountCode) {
@@ -34,20 +34,22 @@ public class Reservation {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.chosenRoom = chosenRoom;
-        this.totalPrice = (checkOut.getDay() - checkIn.getDay() + 1) * chosenRoom.getPrice();
+        this.totalPrice = chosenRoom.getPriceGivenDateRange(checkIn.getDay(), checkOut.getDay());
 
         switch (discountCode) {
             case "I_WORK_HERE":
-                this.totalPrice = this.totalPrice + (this.totalPrice * 0.1);
+                this.totalPrice = this.totalPrice - (this.totalPrice * 0.1);
                 break;
             case "STAY4_GET1":
                 if (reservationDuration() >= 5) {
-                    this.totalPrice -= chosenRoom.getPrice();
+                    this.totalPrice -= chosenRoom.getBasePrice()
+                            * chosenRoom.getMonth().getDay(checkIn.getDay()).getPriceRate();
                 }
                 break;
             case "PAYDAY":
-                // TODO, ask sir if there is a limit to the duration of the reservation for the
-                // payday discount
+                if (this.chosenRoom.getMonth().isPayDay(checkIn.getDay(), checkOut.getDay())) {
+                    this.totalPrice = totalPrice - (totalPrice * 0.07);
+                }
                 break;
 
             default:

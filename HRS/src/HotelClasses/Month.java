@@ -4,8 +4,7 @@ package HotelClasses;
  * Represents a month calendar for the availability of a room for the month
  */
 public class Month {
-    private Day month[];
-    private double[] priceRateList;
+    private Day dayList[];
 
     /**
      * Constructs a Month object for a given number of days.
@@ -13,16 +12,11 @@ public class Month {
      * @param numOfDays
      */
     public Month(int numOfDays) {
-        month = new Day[numOfDays];
+        dayList = new Day[numOfDays];
         for (int i = 0; i < numOfDays; i++) {
-            this.month[i] = new Day();
+            this.dayList[i] = new Day();
         }
 
-        priceRateList = new double[numOfDays];
-
-        for (int i = 0; i < numOfDays; i++) {
-            this.priceRateList[i] = 1.0;
-        }
     }
 
     /**
@@ -30,8 +24,8 @@ public class Month {
      * 
      * @return month of the current instance
      */
-    public Day[] getMonth() {
-        return this.month;
+    public Day[] getCalendar() {
+        return this.dayList;
     }
 
     /**
@@ -44,16 +38,16 @@ public class Month {
         int checkOutDay = reservation.getCheckOutDate().getDay();
         for (int i = checkInDay - 1; i < checkOutDay; i++) {
             if (i == checkInDay - 1) {
-                this.month[i].setIsBooked(true);
-                this.month[i].setIsCheckIn(true);
-                this.month[i].setReservation(reservation);
+                this.dayList[i].setIsBooked(true);
+                this.dayList[i].setIsCheckIn(true);
+                this.dayList[i].setReservation(reservation);
             } else if (i == checkOutDay - 1) {
-                this.month[i].setIsBooked(true);
-                this.month[i].setIsCheckOut(true);
-                this.month[i].setReservation(reservation);
+                this.dayList[i].setIsBooked(true);
+                this.dayList[i].setIsCheckOut(true);
+                this.dayList[i].setReservation(reservation);
             } else {
-                this.month[i].setIsBooked(true);
-                this.month[i].setReservation(reservation);
+                this.dayList[i].setIsBooked(true);
+                this.dayList[i].setReservation(reservation);
             }
         }
     }
@@ -69,16 +63,16 @@ public class Month {
 
         for (int i = checkInDay - 1; i < checkOutDay; i++) {
             if (i == checkInDay - 1) {
-                this.month[i].setIsBooked(false);
-                this.month[i].setIsCheckIn(false);
-                this.month[i].setReservation(null);
+                this.dayList[i].setIsBooked(false);
+                this.dayList[i].setIsCheckIn(false);
+                this.dayList[i].setReservation(null);
             } else if (i == checkOutDay - 1) {
-                this.month[i].setIsBooked(false);
-                this.month[i].setIsCheckOut(false);
-                this.month[i].setReservation(null);
+                this.dayList[i].setIsBooked(false);
+                this.dayList[i].setIsCheckOut(false);
+                this.dayList[i].setReservation(null);
             } else {
-                this.month[i].setIsBooked(false);
-                this.month[i].setReservation(null);
+                this.dayList[i].setIsBooked(false);
+                this.dayList[i].setReservation(null);
             }
         }
     }
@@ -88,11 +82,11 @@ public class Month {
      * for available
      */
     public void displayMonth() {
-        for (int i = 0; i < month.length; i++) {
+        for (int i = 0; i < dayList.length; i++) {
             if (i % 10 == 0 && i != 0) {
                 System.out.print("|\n");
             }
-            if (month[i].getIsBooked()) {
+            if (dayList[i].getIsBooked()) {
                 if (i < 9) {
                     System.out.print("| " + (i + 1) + " - ");
                 } else {
@@ -124,18 +118,18 @@ public class Month {
                                                                    // indeces starting at 0
         int checkOutDay = reservation.getCheckOutDate().getDay() - 1;
         for (int i = checkInDay; i <= checkOutDay && !isConflict; i++) {
-            if (this.month[i].getIsCheckIn() && i == checkOutDay) {
-                if (this.month[i].getReservation().getCheckInDate().getHour() <= reservation.getCheckOutDate()
+            if (this.dayList[i].getIsCheckIn() && i == checkOutDay) {
+                if (this.dayList[i].getReservation().getCheckInDate().getHour() <= reservation.getCheckOutDate()
                         .getHour()) {
                     isConflict = true;
                 }
-            } else if (this.month[i].getIsCheckOut() && i == checkInDay) {
-                if (this.month[i].getReservation().getCheckOutDate().getHour() >= reservation.getCheckInDate()
+            } else if (this.dayList[i].getIsCheckOut() && i == checkInDay) {
+                if (this.dayList[i].getReservation().getCheckOutDate().getHour() >= reservation.getCheckInDate()
                         .getHour()) {
                     isConflict = true;
                 }
 
-            } else if (this.month[i].getIsBooked()) {
+            } else if (this.dayList[i].getIsBooked()) {
                 isConflict = true;
             }
         }
@@ -145,18 +139,23 @@ public class Month {
 
     public void setPriceRate(int day, double rate) {
         if (day >= 1 && day <= 31) {
-            this.priceRateList[day] = rate;
+            this.dayList[day - 1].setPriceRate(rate);
         } else {
             throw new IllegalArgumentException("Day must be between 1 and 31");
         }
     }
 
-    public double getPriceRate(int day) {
-        if (day >= 1 && day <= 31) {
-            return this.priceRateList[day - 1];
-        } else {
-            throw new IllegalArgumentException("Day must be between 1 and 31");
-        }
+    public Day getDay(int day) {
+        return this.dayList[day - 1];
     }
 
+    public boolean isPayDay(int checkInDay, int checkOutDay) {
+        if (checkInDay <= 15 && checkOutDay > 15) {
+            return true;
+        } else if (checkInDay <= 30 && checkOutDay > 30) {
+            return true;
+        }
+
+        return false;
+    }
 }

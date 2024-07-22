@@ -9,6 +9,7 @@ public class Day {
     private boolean isCheckIn;
     private boolean isCheckOut;
     private Reservation reservation;
+    private double priceRate;
 
     /**
      * Constructs a Day object representing a day in the month's calendar with
@@ -19,6 +20,7 @@ public class Day {
         isBooked = false;
         isCheckIn = false;
         isCheckOut = false;
+        priceRate = 1;
     }
 
     /**
@@ -28,6 +30,18 @@ public class Day {
      */
     public boolean getIsBooked() {
         return this.isBooked;
+    }
+
+    /**
+     * 
+     * @param priceRate
+     */
+    public void setPriceRate(double priceRate) {
+        this.priceRate = priceRate;
+    }
+
+    public double getPriceRate() {
+        return this.priceRate;
     }
 
     /**

@@ -6,7 +6,7 @@ public class DeluxeRoom extends Room {
     public DeluxeRoom(String name) {
         super(name);
         this.priceInc = 0.2;
-        double temp = super.getPrice();
+        double temp = super.getBasePrice();
         super.setPrice(temp * priceInc + temp);
     }
 

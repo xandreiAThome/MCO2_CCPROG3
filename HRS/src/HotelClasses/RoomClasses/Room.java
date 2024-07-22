@@ -60,9 +60,11 @@ public class Room {
      * @return finalPrice - computed by multiplying the base price from the price
      *         rate.
      */
-    public double getPrice(int day) {
-        double rate = this.month.getPriceRate(day);
-        double finalPrice = this.price * rate;
+    public double getPriceGivenDateRange(int checkInDay, int checkOutDay) {
+        double finalPrice = 0;
+        for (int i = checkInDay; i <= checkOutDay; i++) {
+            finalPrice += this.price * this.month.getDay(i).getPriceRate();
+        }
         return finalPrice;
     }
 
