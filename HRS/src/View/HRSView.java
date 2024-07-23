@@ -32,6 +32,7 @@ public class HRSView extends JFrame {
         init();
 
         setVisible(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }

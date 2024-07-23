@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -58,6 +59,7 @@ public class HRSController implements ActionListener {
             hrsWindow.validate();
         } else if (e.getActionCommand().equals("Book Reservation")) {
             ((BookReservationView) bookReservationView).updateHotelDisplay(hrsModel.getHotelList());
+            ((BookReservationView) bookReservationView).dynamicSetActionListenerOfHotelButtons(this);
             hrsWindow.setContentPane(this.bookReservationView);
             hrsWindow.invalidate();
             hrsWindow.validate();
@@ -109,7 +111,23 @@ public class HRSController implements ActionListener {
             }
 
         }
-        ///////////////////////////////////////////
+        // Book Reservation Events /////////////////////////
+
+        else if (((JPanel) hrsWindow.getContentPane()) == bookReservationView) {
+
+            for (JButton button : ((BookReservationView) bookReservationView).getHotelListDisplayOptions()) {
+                if (e.getSource() == button) {
+                    ((BookReservationView) bookReservationView)
+                            .setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
+                    BorderLayout layout = (BorderLayout) bookReservationView.getLayout();
+                    bookReservationView.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+                    bookReservationView.add(((BookReservationView) bookReservationView).getChooseDatePanel(),
+                            BorderLayout.CENTER);
+                    bookReservationView.invalidate();
+                    bookReservationView.validate();
+                }
+            }
+        }
 
     }
 

@@ -35,4 +35,14 @@ public class HRSModel {
 
         return false;
     }
+
+    public Hotel getHotelGivenName(String name) {
+        for (Hotel h : this.hotelList) {
+            if (name.equals(h.getName())) {
+                return h;
+            }
+        }
+
+        return null;
+    }
 }
