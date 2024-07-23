@@ -51,7 +51,7 @@ public class CreateHotelView extends JPanel {
         NumberFormatter numberFormatter = new NumberFormatterChild(longFormat);
         numberFormatter.setValueClass(Long.class); // optional, ensures you will always get a long value
         numberFormatter.setAllowsInvalid(false); // this is the key!!
-        numberFormatter.setMinimum(0l); // Optional
+        numberFormatter.setMinimum(1l); // Optional
         roomQuantiField = new JFormattedTextField(numberFormatter);
         roomQuantiField.setColumns(6);
         roomQuantiPanel.add(roomQuantiLabel);

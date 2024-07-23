@@ -1,22 +1,22 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.TextField;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import javax.swing.border.Border;
-
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
 import HotelClasses.Hotel;
 
 public class BookReservationView extends JPanel {
@@ -24,7 +24,15 @@ public class BookReservationView extends JPanel {
     private JPanel centerPanel;
     private Hotel chosenHotel = null;
     private JPanel chooseDatePanel;
-    private JSpinner timeSpinner;
+    private JSpinner checkInTimeSpinner;
+    private JSpinner checkInDaySpinner;
+    private JSpinner checkOutTimeSpinner;
+    private JSpinner checkOutDaySpinner;
+    private JPanel chooseHotelContainer;
+    private JButton bookReservationButton;
+    private JTextField userNameTextField;
+    private JPanel cardContainer;
+    private CardLayout clayout;
 
     private JButton returnHomeButton;
 
@@ -33,6 +41,10 @@ public class BookReservationView extends JPanel {
         this.setLayout(new BorderLayout());
 
         this.returnHomeButton = new JButton("Home");
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // North panel ///////////////////////////////////
         JLabel label = new JLabel("Book Reservation");
@@ -47,42 +59,94 @@ public class BookReservationView extends JPanel {
 
         // Center panel ///////////////////////////////
         this.centerPanel = new JPanel();
+        this.centerPanel.setLayout(new BorderLayout());
+        JLabel chooseHotelLabel = new JLabel("Choose Hotel to Book in");
+        chooseHotelLabel.setHorizontalAlignment(JLabel.CENTER);
+        chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+        chooseHotelLabel.setBorder(new EmptyBorder(0, 0, 100, 0));
+        userNameTextField = new JTextField();
+        userNameTextField.setColumns(20);
+        this.chooseHotelContainer = new JPanel();
+        JPanel northContainer = new JPanel();
+        northContainer.setLayout(new GridBagLayout());
+        this.chooseHotelContainer.setLayout(new GridBagLayout());
+        northContainer.add(new JLabel("Enter Guest Name"), gbc);
+        northContainer.add(userNameTextField, gbc);
+        northContainer.setBorder(new EmptyBorder(20, 0, 0, 0));
         //////////////////////////////////////////////////
 
         // Choose Date Panel ///////////////////////////
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
         this.chooseDatePanel = new JPanel();
         this.chooseDatePanel.setLayout(new GridBagLayout());
-        this.timeSpinner = new JSpinner(new SpinnerDateModel());
-        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner,
-                "HH");
-        timeSpinner.setEditor(timeEditor);
-        timeSpinner.setValue(new Date()); // will only show the current time
-        timeSpinner.setPreferredSize(new Dimension(60, 30));
-        JPanel pickHour = new JPanel();
-        pickHour.add(timeSpinner);
-        pickHour.add(new JLabel("24HH"));
+        checkInTimeSpinner = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+        checkInTimeSpinner.setPreferredSize(new Dimension(60, 30));
+        checkInDaySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 30, 1));
+        checkInDaySpinner.setPreferredSize(new Dimension(60, 30));
+        checkOutTimeSpinner = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+        checkOutTimeSpinner.setPreferredSize(new Dimension(60, 30));
+        checkOutDaySpinner = new JSpinner(new SpinnerNumberModel(2, 2, 31, 1));
+        checkOutDaySpinner.setPreferredSize(new Dimension(60, 30));
+
+        JPanel checkInContainer = new JPanel();
+        JPanel checkOutContainer = new JPanel();
+        JLabel checkInHourFormatLabel = new JLabel("24HH");
+        JLabel checkOutHourFormatLabel = new JLabel("24HH");
+        checkInHourFormatLabel.setBorder(new EmptyBorder(0, 0, 0, 30));
+        checkOutHourFormatLabel.setBorder(new EmptyBorder(0, 0, 0, 30));
+        checkInContainer.add(checkInTimeSpinner);
+        checkInContainer.add(checkInHourFormatLabel);
+        checkInContainer.add(checkInDaySpinner);
+        checkInContainer.add(new JLabel("Pick Day"));
+
+        checkOutContainer.add(checkOutTimeSpinner);
+        checkOutContainer.add(checkOutHourFormatLabel);
+        checkOutContainer.add(checkOutDaySpinner);
+        checkOutContainer.add(new JLabel("Pick Day"));
         JLabel pickCheckInLabel = new JLabel("Pick Check-in Date");
+        JLabel pickCheckOutLabel = new JLabel("Pick Check-out Date");
+        pickCheckInLabel.setFont(new Font("Verdana", Font.BOLD, 16));
+        pickCheckOutLabel.setFont(new Font("Verdana", Font.BOLD, 16));
         pickCheckInLabel.setHorizontalAlignment(JLabel.CENTER);
+        pickCheckOutLabel.setHorizontalAlignment(JLabel.CENTER);
+        pickCheckOutLabel.setBorder(new EmptyBorder(30, 0, 0, 0));
         this.chooseDatePanel.add(pickCheckInLabel, gbc);
-        this.chooseDatePanel.add(pickHour, gbc);
+        this.chooseDatePanel.add(checkInContainer, gbc);
+        this.chooseDatePanel.add(pickCheckOutLabel, gbc);
+        this.chooseDatePanel.add(checkOutContainer, gbc);
+        JPanel buttonContainer = new JPanel();
+        buttonContainer.setBorder(new EmptyBorder(30, 0, 0, 0));
+        bookReservationButton = new JButton("Book");
+        buttonContainer.add(bookReservationButton);
+        this.chooseDatePanel.add(buttonContainer, gbc);
 
         ///////////////////////////////////////////////
 
+        cardContainer = new JPanel();
+        clayout = new CardLayout();
+        cardContainer.setLayout(clayout);
+        cardContainer.add(centerPanel, "center");
+        cardContainer.add(chooseDatePanel, "date");
+
+        this.centerPanel.add(chooseHotelContainer, BorderLayout.CENTER);
+        this.centerPanel.add(northContainer, BorderLayout.NORTH);
+        this.centerPanel.add(chooseHotelLabel, BorderLayout.SOUTH);
+
+        clayout.show(cardContainer, "center");
+
         this.add(northPanel, BorderLayout.NORTH);
-        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(cardContainer, BorderLayout.CENTER);
     }
 
     public void updateHotelDisplay(ArrayList<Hotel> hotelList) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         // Very resource wasting process, but cant think of a better solution, will be
         // fine for now
         // done this way so for when editing hotel name is implemented, the option names
         // are also updated
         for (JButton hotelOption : this.hotelListDisplay) {
-            this.centerPanel.remove(hotelOption);
+            this.chooseHotelContainer.remove(hotelOption);
         }
         this.hotelListDisplay.clear();
         if (hotelList.size() > 0) {
@@ -91,7 +155,7 @@ public class BookReservationView extends JPanel {
             }
 
             for (JButton hotelDisplay : this.hotelListDisplay) {
-                this.centerPanel.add(hotelDisplay);
+                this.chooseHotelContainer.add(hotelDisplay, gbc);
             }
         }
 
@@ -99,6 +163,7 @@ public class BookReservationView extends JPanel {
 
     public void setActionListener(ActionListener listener) {
         this.returnHomeButton.addActionListener(listener);
+        this.bookReservationButton.addActionListener(listener);
     }
 
     public void dynamicSetActionListenerOfHotelButtons(ActionListener listener) {
@@ -126,4 +191,41 @@ public class BookReservationView extends JPanel {
     public JPanel getChooseDatePanel() {
         return this.chooseDatePanel;
     }
+
+    public int getCheckInDay() {
+        return (Integer) this.checkInDaySpinner.getValue();
+    }
+
+    public int getCheckOutDay() {
+        return (Integer) this.checkOutDaySpinner.getValue();
+    }
+
+    public int getCheckInHour() {
+        return (Integer) this.checkInTimeSpinner.getValue();
+    }
+
+    public int getCheckOutHour() {
+        return (Integer) this.checkOutTimeSpinner.getValue();
+    }
+
+    public void resetEntries() {
+        checkInDaySpinner.setValue(1);
+        checkOutDaySpinner.setValue(2);
+        checkInTimeSpinner.setValue(12);
+        checkOutTimeSpinner.setValue(12);
+        userNameTextField.setText("");
+    }
+
+    public String getUserNameField() {
+        return this.userNameTextField.getText();
+    }
+
+    public void showDefaultCenterPanel() {
+        clayout.show(cardContainer, "center");
+    }
+
+    public void showChooseDatePanel() {
+        clayout.show(cardContainer, "date");
+    }
+
 }
