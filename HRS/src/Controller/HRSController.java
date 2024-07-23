@@ -62,6 +62,7 @@ public class HRSController implements ActionListener {
             hrsWindow.invalidate();
             hrsWindow.validate();
         } else if (e.getActionCommand().equals("Book Reservation")) {
+            ((BookReservationView) bookReservationView).resetEntries();
             ((BookReservationView) bookReservationView).updateHotelDisplay(hrsModel.getHotelList());
             ((BookReservationView) bookReservationView).dynamicSetActionListenerOfHotelButtons(this);
             hrsWindow.setContentPane(this.bookReservationView);
