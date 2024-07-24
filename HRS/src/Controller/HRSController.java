@@ -1,6 +1,5 @@
 package Controller;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -58,6 +57,8 @@ public class HRSController implements ActionListener {
             hrsWindow.invalidate();
             hrsWindow.validate();
         } else if (e.getActionCommand().equals("View Hotel")) {
+            ((ViewHotelView) viewHotelView).updateHotelDisplay(hrsModel.getHotelList());
+            ((ViewHotelView) viewHotelView).dynamicSetActionListenerOfHotelButtons(this);
             hrsWindow.setContentPane(this.viewHotelView);
             hrsWindow.invalidate();
             hrsWindow.validate();
@@ -190,6 +191,21 @@ public class HRSController implements ActionListener {
 
         }
 
+        // View Hotel Events /////////////////////////
+        else if (((JPanel) hrsWindow.getContentPane()) == viewHotelView) {
+            if (((ViewHotelView) viewHotelView).getChosenHotel() == null) {
+                for (JButton button : ((BookReservationView) bookReservationView).getHotelListDisplayOptions()) {
+                    if (e.getSource() == button) {
+
+                        ((ViewHotelView) viewHotelView)
+                                .setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
+                        ((ViewHotelView) viewHotelView).dynamicSetActionListenerOfHotelButtons(this);
+
+                    }
+                }
+            }
+        }
+        //////////////////////////////////////////////
     }
 
 }
