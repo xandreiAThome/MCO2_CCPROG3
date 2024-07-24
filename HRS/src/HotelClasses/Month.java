@@ -112,20 +112,18 @@ public class Month {
      * @param reservation the reservation to be checked
      * @return true if there is a conflict, false otherwise
      */
-    public boolean isConflict(Reservation reservation) {
+    public boolean isConflict(int checkInDay, int checkInHour, int checkOutDay, int checkOutHour) {
         boolean isConflict = false;
-        int checkInDay = reservation.getCheckInDate().getDay() - 1;// checkin day - 1 so that it follows the array of
-                                                                   // indeces starting at 0
-        int checkOutDay = reservation.getCheckOutDate().getDay() - 1;
-        for (int i = checkInDay; i <= checkOutDay && !isConflict; i++) {
-            if (this.dayList[i].getIsCheckIn() && i == checkOutDay) {
-                if (this.dayList[i].getReservation().getCheckInDate().getHour() <= reservation.getCheckOutDate()
-                        .getHour()) {
+        int checkInDayToIndex = checkInDay - 1;// checkin day - 1 so that it follows the array of
+                                               // indeces starting at 0
+        int checkOutDayToIndex = checkOutDay - 1;
+        for (int i = checkInDayToIndex; i <= checkOutDayToIndex && !isConflict; i++) {
+            if (this.dayList[i].getIsCheckIn() && i == checkOutDayToIndex) {
+                if (this.dayList[i].getReservation().getCheckInDate().getHour() <= checkOutHour) {
                     isConflict = true;
                 }
-            } else if (this.dayList[i].getIsCheckOut() && i == checkInDay) {
-                if (this.dayList[i].getReservation().getCheckOutDate().getHour() >= reservation.getCheckInDate()
-                        .getHour()) {
+            } else if (this.dayList[i].getIsCheckOut() && i == checkInDayToIndex) {
+                if (this.dayList[i].getReservation().getCheckOutDate().getHour() >= checkInHour) {
                     isConflict = true;
                 }
 

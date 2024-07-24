@@ -68,6 +68,7 @@ public class HRSController implements ActionListener {
             hrsWindow.setContentPane(this.bookReservationView);
             hrsWindow.invalidate();
             hrsWindow.validate();
+            ((BookReservationView) bookReservationView).showDefaultCenterPanel();
         }
         /////////////////////////////////////////////////////
 
@@ -117,7 +118,7 @@ public class HRSController implements ActionListener {
 
         }
         // Book Reservation Events /////////////////////////
-
+        // choose hotel
         else if (((JPanel) hrsWindow.getContentPane()) == bookReservationView) {
             if (((BookReservationView) bookReservationView).getChosenHotel() == null) {
                 for (JButton button : ((BookReservationView) bookReservationView).getHotelListDisplayOptions()) {
@@ -132,44 +133,49 @@ public class HRSController implements ActionListener {
                         } else {
                             ((BookReservationView) bookReservationView)
                                     .setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
-                            ((BookReservationView) bookReservationView).showChooseDatePanel();
+                            ((BookReservationView) bookReservationView).showChooseRoomPanel();
+                            ((BookReservationView) bookReservationView)
+                                    .updateRoomList(
+                                            ((BookReservationView) bookReservationView).getChosenHotel().getRoomList());
+                            ((BookReservationView) bookReservationView).dynamicSetActionListenerOfHotelButtons(this);
                         }
 
                     }
                 }
-            } else if (e.getActionCommand().equals("Book")) {
+                // choose room
+            } else if (((BookReservationView) bookReservationView).getChosenRoom() == null) {
+                for (JButton button : ((BookReservationView) bookReservationView).getRoomList()) {
+                    if (e.getSource() == button) {
+                        ((BookReservationView) bookReservationView)
+                                .setChosenRoom((((BookReservationView) bookReservationView)
+                                        .getChosenHotel().getRoom(e.getActionCommand())));
+                        ((BookReservationView) bookReservationView).showChooseDatePanel();
+                    }
+                }
+            }
+            // choose reservation
+            else if (e.getActionCommand().equals("Book")) {
                 int checkInDay = ((BookReservationView) bookReservationView).getCheckInDay();
                 int checkOutDay = ((BookReservationView) bookReservationView).getCheckOutDay();
                 int checkInHour = ((BookReservationView) bookReservationView).getCheckInHour();
                 int checkOutHour = ((BookReservationView) bookReservationView).getCheckOutHour();
                 Hotel chosenHotel = ((BookReservationView) bookReservationView).getChosenHotel();
 
-                if (checkOutDay <= checkInDay) {
-                    JOptionPane.showMessageDialog(this.hrsWindow, "Check Out must not be before Check In",
-                            "Error", JOptionPane.WARNING_MESSAGE);
-                }
+                Room chosenRoom = ((BookReservationView) bookReservationView).getChosenRoom();
 
-                Room chosenRoom = null;
-                Reservation reservation = null;
                 Date checkIn = new Date(checkInDay, checkInHour);
                 Date checkOut = new Date(checkOutDay, checkOutHour);
 
-                for (Room r : chosenHotel.getRoomList()) {
-                    Reservation temp = new Reservation(((BookReservationView) bookReservationView).getUserNameField(),
-                            checkIn, checkOut, r);
-                    if (!r.getMonth().isConflict(temp)) {
-                        reservation = temp;
-                        chosenRoom = r;
-                        break;
-                    }
-                }
-
-                if (reservation == null) {
+                if (checkOutDay <= checkInDay) {
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Check Out must not be before Check In",
+                            "Error", JOptionPane.WARNING_MESSAGE);
+                } else if (chosenRoom.getMonth().isConflict(checkInDay, checkInHour, checkOutDay, checkOutHour)) {
                     JOptionPane.showMessageDialog(this.hrsWindow, "Schedule is is conflict with prior Reservations",
                             "Error", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    chosenRoom.addReservation(reservation);
-                    ((BookReservationView) bookReservationView).setChosenHotel(null);
+                    chosenRoom.addReservation(
+                            new Reservation(((BookReservationView) bookReservationView).getUserNameField(),
+                                    checkIn, checkOut, chosenRoom));
                     ((BookReservationView) bookReservationView).resetEntries();
                     ((BookReservationView) bookReservationView).showDefaultCenterPanel();
 
