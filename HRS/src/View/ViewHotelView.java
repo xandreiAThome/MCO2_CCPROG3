@@ -3,6 +3,7 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -28,8 +29,8 @@ public class ViewHotelView extends JPanel {
     private CardLayout clayout;
     private Hotel chosenHotel = null;
     private JPanel chooseOptionPanel;
-
-    private JButton 
+    private JButton checkRoomAvail, checkRoomInfo, checkReserveInfo;
+    private JPanel roomAvailPanel, roomInfoPanel, reserveInfoPanel, chooseRoomPanel, hotelInfoPanel;
 
     public ViewHotelView() {
         this.setLayout(new BorderLayout());
@@ -48,6 +49,7 @@ public class ViewHotelView extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
 
         // Center panel ///////////////////////////////
         this.centerPanel = new JPanel();
@@ -68,6 +70,21 @@ public class ViewHotelView extends JPanel {
         JPanel chooseOptionBorderWrapper = new JPanel(new BorderLayout());
         chooseOptionPanel = new JPanel(new GridBagLayout());
         // Choose Option Panel /////////////////////////
+        checkRoomInfo = new JButton("Check Room Information");
+        checkRoomAvail = new JButton("Check Room Availability");
+        checkReserveInfo = new JButton("Check Reservation Information");
+        chooseOptionPanel.add(checkReserveInfo, gbc);
+        chooseOptionPanel.add(checkRoomAvail, gbc);
+        chooseOptionPanel.add(checkRoomInfo, gbc);
+        JLabel chooseOptionLabel = new JLabel("Choose Option");
+        chooseOptionLabel.setHorizontalAlignment(JLabel.CENTER);
+        chooseOptionLabel.setVerticalAlignment(JLabel.TOP);
+        chooseOptionLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+        chooseOptionLabel.setBorder(new EmptyBorder(0, 0, 20, 0));
+        chooseOptionBorderWrapper.add(chooseOptionLabel, BorderLayout.SOUTH);
+        chooseOptionBorderWrapper.add(chooseOptionPanel, BorderLayout.CENTER);
+        hotelInfoPanel = new JPanel(new GridBagLayout());
+        chooseOptionBorderWrapper.add(hotelInfoPanel, BorderLayout.NORTH);
 
         /////////////////////////////////////////////////
 
@@ -75,6 +92,9 @@ public class ViewHotelView extends JPanel {
         clayout = new CardLayout();
         cardContainer.setLayout(clayout);
         cardContainer.add(chooseHotelBorderWrapper, "chooseHotel");
+        cardContainer.add(chooseOptionBorderWrapper, "chooseOption");
+
+        clayout.show(cardContainer, "chooseHotel");
 
         this.add(northPanel, BorderLayout.NORTH);
         this.add(cardContainer, BorderLayout.CENTER);
@@ -89,6 +109,29 @@ public class ViewHotelView extends JPanel {
         for (JButton button : hotelListButton) {
             button.addActionListener(listener);
         }
+    }
+
+    public void updateHotelInfoPanel() {
+        hotelInfoPanel.removeAll();
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        JLabel hotelName = new JLabel("Hotel " + chosenHotel.getName());
+        hotelName.setHorizontalAlignment(JLabel.CENTER);
+        hotelName.setFont(new Font("Verdana", Font.BOLD, 16));
+        JLabel numOfRoom = new JLabel("Number of Rooms: " + chosenHotel.getRoomAmt());
+        numOfRoom.setHorizontalAlignment(JLabel.CENTER);
+        numOfRoom.setFont(new Font("Verdana", Font.BOLD, 16));
+        JLabel earningForMonth = new JLabel("Estimated earnings for the Month: " + chosenHotel.earningForMonth());
+        earningForMonth.setHorizontalAlignment(JLabel.CENTER);
+        earningForMonth.setFont(new Font("Verdana", Font.BOLD, 16));
+
+        hotelInfoPanel.add(hotelName, gbc);
+        hotelInfoPanel.add(numOfRoom, gbc);
+        hotelInfoPanel.add(earningForMonth, gbc);
     }
 
     public void updateHotelDisplay(ArrayList<Hotel> hotelList) {
@@ -126,5 +169,18 @@ public class ViewHotelView extends JPanel {
 
     public void setChosenHotel(Hotel hotel) {
         this.chosenHotel = hotel;
+    }
+
+    public void showChooseOptionPanel() {
+        clayout.show(cardContainer, "chooseOption");
+    }
+
+    public void showChooseHotelPanel() {
+        clayout.show(cardContainer, "chooseHotel");
+    }
+
+    public void resetEntries() {
+        showChooseHotelPanel();
+        chosenHotel = null;
     }
 }

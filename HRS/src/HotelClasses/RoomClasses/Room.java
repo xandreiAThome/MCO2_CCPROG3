@@ -62,7 +62,7 @@ public class Room {
      */
     public double getPriceGivenDateRange(int checkInDay, int checkOutDay) {
         double finalPrice = 0;
-        for (int i = checkInDay; i <= checkOutDay; i++) {
+        for (int i = checkInDay; i < checkOutDay; i++) {
             finalPrice += this.price * this.month.getDay(i).getPriceRate();
         }
         return finalPrice;

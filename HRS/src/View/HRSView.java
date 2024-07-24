@@ -13,6 +13,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
@@ -71,6 +72,7 @@ public class HRSView extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
         this.goToCreateHotelButton = new JButton("Create Hotel");
         this.goToManageHotelButton = new JButton("Manage Hotel");
         this.goToViewHotelButton = new JButton("View Hotel");

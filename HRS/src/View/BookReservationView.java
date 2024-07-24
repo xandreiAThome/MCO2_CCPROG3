@@ -258,6 +258,7 @@ public class BookReservationView extends JPanel {
         userNameTextField.setText("");
         chosenRoom = null;
         chosenHotel = null;
+        showDefaultCenterPanel();
     }
 
     public String getUserNameField() {
