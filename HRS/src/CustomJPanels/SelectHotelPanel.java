@@ -22,6 +22,11 @@ public class SelectHotelPanel extends JPanel {
         this.setLayout(new GridBagLayout());
     }
 
+    /**
+     * Call on the Controller when the selectHotelPanel will be displayed
+     * 
+     * @param hotelList
+     */
     public void updateHotelDisplay(ArrayList<Hotel> hotelList) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -46,6 +51,11 @@ public class SelectHotelPanel extends JPanel {
         }
     }
 
+    /**
+     * Call also when the selectHotelPanel will be displayed
+     * 
+     * @param listener
+     */
     public void dynamicSetActionListenerOfHotelButtons(ActionListener listener) {
         for (JButton button : hotelListButtons) {
             button.addActionListener(listener);

@@ -32,12 +32,22 @@ public class SelectRoomPanel extends JPanel {
         this.add(chooseRoomButtonContainer, BorderLayout.CENTER);
     }
 
+    /**
+     * Call when the selectRoomPanel will be displayed
+     * 
+     * @param listener
+     */
     public void dynamicSetActionListenerOfHotelButtons(ActionListener listener) {
         for (JButton button : roomListButtons) {
             button.addActionListener(listener);
         }
     }
 
+    /**
+     * Call when the selectRoomPanel will be displayed
+     * 
+     * @param rooms
+     */
     public void updateRoomListButtons(ArrayList<Room> rooms) {
         for (JButton roomOption : this.roomListButtons) {
             this.chooseRoomButtonContainer.remove(roomOption);

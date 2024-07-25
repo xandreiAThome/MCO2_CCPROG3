@@ -87,6 +87,9 @@ public class SelectDatePanel extends JPanel {
         return (Integer) this.checkOutTimeSpinner.getValue();
     }
 
+    /**
+     * Call in the resetEntries method of the main View class
+     */
     public void resetEntries() {
         checkInDaySpinner.setValue(1);
         checkOutDaySpinner.setValue(2);
