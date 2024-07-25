@@ -28,7 +28,7 @@ public class HRSView extends JFrame {
     public HRSView() {
         super("Hotel Reservation System");
         setLayout(new BorderLayout());
-        setSize(1380, 720);
+        setSize(1380, 621);
 
         init();
 
@@ -44,7 +44,7 @@ public class HRSView extends JFrame {
 
         // HomeScreen /////////
         try {
-            homeScreen = new JPanelWithBackground("View/hotel.jpeg");
+            homeScreen = new JPanelWithBackground("View/hotelReception.jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,9 +59,11 @@ public class HRSView extends JFrame {
         homeScreen.add(northPanel, BorderLayout.NORTH);
 
         this.pageName = new JLabel("Hotel Reservation System");
-        this.pageName.setForeground(Color.BLACK);
+        this.pageName.setForeground(Color.WHITE);
         this.pageName.setFont(new Font("Verdana", Font.BOLD, 36));
         northPanel.add(this.pageName);
+        northPanel.setBackground(Color.decode("#a32b2c"));
+        northPanel.setOpaque(true);
         //////////////////////////////////////////////////
 
         // Central Panel //////////////////////////////////
