@@ -3,20 +3,16 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
+
 import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
+
 import javax.swing.border.EmptyBorder;
 
 import CustomJPanels.SelectDatePanel;
@@ -73,17 +69,19 @@ public class BookReservationView extends JPanel {
         northContainer.add(new JLabel("Enter Guest Name"), gbc);
         northContainer.add(userNameTextField, gbc);
         northContainer.setBorder(new EmptyBorder(20, 0, 0, 0));
-        //////////////////////////////////////////////////
 
-        selectDatePanel = new SelectDatePanel("Book");
-
-        ///////////////////////////////////////////////
-
-        // South Panel //////////////////////
         JLabel chooseHotelLabel = new JLabel("Choose Hotel to Book in");
         chooseHotelLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseHotelLabel.setBorder(new EmptyBorder(0, 0, 100, 0));
+
+        this.chooseHotelContainer.add(selectHotelPanel, BorderLayout.CENTER);
+        this.chooseHotelContainer.add(northContainer, BorderLayout.NORTH);
+        this.chooseHotelContainer.add(chooseHotelLabel, BorderLayout.SOUTH);
+        //////////////////////////////////////////////////
+
+        selectDatePanel = new SelectDatePanel("Book");
+
         ////////////////////////////////////////
 
         cardContainer = new JPanel();
@@ -92,10 +90,6 @@ public class BookReservationView extends JPanel {
         cardContainer.add(chooseHotelContainer, "chooseHotel");
         cardContainer.add(selectDatePanel, "date");
         cardContainer.add(selectRoomPanel, "room");
-
-        this.chooseHotelContainer.add(selectHotelPanel, BorderLayout.CENTER);
-        this.chooseHotelContainer.add(northContainer, BorderLayout.NORTH);
-        this.chooseHotelContainer.add(chooseHotelLabel, BorderLayout.SOUTH);
 
         clayout.show(cardContainer, "chooseHotel");
 

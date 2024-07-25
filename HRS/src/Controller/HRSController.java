@@ -9,7 +9,6 @@ import CustomJPanels.SelectDatePanel;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Date;
-import HotelClasses.Hotel;
 import HotelClasses.Reservation;
 import HotelClasses.RoomClasses.Room;
 import Model.HRSModel;
@@ -62,8 +61,9 @@ public class HRSController implements ActionListener {
         } else if (e.getActionCommand().equals("View Hotel")) {
             ViewHotelView viewHotelTemp = ((ViewHotelView) viewHotelView);
             viewHotelTemp.resetEntries();
-            viewHotelTemp.updateHotelDisplay(hrsModel.getHotelList());
-            viewHotelTemp.dynamicSetActionListenerOfHotelButtons(this);
+            SelectHotelPanel selectHotelTemp = ((SelectHotelPanel) viewHotelTemp.getSelectHotelPanel());
+            selectHotelTemp.updateHotelDisplay(hrsModel.getHotelList());
+            selectHotelTemp.dynamicSetActionListenerOfHotelButtons(this);
             hrsWindow.setContentPane(this.viewHotelView);
             hrsWindow.invalidate();
             hrsWindow.validate();
@@ -206,15 +206,14 @@ public class HRSController implements ActionListener {
         // View Hotel Events /////////////////////////
         // choose hotel
         else if (((JPanel) hrsWindow.getContentPane()) == viewHotelView) {
-            if (((ViewHotelView) viewHotelView).getChosenHotel() == null) {
-                for (JButton button : ((ViewHotelView) viewHotelView).getHotelListButton()) {
+            ViewHotelView viewHotelTemp = ((ViewHotelView) viewHotelView);
+            SelectHotelPanel selectHotelTemp = ((SelectHotelPanel) viewHotelTemp.getSelectHotelPanel());
+            if (viewHotelTemp.getChosenHotel() == null) {
+                for (JButton button : selectHotelTemp.getHotelListButtons()) {
                     if (e.getSource() == button) {
-
-                        ((ViewHotelView) viewHotelView)
-                                .setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
-                        ((ViewHotelView) viewHotelView).dynamicSetActionListenerOfHotelButtons(this);
-                        ((ViewHotelView) viewHotelView).showChooseOptionPanel();
-                        ((ViewHotelView) viewHotelView).updateHotelInfoPanel();
+                        viewHotelTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
+                        viewHotelTemp.showChooseOptionPanel();
+                        viewHotelTemp.updateHotelInfoPanel();
                     }
                 }
             } else {

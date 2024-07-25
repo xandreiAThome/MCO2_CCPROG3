@@ -8,20 +8,18 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import CustomJPanels.SelectHotelPanel;
 import HotelClasses.Hotel;
 import HotelClasses.RoomClasses.Room;
 
 public class ViewHotelView extends JPanel {
     private JButton returnHomeButton;
-    private JPanel centerPanel;
     private JPanel chooseHotelContainer;
-    private ArrayList<JButton> hotelListButton = new ArrayList<JButton>();
+    private SelectHotelPanel selectHotelPanel;
     private JPanel cardContainer;
     private CardLayout clayout;
     private Hotel chosenHotel = null;
@@ -49,24 +47,23 @@ public class ViewHotelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 0);
 
-        // Center panel ///////////////////////////////
-        this.centerPanel = new JPanel();
-        this.centerPanel.setLayout(new BorderLayout());
+        // Choose Hotel Container///////////////////////////////
+        chooseHotelContainer = new JPanel(new BorderLayout());
+
         JLabel chooseHotelLabel = new JLabel("Choose Hotel to View");
         chooseHotelLabel.setHorizontalAlignment(JLabel.CENTER);
-        chooseHotelLabel.setVerticalAlignment(JLabel.TOP);
         chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseHotelLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
-        chooseHotelContainer = new JPanel();
-        chooseHotelContainer.setLayout(new GridBagLayout());
-        chooseHotelContainer.add(chooseHotelLabel, gbc);
-        JPanel chooseHotelBorderWrapper = new JPanel(new BorderLayout());
-        chooseHotelBorderWrapper.add(chooseHotelLabel, BorderLayout.NORTH);
-        chooseHotelBorderWrapper.add(chooseHotelContainer, BorderLayout.CENTER);
+
+        selectHotelPanel = new SelectHotelPanel();
+
+        chooseHotelContainer.add(chooseHotelLabel, BorderLayout.NORTH);
+        chooseHotelContainer.add(selectHotelPanel, BorderLayout.CENTER);
 
         //////////////////////////////////////////////////
         JPanel chooseOptionBorderWrapper = new JPanel(new BorderLayout());
         chooseOptionPanel = new JPanel(new GridBagLayout());
+
         // Choose Option Panel /////////////////////////
         checkRoomInfo = new JButton("Check Room Information");
         checkRoomAvail = new JButton("Check Room Availability");
@@ -81,6 +78,7 @@ public class ViewHotelView extends JPanel {
         chooseOptionLabel.setBorder(new EmptyBorder(0, 0, 20, 0));
         chooseOptionBorderWrapper.add(chooseOptionLabel, BorderLayout.SOUTH);
         chooseOptionBorderWrapper.add(chooseOptionPanel, BorderLayout.CENTER);
+
         hotelInfoPanel = new JPanel(new GridBagLayout());
         chooseOptionBorderWrapper.add(hotelInfoPanel, BorderLayout.NORTH);
 
@@ -89,7 +87,7 @@ public class ViewHotelView extends JPanel {
         cardContainer = new JPanel();
         clayout = new CardLayout();
         cardContainer.setLayout(clayout);
-        cardContainer.add(chooseHotelBorderWrapper, "chooseHotel");
+        cardContainer.add(chooseHotelContainer, "chooseHotel");
         cardContainer.add(chooseOptionBorderWrapper, "chooseOption");
 
         clayout.show(cardContainer, "chooseHotel");
@@ -101,12 +99,6 @@ public class ViewHotelView extends JPanel {
 
     public void setActionListener(ActionListener listener) {
         this.returnHomeButton.addActionListener(listener);
-    }
-
-    public void dynamicSetActionListenerOfHotelButtons(ActionListener listener) {
-        for (JButton button : hotelListButton) {
-            button.addActionListener(listener);
-        }
     }
 
     public void updateHotelInfoPanel() {
@@ -132,33 +124,8 @@ public class ViewHotelView extends JPanel {
         hotelInfoPanel.add(earningForMonth, gbc);
     }
 
-    public void updateHotelDisplay(ArrayList<Hotel> hotelList) {
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 0, 10, 0);
-        // Very resource wasting process, but cant think of a better solution, will be
-        // fine for now
-        // done this way so for when editing hotel name is implemented, the option names
-        // are also updated
-        for (JButton hotelOption : this.hotelListButton) {
-            this.chooseHotelContainer.remove(hotelOption);
-        }
-        this.hotelListButton.clear();
-        if (hotelList.size() > 0) {
-            for (Hotel hotel : hotelList) {
-                this.hotelListButton.add(new JButton(hotel.getName()));
-            }
-
-            for (JButton hotelButton : this.hotelListButton) {
-                this.chooseHotelContainer.add(hotelButton, gbc);
-            }
-        }
-
-    }
-
-    public ArrayList<JButton> getHotelListButton() {
-        return this.hotelListButton;
+    public JPanel getSelectHotelPanel() {
+        return selectHotelPanel;
     }
 
     public Hotel getChosenHotel() {
