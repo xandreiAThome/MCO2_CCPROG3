@@ -18,6 +18,10 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+
+import CustomJPanels.SelectDatePanel;
+import CustomJPanels.SelectHotelPanel;
+import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
 import HotelClasses.RoomClasses.Room;
 
@@ -28,9 +32,7 @@ public class BookReservationView extends JPanel {
     private JPanel cardContainer;
     private CardLayout clayout;
     private Room chosenRoom = null;
-    private JPanel chooseRoomPanel;
-    private ArrayList<JButton> roomList = new ArrayList<JButton>();
-    private JPanel chooseRoomButtonContainer;
+    private SelectRoomPanel selectRoomPanel;
     private SelectDatePanel selectDatePanel;
     private SelectHotelPanel selectHotelPanel;
 
@@ -58,17 +60,7 @@ public class BookReservationView extends JPanel {
         ///////////////////////////////////////////////
 
         // Choose Room Panel //////////////////////////////
-        chooseRoomPanel = new JPanel();
-        chooseRoomPanel.setLayout(new BorderLayout());
-        JLabel chooseRoomLabel = new JLabel("Choose Room");
-        chooseRoomLabel.setFont(new Font("Verdana", Font.BOLD, 20));
-        chooseRoomLabel.setBorder(new EmptyBorder(20, 0, 150, 0));
-        chooseRoomLabel.setHorizontalAlignment(JLabel.CENTER);
-        chooseRoomPanel.add(chooseRoomLabel, BorderLayout.NORTH);
-        chooseRoomButtonContainer = new JPanel();
-        chooseRoomButtonContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-
-        chooseRoomPanel.add(chooseRoomButtonContainer, BorderLayout.CENTER);
+        selectRoomPanel = new SelectRoomPanel();
 
         // Choose Hotel Container ///////////////////////////////
         this.chooseHotelContainer = new JPanel();
@@ -99,7 +91,7 @@ public class BookReservationView extends JPanel {
         cardContainer.setLayout(clayout);
         cardContainer.add(chooseHotelContainer, "chooseHotel");
         cardContainer.add(selectDatePanel, "date");
-        cardContainer.add(chooseRoomPanel, "room");
+        cardContainer.add(selectRoomPanel, "room");
 
         this.chooseHotelContainer.add(selectHotelPanel, BorderLayout.CENTER);
         this.chooseHotelContainer.add(northContainer, BorderLayout.NORTH);
@@ -109,23 +101,6 @@ public class BookReservationView extends JPanel {
 
         this.add(northPanel, BorderLayout.NORTH);
         this.add(cardContainer, BorderLayout.CENTER);
-    }
-
-    public void updateRoomList(ArrayList<Room> rooms) {
-        for (JButton roomOption : this.roomList) {
-            this.chooseRoomButtonContainer.remove(roomOption);
-        }
-        this.roomList.clear();
-
-        for (Room room : rooms) {
-            JButton temp = new JButton(room.getName());
-            temp.setPreferredSize(new Dimension(148, 30));
-            this.roomList.add(temp);
-        }
-
-        for (JButton button : this.roomList) {
-            this.chooseRoomButtonContainer.add(button);
-        }
     }
 
     public void setActionListener(ActionListener listener) {
@@ -181,16 +156,16 @@ public class BookReservationView extends JPanel {
         return this.chosenRoom;
     }
 
-    public ArrayList<JButton> getRoomList() {
-        return this.roomList;
-    }
-
     public JPanel getSelectHotelPanel() {
         return selectHotelPanel;
     }
 
     public JPanel getSelectDatePanel() {
         return selectDatePanel;
+    }
+
+    public JPanel getSelectRoomPanel() {
+        return selectRoomPanel;
     }
 
 }
