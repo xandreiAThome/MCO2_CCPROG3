@@ -14,6 +14,8 @@ import View.BookReservationView;
 import View.CreateHotelView;
 import View.HRSView;
 import View.ManageHotelView;
+import View.SelectDatePanel;
+import View.SelectHotelPanel;
 import View.ViewHotelView;
 
 public class HRSController implements ActionListener {
@@ -65,8 +67,10 @@ public class HRSController implements ActionListener {
             hrsWindow.validate();
         } else if (e.getActionCommand().equals("Book Reservation")) {
             ((BookReservationView) bookReservationView).resetEntries();
-            ((BookReservationView) bookReservationView).updateHotelDisplay(hrsModel.getHotelList());
-            ((BookReservationView) bookReservationView).dynamicSetActionListenerOfHotelButtons(this);
+            SelectHotelPanel selectHotelPanel = ((SelectHotelPanel) ((BookReservationView) bookReservationView)
+                    .getSelectHotelPanel());
+            selectHotelPanel.updateHotelDisplay(hrsModel.getHotelList());
+            selectHotelPanel.dynamicSetActionListenerOfHotelButtons(this);
             hrsWindow.setContentPane(this.bookReservationView);
             hrsWindow.invalidate();
             hrsWindow.validate();
@@ -122,7 +126,9 @@ public class HRSController implements ActionListener {
         // choose hotel
         else if (((JPanel) hrsWindow.getContentPane()) == bookReservationView) {
             if (((BookReservationView) bookReservationView).getChosenHotel() == null) {
-                for (JButton button : ((BookReservationView) bookReservationView).getHotelListDisplayOptions()) {
+                SelectHotelPanel selectHotelPanel = ((SelectHotelPanel) ((BookReservationView) bookReservationView)
+                        .getSelectHotelPanel());
+                for (JButton button : selectHotelPanel.getHotelListButtons()) {
                     if (e.getSource() == button) {
                         if (((BookReservationView) bookReservationView).getUserNameField().length() == 0) {
                             JOptionPane.showMessageDialog(this.hrsWindow, "Enter name",
@@ -138,7 +144,6 @@ public class HRSController implements ActionListener {
                             ((BookReservationView) bookReservationView)
                                     .updateRoomList(
                                             ((BookReservationView) bookReservationView).getChosenHotel().getRoomList());
-                            ((BookReservationView) bookReservationView).dynamicSetActionListenerOfHotelButtons(this);
                         }
 
                     }
@@ -156,11 +161,12 @@ public class HRSController implements ActionListener {
             }
             // choose reservation
             else if (e.getActionCommand().equals("Book")) {
-                int checkInDay = ((BookReservationView) bookReservationView).getCheckInDay();
-                int checkOutDay = ((BookReservationView) bookReservationView).getCheckOutDay();
-                int checkInHour = ((BookReservationView) bookReservationView).getCheckInHour();
-                int checkOutHour = ((BookReservationView) bookReservationView).getCheckOutHour();
-                Hotel chosenHotel = ((BookReservationView) bookReservationView).getChosenHotel();
+                SelectDatePanel selectDatePanel = ((SelectDatePanel) ((BookReservationView) bookReservationView)
+                        .getSelectDatePanel());
+                int checkInDay = selectDatePanel.getCheckInDay();
+                int checkOutDay = selectDatePanel.getCheckOutDay();
+                int checkInHour = selectDatePanel.getCheckInHour();
+                int checkOutHour = selectDatePanel.getCheckOutHour();
 
                 Room chosenRoom = ((BookReservationView) bookReservationView).getChosenRoom();
 
