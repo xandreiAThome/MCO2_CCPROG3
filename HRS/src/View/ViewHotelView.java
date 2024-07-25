@@ -3,7 +3,6 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,11 +13,9 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
 import HotelClasses.Hotel;
+import HotelClasses.RoomClasses.Room;
 
 public class ViewHotelView extends JPanel {
     private JButton returnHomeButton;
@@ -31,6 +28,7 @@ public class ViewHotelView extends JPanel {
     private JPanel chooseOptionPanel;
     private JButton checkRoomAvail, checkRoomInfo, checkReserveInfo;
     private JPanel roomAvailPanel, roomInfoPanel, reserveInfoPanel, chooseRoomPanel, hotelInfoPanel;
+    private Room chosenRoom;
 
     public ViewHotelView() {
         this.setLayout(new BorderLayout());
