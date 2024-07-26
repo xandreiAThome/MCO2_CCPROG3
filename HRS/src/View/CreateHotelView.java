@@ -12,7 +12,7 @@ import java.text.NumberFormat;
 public class CreateHotelView extends JPanel {
     private JButton returnHomeButton;
     private JTextField hotelNameField;
-    private JFormattedTextField roomQuantiField;
+    private JFormattedTextField roomQuantiField, deluxeQuantiField, executiveQuantiField;
     private JButton submitButton;
 
     public CreateHotelView() {
@@ -44,18 +44,40 @@ public class CreateHotelView extends JPanel {
 
         this.submitButton = new JButton("create");
 
-        NumberFormat longFormat = NumberFormat.getIntegerInstance();
+        NumberFormat integerFormat = NumberFormat.getIntegerInstance();
 
+        // Total rooms
         JPanel roomQuantiPanel = new JPanel();
-        JLabel roomQuantiLabel = new JLabel("Enter Number of Rooms");
-        NumberFormatter numberFormatter = new NumberFormatterChild(longFormat);
-        numberFormatter.setValueClass(Long.class); // optional, ensures you will always get a long value
-        numberFormatter.setAllowsInvalid(false); // this is the key!!
-        numberFormatter.setMinimum(1l); // Optional
+        JLabel roomQuantiLabel = new JLabel("Enter Total number of Rooms");
+        NumberFormatter numberFormatter = new NumberFormatterChild(integerFormat);
+        numberFormatter.setAllowsInvalid(false);
+        numberFormatter.setMinimum(1);
         roomQuantiField = new JFormattedTextField(numberFormatter);
         roomQuantiField.setColumns(6);
         roomQuantiPanel.add(roomQuantiLabel);
         roomQuantiPanel.add(roomQuantiField);
+
+        // How many deluxe rooms
+        JPanel deluxeQuantiPanel = new JPanel();
+        JLabel deluxeQuantiLabel = new JLabel("How many are Deluxe Rooms?");
+        NumberFormatter deluxeNumberFormatter = new NumberFormatterChild(integerFormat);
+        deluxeNumberFormatter.setAllowsInvalid(false);
+        deluxeNumberFormatter.setMinimum(0);
+        deluxeQuantiField = new JFormattedTextField(deluxeNumberFormatter);
+        deluxeQuantiField.setColumns(6);
+        deluxeQuantiPanel.add(deluxeQuantiLabel);
+        deluxeQuantiPanel.add(deluxeQuantiField);
+
+        // How many Executive rooms
+        JPanel executiveQuantiPanel = new JPanel();
+        JLabel executiveQuantiLabel = new JLabel("How many are Deluxe Rooms?");
+        NumberFormatter executiveNumberFormatter = new NumberFormatterChild(integerFormat);
+        executiveNumberFormatter.setAllowsInvalid(false);
+        executiveNumberFormatter.setMinimum(0);
+        executiveQuantiField = new JFormattedTextField(executiveNumberFormatter);
+        executiveQuantiField.setColumns(6);
+        executiveQuantiPanel.add(executiveQuantiLabel);
+        executiveQuantiPanel.add(executiveQuantiField);
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridBagLayout());
@@ -63,6 +85,8 @@ public class CreateHotelView extends JPanel {
         centerPanel.add(enterHotelName, gbc);
         centerPanel.add(this.hotelNameField, gbc);
         centerPanel.add(roomQuantiPanel, gbc);
+        centerPanel.add(deluxeQuantiPanel, gbc);
+        centerPanel.add(executiveQuantiPanel, gbc);
         centerPanel.add(submitButton, gbc);
 
         this.add(centerPanel, BorderLayout.CENTER);
@@ -78,6 +102,14 @@ public class CreateHotelView extends JPanel {
         return this.roomQuantiField;
     }
 
+    public JTextField getDeluxeQuantiField() {
+        return this.deluxeQuantiField;
+    }
+
+    public JTextField getExecutiveQuantiField() {
+        return this.executiveQuantiField;
+    }
+
     public JTextField getHotelNameField() {
         return this.hotelNameField;
     }
@@ -85,5 +117,7 @@ public class CreateHotelView extends JPanel {
     public void resetTextFields() {
         this.hotelNameField.setText("");
         this.roomQuantiField.setText("");
+        this.deluxeQuantiField.setText("");
+        this.executiveQuantiField.setText("");
     }
 }

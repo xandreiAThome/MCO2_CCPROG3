@@ -93,11 +93,17 @@ public class HRSController implements ActionListener {
 
             JTextField hotelNameField = ((CreateHotelView) this.createHotelView).getHotelNameField();
             JTextField roomQuantiField = ((CreateHotelView) this.createHotelView).getRoomQuantiField();
+            JTextField deluxeQuantiField = ((CreateHotelView) this.createHotelView).getDeluxeQuantiField();
+            JTextField executiveQuantiField = ((CreateHotelView) this.createHotelView).getExecutiveQuantiField();
 
             int amount = 0;
+            int deluxeAmount = 0;
+            int executiveAmount = 0;
 
             try {
                 amount = Integer.valueOf(roomQuantiField.getText());
+                deluxeAmount = Integer.valueOf(deluxeQuantiField.getText());
+                executiveAmount = Integer.valueOf(executiveQuantiField.getText());
             } catch (Exception err) {
                 System.out.println(err.getMessage());
             }
@@ -111,8 +117,12 @@ public class HRSController implements ActionListener {
             } else if (hrsModel.isHotelDup(hotelNameField.getText())) {
                 JOptionPane.showMessageDialog(this.hrsWindow, "Hotel Name already exists",
                         "Error", JOptionPane.WARNING_MESSAGE);
+            } else if (deluxeAmount + executiveAmount > amount) {
+                JOptionPane.showMessageDialog(this.hrsWindow,
+                        "Number of Deluxe and Executive Rooms exceed Rooms created",
+                        "Error", JOptionPane.WARNING_MESSAGE);
             } else {
-                boolean success = hrsModel.addHotel(hotelNameField.getText(), amount);
+                boolean success = hrsModel.addHotel(hotelNameField.getText(), amount, deluxeAmount, executiveAmount);
 
                 if (success) {
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
@@ -120,6 +130,12 @@ public class HRSController implements ActionListener {
                     hrsWindow.validate();
                     JOptionPane.showMessageDialog(this.hrsWindow, "Succesfully added new Hotel",
                             "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
+                    hrsWindow.invalidate();
+                    hrsWindow.validate();
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Failed to created Hotel",
+                            "Error", JOptionPane.WARNING_MESSAGE);
                 }
 
             }

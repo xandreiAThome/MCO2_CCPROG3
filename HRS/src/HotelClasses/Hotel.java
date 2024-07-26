@@ -2,6 +2,8 @@ package HotelClasses;
 
 import java.util.ArrayList;
 
+import HotelClasses.RoomClasses.DeluxeRoom;
+import HotelClasses.RoomClasses.ExecutiveRoom;
 import HotelClasses.RoomClasses.Room;
 
 /**
@@ -24,6 +26,34 @@ public class Hotel {
         for (int i = 1; i <= roomAmount; i++) {
             this.roomList.add(new Room(name + "00" + i));
         }
+    }
+
+    /**
+     * Constructs a Hotel object with a specified name, total number of rooms, and
+     * number of deluxe and executive rooms.
+     * The remaining rooms in the total amount are just normal rooms
+     * 
+     * @param name
+     * @param roomAmount
+     * @param deluxeAmount
+     * @param executiveAmount
+     */
+    public Hotel(String name, int roomAmount, int deluxeAmount, int executiveAmount) {
+        this.name = name;
+        this.roomList = new ArrayList<Room>();
+
+        for (int i = 1; i <= roomAmount - deluxeAmount - executiveAmount; i++) {
+            this.roomList.add(new Room(name + "00" + i));
+        }
+
+        for (int i = 1; i <= deluxeAmount; i++) {
+            this.roomList.add(new DeluxeRoom(name + "55" + i));
+        }
+
+        for (int i = 1; i <= executiveAmount; i++) {
+            this.roomList.add(new ExecutiveRoom(name + "77" + i));
+        }
+
     }
 
     /**

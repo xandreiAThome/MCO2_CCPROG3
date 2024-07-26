@@ -26,6 +26,17 @@ public class HRSModel {
         return false;
     }
 
+    public boolean addHotel(String hotelName, int roomAmount, int deluxeAmount, int executiveAmount) {
+        try {
+            this.hotelList.add(new Hotel(hotelName, roomAmount, deluxeAmount, executiveAmount));
+            return true;
+        } catch (Exception e) {
+
+        }
+
+        return false;
+    }
+
     public boolean isHotelDup(String name) {
         for (Hotel h : this.hotelList) {
             if (name.equals(h.getName())) {
