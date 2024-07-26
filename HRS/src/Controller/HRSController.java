@@ -55,6 +55,11 @@ public class HRSController implements ActionListener {
             hrsWindow.validate();
             ((CreateHotelView) createHotelView).resetTextFields();
         } else if (e.getActionCommand().equals("Manage Hotel")) {
+            ManageHotelView manageHotelTemp = ((ManageHotelView) manageHotelView);
+            manageHotelTemp.resetEntries();
+            SelectHotelPanel selectHotelTemp = ((SelectHotelPanel) manageHotelTemp.getSelectHotelPanel());
+            selectHotelTemp.updateHotelDisplay(hrsModel.getHotelList());
+            selectHotelTemp.dynamicSetActionListenerOfHotelButtons(this);
             hrsWindow.setContentPane(this.manageHotelView);
             hrsWindow.invalidate();
             hrsWindow.validate();
