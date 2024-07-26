@@ -80,6 +80,8 @@ public class BookReservationView extends JPanel {
         this.chooseHotelContainer.add(chooseHotelLabel, BorderLayout.SOUTH);
         //////////////////////////////////////////////////
 
+        // Choose Date Panel
+
         selectDatePanel = new SelectDatePanel("Book");
 
         ////////////////////////////////////////

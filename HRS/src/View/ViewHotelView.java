@@ -12,8 +12,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import CustomJPanels.SelectDatePanel;
 import CustomJPanels.SelectHotelPanel;
+import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
+import HotelClasses.Reservation;
 import HotelClasses.RoomClasses.Room;
 
 public class ViewHotelView extends JPanel {
@@ -26,7 +30,9 @@ public class ViewHotelView extends JPanel {
     private JPanel chooseOptionPanel;
     private JButton checkRoomAvail, checkRoomInfo, checkReserveInfo;
     private JPanel roomAvailPanel, roomInfoPanel, reserveInfoPanel, chooseRoomPanel, hotelInfoPanel;
-    private Room chosenRoom;
+    private Room chosenRoom = null;
+    private JPanel chooseRoomForInformationPanel, chooseDateForAvailabilityPanel;
+    private Reservation chosenReservationToCompare = null;
 
     public ViewHotelView() {
         this.setLayout(new BorderLayout());
@@ -61,10 +67,10 @@ public class ViewHotelView extends JPanel {
         chooseHotelContainer.add(selectHotelPanel, BorderLayout.CENTER);
 
         //////////////////////////////////////////////////
-        JPanel chooseOptionBorderWrapper = new JPanel(new BorderLayout());
-        chooseOptionPanel = new JPanel(new GridBagLayout());
 
         // Choose Option Panel /////////////////////////
+        JPanel chooseOptionBorderWrapper = new JPanel(new BorderLayout());
+        chooseOptionPanel = new JPanel(new GridBagLayout());
         checkRoomInfo = new JButton("Check Room Information");
         checkRoomAvail = new JButton("Check Room Availability");
         checkReserveInfo = new JButton("Check Reservation Information");
@@ -84,11 +90,19 @@ public class ViewHotelView extends JPanel {
 
         /////////////////////////////////////////////////
 
+        // Choose Room for to view Room Information
+        chooseRoomForInformationPanel = new SelectRoomPanel();
+
+        // Choose Date to see available rooms
+        chooseDateForAvailabilityPanel = new SelectDatePanel("See Available Rooms for the Date");
+
         cardContainer = new JPanel();
         clayout = new CardLayout();
         cardContainer.setLayout(clayout);
         cardContainer.add(chooseHotelContainer, "chooseHotel");
         cardContainer.add(chooseOptionBorderWrapper, "chooseOption");
+        cardContainer.add(chooseRoomForInformationPanel, "chooseRoom");
+        cardContainer.add(chooseDateForAvailabilityPanel, "chooseDate");
 
         clayout.show(cardContainer, "chooseHotel");
 
@@ -99,6 +113,9 @@ public class ViewHotelView extends JPanel {
 
     public void setActionListener(ActionListener listener) {
         this.returnHomeButton.addActionListener(listener);
+        this.checkRoomInfo.addActionListener(listener);
+        this.checkRoomAvail.addActionListener(listener);
+        this.checkReserveInfo.addActionListener(listener);
     }
 
     public void updateHotelInfoPanel() {
@@ -136,6 +153,22 @@ public class ViewHotelView extends JPanel {
         this.chosenHotel = hotel;
     }
 
+    public void setChosenRoom(Room room) {
+        this.chosenRoom = room;
+    }
+
+    public Room getChosenRoom() {
+        return this.chosenRoom;
+    }
+
+    public Reservation getChosenReservation() {
+        return this.chosenReservationToCompare;
+    }
+
+    public void setChosenReservation(Reservation reservation) {
+        this.chosenReservationToCompare = reservation;
+    }
+
     public void showChooseOptionPanel() {
         clayout.show(cardContainer, "chooseOption");
     }
@@ -144,8 +177,25 @@ public class ViewHotelView extends JPanel {
         clayout.show(cardContainer, "chooseHotel");
     }
 
+    public void showChooseRoomPanel() {
+        clayout.show(cardContainer, "chooseRoom");
+    }
+
+    public void showChooseDatePanel() {
+        clayout.show(cardContainer, "chooseDate");
+    }
+
     public void resetEntries() {
         showChooseHotelPanel();
         chosenHotel = null;
+        chosenRoom = null;
+    }
+
+    public JPanel getChooseRoomPanel() {
+        return chooseRoomForInformationPanel;
+    }
+
+    public JPanel getChooseDatePanel() {
+        return chooseDateForAvailabilityPanel;
     }
 }

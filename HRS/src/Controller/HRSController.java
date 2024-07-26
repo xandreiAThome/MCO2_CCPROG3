@@ -214,10 +214,27 @@ public class HRSController implements ActionListener {
                         viewHotelTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
                         viewHotelTemp.showChooseOptionPanel();
                         viewHotelTemp.updateHotelInfoPanel();
+                        SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) ((ViewHotelView) viewHotelView)
+                                .getChooseRoomPanel());
+                        selectRoomTemp.updateRoomListButtons(viewHotelTemp.getChosenHotel().getRoomList());
+                        selectRoomTemp.dynamicSetActionListenerOfHotelButtons(this);
                     }
                 }
-            } else {
+            } else if (e.getActionCommand().equals("Check Room Information")) {
+                viewHotelTemp.showChooseRoomPanel();
 
+            } else if (e.getActionCommand().equals("Check Room Availability")) {
+                viewHotelTemp.showChooseDatePanel();
+            }
+            // Choose Room to display Information
+            else if (viewHotelTemp.getChosenRoom() == null) {
+                SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) ((ViewHotelView) viewHotelView)
+                        .getChooseRoomPanel());
+                for (JButton button : selectRoomTemp.getRoomListButtons()) {
+                    if (e.getSource() == button) {
+                        viewHotelTemp.setChosenRoom(viewHotelTemp.getChosenHotel().getRoom(e.getActionCommand()));
+                    }
+                }
             }
         }
         //////////////////////////////////////////////
