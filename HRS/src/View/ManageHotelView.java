@@ -8,9 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.GridBagConstraints;  
-import java.awt.GridBagLayout;  
-
 
 public class ManageHotelView extends JPanel {
     private JButton returnHomeButton;
@@ -25,16 +22,13 @@ public class ManageHotelView extends JPanel {
         label.setForeground(Color.WHITE);
 
         JPanel northPanel = new JPanel();
-        northPanel.setBackground(Color.WHITE);
+        northPanel.setBackground(Color.BLUE);
         northPanel.add(this.returnHomeButton);
         northPanel.add(label);
 
         this.add(northPanel);
 
-        JPanel centralPanel = new JPanel();
-
     }
-
     public void setActionListener(ActionListener listener) {
         this.returnHomeButton.addActionListener(listener);
     }
