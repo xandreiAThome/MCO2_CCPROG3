@@ -227,6 +227,8 @@ public class HRSController implements ActionListener {
         }
         //////////////////////////////////////////////
 
+        //Manage Hotel 
+        //Choose Hotel
         else if (((JPanel) hrsWindow.getContentPane()) == manageHotelView) {
             ManageHotelView manageHotelTemp = ((ManageHotelView) manageHotelView);
             SelectHotelPanel selectHotelTemp = ((SelectHotelPanel) manageHotelTemp.getSelectHotelPanel());
@@ -238,8 +240,21 @@ public class HRSController implements ActionListener {
                         manageHotelTemp.updateHotelInfoPanel();
                     }
                 }
-            } else {
-
+            //Change Hotel Name working, with confimation, with dup checker
+            } else if (e.getActionCommand().equals("Change Hotel Name")) {
+                String newHotelName = JOptionPane.showInputDialog(this.hrsWindow, "Enter new hotel name:", "Change Hotel Name", JOptionPane.QUESTION_MESSAGE);
+                if (newHotelName!= null &&!newHotelName.isEmpty()) {
+                    if (hrsModel.isHotelDup(newHotelName) &&!newHotelName.equals(manageHotelTemp.getChosenHotel().getName())) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name already exists", "Error", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        int confirm = JOptionPane.showConfirmDialog(this.hrsWindow, "Are you sure you want to change the hotel name to " + newHotelName + "?", "Confirm", JOptionPane.YES_NO_OPTION);
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            manageHotelTemp.getChosenHotel().setName(newHotelName);
+                            manageHotelTemp.updateHotelInfoPanel();
+                            JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name changed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                }
             }
         }
     }

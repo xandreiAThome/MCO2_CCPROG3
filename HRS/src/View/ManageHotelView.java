@@ -24,7 +24,7 @@ public class ManageHotelView extends JPanel {
     private CardLayout clayout;
     private Hotel chosenHotel = null;
     private JPanel chooseOptionPanel;
-    private JButton changeHotelName, addRooms, removeRooms, updateBasePrice, removeReservation, removeHotel, dateModifier;
+    private JButton changeHotelName, addRooms, removeRooms, updateBasePrice, removeReservation, removeHotel, dateModifier, modifyRoomType;
     private JPanel hotelInfoPanel;
     
     public ManageHotelView() {
@@ -49,7 +49,7 @@ public class ManageHotelView extends JPanel {
         // Choose Hotel Container///////////////////////////////
         chooseHotelContainer = new JPanel(new BorderLayout());
 
-        JLabel chooseHotelLabel = new JLabel("Choose Hotel to View");
+        JLabel chooseHotelLabel = new JLabel("Choose Hotel to Manage");
         chooseHotelLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseHotelLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
@@ -71,6 +71,7 @@ public class ManageHotelView extends JPanel {
         removeReservation = new JButton("Remove Reservation");
         removeHotel = new JButton("Remove Hotel");
         dateModifier = new JButton("Modify Date");
+        modifyRoomType = new JButton("Modify Room Type");
         chooseOptionPanel.add(changeHotelName, gbc);
         chooseOptionPanel.add(addRooms, gbc);
         chooseOptionPanel.add(removeRooms, gbc);
@@ -78,6 +79,7 @@ public class ManageHotelView extends JPanel {
         chooseOptionPanel.add(removeReservation, gbc);
         chooseOptionPanel.add(removeHotel, gbc);
         chooseOptionPanel.add(dateModifier, gbc);
+        chooseOptionPanel.add(modifyRoomType, gbc);
         JLabel chooseOptionLabel = new JLabel("Choose Option");
         chooseOptionLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseOptionLabel.setVerticalAlignment(JLabel.TOP);
@@ -106,6 +108,7 @@ public class ManageHotelView extends JPanel {
 
     public void setActionListener(ActionListener listener) {
         this.returnHomeButton.addActionListener(listener);
+        this.changeHotelName.addActionListener(listener);
     }
 
     public void updateHotelInfoPanel() {
@@ -156,45 +159,3 @@ public class ManageHotelView extends JPanel {
         chosenHotel = null;
     }
 }
-
-
-
-
-/*
-package View;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-public class ManageHotelView extends JPanel {
-    private JButton returnHomeButton;
-
-    public ManageHotelView() {
-        this.setLayout(new BorderLayout());
-
-        this.returnHomeButton = new JButton("Home");
-
-        JLabel label = new JLabel("Manage Hotel");
-        label.setFont(new Font("Verdana", Font.BOLD, 20));
-        label.setForeground(Color.WHITE);
-
-        JPanel northPanel = new JPanel();
-        northPanel.setBackground(Color.BLUE);
-        northPanel.add(this.returnHomeButton);
-        northPanel.add(label);
-
-        this.add(northPanel);
-
-    }
-    public void setActionListener(ActionListener listener) {
-        this.returnHomeButton.addActionListener(listener);
-    }
-
-}
-*/
