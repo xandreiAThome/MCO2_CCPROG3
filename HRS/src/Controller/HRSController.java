@@ -240,7 +240,7 @@ public class HRSController implements ActionListener {
                         manageHotelTemp.updateHotelInfoPanel();
                     }
                 }
-            //Change Hotel Name working, with confimation, with dup checker
+            //Change Hotel Name working, with confirmation, with dup checker
             } else if (e.getActionCommand().equals("Change Hotel Name")) {
                 String newHotelName = JOptionPane.showInputDialog(this.hrsWindow, "Enter new hotel name:", "Change Hotel Name", JOptionPane.QUESTION_MESSAGE);
                 if (newHotelName!= null &&!newHotelName.isEmpty()) {
@@ -255,7 +255,22 @@ public class HRSController implements ActionListener {
                         }
                     }
                 }
-            }
+
+            //Not yet working figuring out how select room pannel works pa
+            } else if (e.getActionCommand().equals("Modify Room Type")){
+                String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
+            
+
+            //Remove hotel working, with confirmation
+            } else if (e.getActionCommand().equals("Remove Hotel")) {
+                int confirm = JOptionPane.showConfirmDialog(this.hrsWindow, "Are you sure you want to remove the hotel " + manageHotelTemp.getChosenHotel().getName() + "?", "Confirm", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    hrsModel.removeHotel(manageHotelTemp.getChosenHotel());
+                    manageHotelTemp.resetEntries();
+                    selectHotelTemp.updateHotelDisplay(hrsModel.getHotelList());
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Hotel removed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }    
         }
     }
 

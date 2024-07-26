@@ -45,4 +45,9 @@ public class HRSModel {
 
         return null;
     }
+
+    public boolean removeHotel (Hotel hotel){
+        return this.hotelList.remove(hotel);
+    }
+
 }

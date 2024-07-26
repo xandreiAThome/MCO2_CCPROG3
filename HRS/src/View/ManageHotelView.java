@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import CustomJPanels.SelectHotelPanel;
+import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
 import HotelClasses.RoomClasses.Room;
 
@@ -26,6 +27,8 @@ public class ManageHotelView extends JPanel {
     private JPanel chooseOptionPanel;
     private JButton changeHotelName, addRooms, removeRooms, updateBasePrice, removeReservation, removeHotel, dateModifier, modifyRoomType;
     private JPanel hotelInfoPanel;
+    private SelectRoomPanel selectRoomPanel;
+    private Room chosenRoom = null;
     
     public ManageHotelView() {
         this.setLayout(new BorderLayout());
@@ -46,6 +49,8 @@ public class ManageHotelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 0);
 
+        selectRoomPanel = new SelectRoomPanel();
+
         // Choose Hotel Container///////////////////////////////
         chooseHotelContainer = new JPanel(new BorderLayout());
 
@@ -65,21 +70,21 @@ public class ManageHotelView extends JPanel {
 
         // Choose Option Panel /////////////////////////
         changeHotelName = new JButton("Change Hotel Name");
+        modifyRoomType = new JButton("Modify Room Type");
         addRooms = new JButton("Add Rooms");
         removeRooms = new JButton("Remove Rooms");
         updateBasePrice = new JButton("Update Base Price");
         removeReservation = new JButton("Remove Reservation");
-        removeHotel = new JButton("Remove Hotel");
         dateModifier = new JButton("Modify Date");
-        modifyRoomType = new JButton("Modify Room Type");
+        removeHotel = new JButton("Remove Hotel");
         chooseOptionPanel.add(changeHotelName, gbc);
+        chooseOptionPanel.add(modifyRoomType, gbc);
         chooseOptionPanel.add(addRooms, gbc);
         chooseOptionPanel.add(removeRooms, gbc);
         chooseOptionPanel.add(updateBasePrice, gbc);
         chooseOptionPanel.add(removeReservation, gbc);
-        chooseOptionPanel.add(removeHotel, gbc);
         chooseOptionPanel.add(dateModifier, gbc);
-        chooseOptionPanel.add(modifyRoomType, gbc);
+        chooseOptionPanel.add(removeHotel, gbc);
         JLabel chooseOptionLabel = new JLabel("Choose Option");
         chooseOptionLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseOptionLabel.setVerticalAlignment(JLabel.TOP);
@@ -98,6 +103,8 @@ public class ManageHotelView extends JPanel {
         cardContainer.setLayout(clayout);
         cardContainer.add(chooseHotelContainer, "chooseHotel");
         cardContainer.add(chooseOptionBorderWrapper, "chooseOption");
+        cardContainer.add(selectRoomPanel, "room");
+
 
         clayout.show(cardContainer, "chooseHotel");
 
@@ -109,6 +116,9 @@ public class ManageHotelView extends JPanel {
     public void setActionListener(ActionListener listener) {
         this.returnHomeButton.addActionListener(listener);
         this.changeHotelName.addActionListener(listener);
+        this.removeHotel.addActionListener(listener);
+        this.modifyRoomType.addActionListener(listener);
+
     }
 
     public void updateHotelInfoPanel() {
@@ -157,5 +167,17 @@ public class ManageHotelView extends JPanel {
     public void resetEntries() {
         showChooseHotelPanel();
         chosenHotel = null;
+    }
+
+    public JPanel getSelectRoomPanel() {
+        return selectRoomPanel;
+    }
+
+    public void setChosenRoom(Room room) {
+        this.chosenRoom = room;
+    }
+
+    public Room getChosenRoom() {
+        return this.chosenRoom;
     }
 }
