@@ -226,6 +226,22 @@ public class HRSController implements ActionListener {
             }
         }
         //////////////////////////////////////////////
+
+        else if (((JPanel) hrsWindow.getContentPane()) == manageHotelView) {
+            ManageHotelView manageHotelTemp = ((ManageHotelView) manageHotelView);
+            SelectHotelPanel selectHotelTemp = ((SelectHotelPanel) manageHotelTemp.getSelectHotelPanel());
+            if (manageHotelTemp.getChosenHotel() == null) {
+                for (JButton button : selectHotelTemp.getHotelListButtons()) {
+                    if (e.getSource() == button) {
+                        manageHotelTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
+                        manageHotelTemp.showChooseOptionPanel();
+                        manageHotelTemp.updateHotelInfoPanel();
+                    }
+                }
+            } else {
+
+            }
+        }
     }
 
 }
