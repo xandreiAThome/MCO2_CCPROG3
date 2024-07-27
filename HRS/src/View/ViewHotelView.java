@@ -21,7 +21,6 @@ import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Date;
 import HotelClasses.Day;
 import HotelClasses.Hotel;
-import HotelClasses.Month;
 import HotelClasses.Reservation;
 import HotelClasses.RoomClasses.Room;
 
@@ -34,8 +33,7 @@ public class ViewHotelView extends JPanel {
     private Hotel chosenHotel = null;
     private JPanel chooseOptionPanel;
     private JButton checkRoomAvail, checkRoomInfo, checkReserveInfo;
-    private JPanel roomAvailPanel, roomAvailPanelContainer, roomInfoPanel, reserveInfoPanel, chooseRoomPanel,
-            hotelInfoPanel;
+    private JPanel roomAvailPanel, roomAvailPanelContainer, roomInfoPanel, reserveInfoPanel, hotelInfoPanel;
     private Room chosenRoom = null;
     private JPanel chooseRoomForInformationPanel, chooseDateForAvailabilityPanel;
     private Reservation chosenReservationToCompare = null;
