@@ -275,7 +275,32 @@ public class HRSController implements ActionListener {
 
             } else if (e.getActionCommand().equals("Check Room Availability")) {
                 viewHotelTemp.showChooseDatePanel();
-            } else if (e.getActionCommand().equals("See Available Rooms for the Date")) {
+            } else if (e.getActionCommand().equals("Check Reservation Information")) {
+                String guestName = JOptionPane.showInputDialog(this.hrsWindow, "Enter Guest Name:",
+                        "Enter Name", JOptionPane.QUESTION_MESSAGE);
+
+                if (!viewHotelTemp.getChosenHotel().guestExists(guestName)) {
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a Reservation",
+                            "Error", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    Reservation reservation = null;
+                    for (Room room : viewHotelTemp.getChosenHotel().getRoomList()) {
+                        reservation = room.getReservation(guestName);
+                        if (reservation != null) {
+                            break;
+                        }
+                    }
+
+                    if (reservation == null) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a Reservation",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        viewHotelTemp.showReservationInfoPanel(reservation);
+                    }
+                }
+            }
+
+            else if (e.getActionCommand().equals("See Available Rooms for the Date")) {
                 SelectDatePanel selectDatePanel = (SelectDatePanel) viewHotelTemp.getSelectDatePanel();
                 int checkInDay = selectDatePanel.getCheckInDay();
                 int checkOutDay = selectDatePanel.getCheckOutDay();

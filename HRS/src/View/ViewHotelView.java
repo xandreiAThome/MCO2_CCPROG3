@@ -106,6 +106,9 @@ public class ViewHotelView extends JPanel {
         // Choose Date to see available rooms
         chooseDateForAvailabilityPanel = new SelectDatePanel("See Available Rooms for the Date");
 
+        // Reservation Information panel
+        reserveInfoPanel = new JPanel(new BorderLayout());
+
         cardContainer = new JPanel();
         clayout = new CardLayout();
         cardContainer.setLayout(clayout);
@@ -115,6 +118,7 @@ public class ViewHotelView extends JPanel {
         cardContainer.add(chooseDateForAvailabilityPanel, "chooseDate");
         cardContainer.add(roomAvailPanelContainer, "availableRooms");
         cardContainer.add(roomInfoPanel, "roomInformation");
+        cardContainer.add(reserveInfoPanel, "reservationInformation");
 
         clayout.show(cardContainer, "chooseHotel");
 
@@ -238,7 +242,7 @@ public class ViewHotelView extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 0, 10, 0);
+        gbc.insets = new Insets(15, 0, 7, 0);
 
         JPanel roomInfoLabelContainer = new JPanel(new GridBagLayout());
 
@@ -288,6 +292,84 @@ public class ViewHotelView extends JPanel {
         roomInfoPanel.add(roomInfoLabelContainer, BorderLayout.NORTH);
         roomInfoPanel.add(calendarContainer, BorderLayout.CENTER);
         clayout.show(cardContainer, "roomInformation");
+    }
 
+    public void showReservationInfoPanel(Reservation reservation) {
+        reserveInfoPanel.removeAll();
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        JPanel labelContainer = new JPanel(new GridBagLayout());
+
+        JLabel guestName = new JLabel("Guest name: " + reservation.getGuestName());
+        guestName.setHorizontalAlignment(JLabel.CENTER);
+        guestName.setVerticalAlignment(JLabel.TOP);
+        guestName.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+        JLabel checkInLabel = new JLabel("Check-in Date: Day " + reservation.getCheckInDate().getDay() + " - "
+                + reservation.getCheckInDate().getHour() + "HH");
+        checkInLabel.setHorizontalAlignment(JLabel.CENTER);
+        checkInLabel.setVerticalAlignment(JLabel.TOP);
+        checkInLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+        JLabel checkOutLabel = new JLabel("Check-in Date: Day " + reservation.getCheckInDate().getDay() + " - "
+                + reservation.getCheckInDate().getHour() + "HH");
+        checkOutLabel.setHorizontalAlignment(JLabel.CENTER);
+        checkOutLabel.setVerticalAlignment(JLabel.TOP);
+        checkOutLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+        JLabel totalPriceLabel = new JLabel("Total price: " + reservation.getTotalPrice());
+        totalPriceLabel.setHorizontalAlignment(JLabel.CENTER);
+        totalPriceLabel.setVerticalAlignment(JLabel.TOP);
+        totalPriceLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+        JLabel roomInfoLabel = new JLabel("Room name: " + reservation.getChosenRoom().getName()
+                + "    Price per night: " + reservation.getChosenRoom().getBasePrice());
+        roomInfoLabel.setHorizontalAlignment(JLabel.CENTER);
+        roomInfoLabel.setVerticalAlignment(JLabel.TOP);
+        roomInfoLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+        JLabel roomAvailLabel = new JLabel("Room availabilty for the month");
+        roomAvailLabel.setHorizontalAlignment(JLabel.CENTER);
+        roomAvailLabel.setVerticalAlignment(JLabel.TOP);
+        roomAvailLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+        labelContainer.add(guestName, gbc);
+        labelContainer.add(checkInLabel, gbc);
+        labelContainer.add(checkOutLabel, gbc);
+        labelContainer.add(totalPriceLabel, gbc);
+        labelContainer.add(roomInfoLabel, gbc);
+        labelContainer.add(roomAvailLabel, gbc);
+
+        Day roomCalendar[] = reservation.getChosenRoom().getMonth().getCalendar();
+
+        JPanel calendarContainer = new JPanel(new GridLayout(4, 10, 5, 5));
+        calendarContainer.setBorder(new EmptyBorder(40, 250, 40, 250));
+
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        gbc2.gridwidth = GridBagConstraints.REMAINDER;
+        gbc2.fill = GridBagConstraints.HORIZONTAL;
+
+        for (int i = 1; i <= 31; i++) {
+            JPanel dayContainer = new JPanel(new GridBagLayout());
+            dayContainer.setBorder(new LineBorder(Color.BLACK, 2, true));
+            JLabel day = new JLabel("" + i);
+            day.setHorizontalAlignment(JLabel.CENTER);
+            if (roomCalendar[i - 1].getIsBooked()) {
+                dayContainer.add(day, gbc2);
+                dayContainer.add(new JLabel("Booked"), gbc2);
+            } else {
+                dayContainer.add(day, gbc2);
+                dayContainer.add(new JLabel("Available"), gbc2);
+            }
+            calendarContainer.add(dayContainer);
+        }
+
+        reserveInfoPanel.add(labelContainer, BorderLayout.NORTH);
+        reserveInfoPanel.add(calendarContainer, BorderLayout.CENTER);
+        clayout.show(cardContainer, "reservationInformation");
     }
 }
