@@ -26,12 +26,13 @@ public class ManageHotelView extends JPanel {
     private CardLayout clayout;
     private Hotel chosenHotel = null;
     private JPanel chooseOptionPanel;
-    private JButton changeHotelName, addRooms, removeRooms, updateBasePrice, removeReservation, removeHotel, dateModifier, modifyRoomType;
+    private JButton changeHotelName, addRooms, removeRooms, updateBasePrice, removeReservation, removeHotel,
+            dateModifier, modifyRoomType;
     private JPanel hotelInfoPanel;
     private SelectRoomPanel selectRoomPanel;
     private Room chosenRoom = null;
     private JPanel roomPanel;
-    
+
     public ManageHotelView() {
         this.setLayout(new BorderLayout());
 
@@ -51,8 +52,8 @@ public class ManageHotelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 0);
 
-       // Choose Room Panel //////////////////////////////
-       selectRoomPanel = new SelectRoomPanel();
+        // Choose Room Panel //////////////////////////////
+        selectRoomPanel = new SelectRoomPanel("Choose Room");
 
         // Choose Hotel Container///////////////////////////////
         chooseHotelContainer = new JPanel(new BorderLayout());
@@ -107,7 +108,6 @@ public class ManageHotelView extends JPanel {
         cardContainer.add(chooseHotelContainer, "chooseHotel");
         cardContainer.add(chooseOptionBorderWrapper, "chooseOption");
         cardContainer.add(selectRoomPanel, "room");
-
 
         clayout.show(cardContainer, "chooseHotel");
 
