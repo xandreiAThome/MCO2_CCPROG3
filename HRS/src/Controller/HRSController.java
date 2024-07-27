@@ -259,19 +259,7 @@ public class HRSController implements ActionListener {
 
             } else if (e.getActionCommand().equals("Modify Room Type")){
                 //String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
-                //manageHotelTemp.showChooseRoomPanel();
-
-                if (((ManageHotelView) manageHotelView).getChosenRoom() == null) {
-                    for (JButton button : ((SelectRoomPanel) ((ManageHotelView) manageHotelView)
-                            .getSelectRoomPanel())
-                            .getRoomListButtons()) {
-                        if (e.getSource() == button) {
-                            ((ManageHotelView) manageHotelView)
-                                    .setChosenRoom((((ManageHotelView) manageHotelView)
-                                            .getChosenHotel().getRoom(e.getActionCommand())));
-                        }
-                    }
-                }
+                manageHotelTemp.showChooseRoomPanel();
                 
             
             //Remove hotel working, with confirmation

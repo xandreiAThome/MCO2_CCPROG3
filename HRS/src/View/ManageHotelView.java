@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,6 +30,7 @@ public class ManageHotelView extends JPanel {
     private JPanel hotelInfoPanel;
     private SelectRoomPanel selectRoomPanel;
     private Room chosenRoom = null;
+    private JPanel roomPanel;
     
     public ManageHotelView() {
         this.setLayout(new BorderLayout());
@@ -49,7 +51,8 @@ public class ManageHotelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 0);
 
-        selectRoomPanel = new SelectRoomPanel();
+       // Choose Room Panel //////////////////////////////
+       selectRoomPanel = new SelectRoomPanel();
 
         // Choose Hotel Container///////////////////////////////
         chooseHotelContainer = new JPanel(new BorderLayout());
