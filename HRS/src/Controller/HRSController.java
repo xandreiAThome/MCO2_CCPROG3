@@ -227,8 +227,8 @@ public class HRSController implements ActionListener {
         }
         //////////////////////////////////////////////
 
-        //Manage Hotel 
-        //Choose Hotel
+        // Manage Hotel
+        // Choose Hotel
         else if (((JPanel) hrsWindow.getContentPane()) == manageHotelView) {
             ManageHotelView manageHotelTemp = ((ManageHotelView) manageHotelView);
             SelectHotelPanel selectHotelTemp = ((SelectHotelPanel) manageHotelTemp.getSelectHotelPanel());
@@ -238,40 +238,51 @@ public class HRSController implements ActionListener {
                         manageHotelTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
                         manageHotelTemp.showChooseOptionPanel();
                         manageHotelTemp.updateHotelInfoPanel();
+                        SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) manageHotelTemp.getSelectRoomPanel());
+                        selectRoomTemp.updateRoomListButtons(manageHotelTemp.getChosenHotel().getRoomList());
+                        selectRoomTemp.dynamicSetActionListenerOfHotelButtons(this);
                     }
                 }
-            //Change Hotel Name working, with confirmation, with dup checker
+                // Change Hotel Name working, with confirmation, with dup checker
             } else if (e.getActionCommand().equals("Change Hotel Name")) {
-                String newHotelName = JOptionPane.showInputDialog(this.hrsWindow, "Enter new hotel name:", "Change Hotel Name", JOptionPane.QUESTION_MESSAGE);
-                if (newHotelName!= null &&!newHotelName.isEmpty()) {
-                    if (hrsModel.isHotelDup(newHotelName) &&!newHotelName.equals(manageHotelTemp.getChosenHotel().getName())) {
-                        JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name already exists", "Error", JOptionPane.WARNING_MESSAGE);
+                String newHotelName = JOptionPane.showInputDialog(this.hrsWindow, "Enter new hotel name:",
+                        "Change Hotel Name", JOptionPane.QUESTION_MESSAGE);
+                if (newHotelName != null && !newHotelName.isEmpty()) {
+                    if (hrsModel.isHotelDup(newHotelName)
+                            && !newHotelName.equals(manageHotelTemp.getChosenHotel().getName())) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name already exists", "Error",
+                                JOptionPane.WARNING_MESSAGE);
                     } else {
-                        int confirm = JOptionPane.showConfirmDialog(this.hrsWindow, "Are you sure you want to change the hotel name to " + newHotelName + "?", "Confirm", JOptionPane.YES_NO_OPTION);
+                        int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                "Are you sure you want to change the hotel name to " + newHotelName + "?", "Confirm",
+                                JOptionPane.YES_NO_OPTION);
                         if (confirm == JOptionPane.YES_OPTION) {
                             manageHotelTemp.getChosenHotel().setName(newHotelName);
                             manageHotelTemp.updateHotelInfoPanel();
-                            JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name changed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                            //REFRESH OPTIONS PANEL SO THAT THE NEW NAME WILL ALSO BE UPDATED
+                            JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name changed successfully", "Success",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                            // REFRESH OPTIONS PANEL SO THAT THE NEW NAME WILL ALSO BE UPDATED
                         }
                     }
                 }
 
-            } else if (e.getActionCommand().equals("Modify Room Type")){
-                //String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
+            } else if (e.getActionCommand().equals("Modify Room Type")) {
+                // String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
                 manageHotelTemp.showChooseRoomPanel();
-                
-            
-            //Remove hotel working, with confirmation
+
+                // Remove hotel working, with confirmation
             } else if (e.getActionCommand().equals("Remove Hotel")) {
-                int confirm = JOptionPane.showConfirmDialog(this.hrsWindow, "Are you sure you want to remove the hotel " + manageHotelTemp.getChosenHotel().getName() + "?", "Confirm", JOptionPane.YES_NO_OPTION);
+                int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                        "Are you sure you want to remove the hotel " + manageHotelTemp.getChosenHotel().getName() + "?",
+                        "Confirm", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
                     hrsModel.removeHotel(manageHotelTemp.getChosenHotel());
                     manageHotelTemp.resetEntries();
                     selectHotelTemp.updateHotelDisplay(hrsModel.getHotelList());
-                    JOptionPane.showMessageDialog(this.hrsWindow, "Hotel removed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Hotel removed successfully", "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
-            }    
+            }
         }
     }
 
