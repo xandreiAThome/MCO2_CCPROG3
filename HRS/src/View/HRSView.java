@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ModifiedClasses.JPanelWithBackground;
+import CustomJPanels.JPanelWithBackground;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -2,10 +2,12 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.*;
 
 import CustomJPanels.SelectDatePanel;
+import CustomJPanels.SelectDatePanelWithDiscount;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Date;
@@ -98,11 +100,17 @@ public class HRSController implements ActionListener {
 
             JTextField hotelNameField = ((CreateHotelView) this.createHotelView).getHotelNameField();
             JTextField roomQuantiField = ((CreateHotelView) this.createHotelView).getRoomQuantiField();
+            JTextField deluxeQuantiField = ((CreateHotelView) this.createHotelView).getDeluxeQuantiField();
+            JTextField executiveQuantiField = ((CreateHotelView) this.createHotelView).getExecutiveQuantiField();
 
             int amount = 0;
+            int deluxeAmount = 0;
+            int executiveAmount = 0;
 
             try {
                 amount = Integer.valueOf(roomQuantiField.getText());
+                deluxeAmount = Integer.valueOf(deluxeQuantiField.getText());
+                executiveAmount = Integer.valueOf(executiveQuantiField.getText());
             } catch (Exception err) {
                 System.out.println(err.getMessage());
             }
@@ -116,8 +124,12 @@ public class HRSController implements ActionListener {
             } else if (hrsModel.isHotelDup(hotelNameField.getText())) {
                 JOptionPane.showMessageDialog(this.hrsWindow, "Hotel Name already exists",
                         "Error", JOptionPane.WARNING_MESSAGE);
+            } else if (deluxeAmount + executiveAmount > amount) {
+                JOptionPane.showMessageDialog(this.hrsWindow,
+                        "Number of Deluxe and Executive Rooms exceed Rooms created",
+                        "Error", JOptionPane.WARNING_MESSAGE);
             } else {
-                boolean success = hrsModel.addHotel(hotelNameField.getText(), amount);
+                boolean success = hrsModel.addHotel(hotelNameField.getText(), amount, deluxeAmount, executiveAmount);
 
                 if (success) {
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
@@ -125,6 +137,12 @@ public class HRSController implements ActionListener {
                     hrsWindow.validate();
                     JOptionPane.showMessageDialog(this.hrsWindow, "Succesfully added new Hotel",
                             "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
+                    hrsWindow.invalidate();
+                    hrsWindow.validate();
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Failed to created Hotel",
+                            "Error", JOptionPane.WARNING_MESSAGE);
                 }
 
             }
@@ -173,12 +191,13 @@ public class HRSController implements ActionListener {
             }
             // choose reservation
             else if (e.getActionCommand().equals("Book")) {
-                SelectDatePanel selectDatePanel = ((SelectDatePanel) ((BookReservationView) bookReservationView)
+                SelectDatePanelWithDiscount selectDatePanel = ((SelectDatePanelWithDiscount) ((BookReservationView) bookReservationView)
                         .getSelectDatePanel());
                 int checkInDay = selectDatePanel.getCheckInDay();
                 int checkOutDay = selectDatePanel.getCheckOutDay();
                 int checkInHour = selectDatePanel.getCheckInHour();
                 int checkOutHour = selectDatePanel.getCheckOutHour();
+                String discountCode = selectDatePanel.getDiscountTextField().getText();
 
                 Room chosenRoom = ((BookReservationView) bookReservationView).getChosenRoom();
 
@@ -192,16 +211,39 @@ public class HRSController implements ActionListener {
                     JOptionPane.showMessageDialog(this.hrsWindow, "Schedule is is conflict with prior Reservations",
                             "Error", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    chosenRoom.addReservation(
-                            new Reservation(((BookReservationView) bookReservationView).getUserNameField(),
-                                    checkIn, checkOut, chosenRoom));
+                    Reservation reservation = new Reservation(
+                            ((BookReservationView) bookReservationView).getUserNameField(),
+                            checkIn, checkOut, chosenRoom);
+
+                    chosenRoom.addReservation(reservation);
+
                     ((BookReservationView) bookReservationView).resetEntries();
 
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
                     hrsWindow.invalidate();
                     hrsWindow.validate();
-                    JOptionPane.showMessageDialog(this.hrsWindow, "Successfully booked reservation",
-                            "Success", JOptionPane.INFORMATION_MESSAGE);
+                    boolean discountApplied = reservation.applyDiscount(discountCode);
+
+                    if (!discountApplied && discountCode.length() == 0) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Succesfully booked reservation",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else if (!discountApplied
+                            && Arrays.asList(reservation.getDiscountCodeList()).contains(discountCode)) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Succesfully booked reservation\n Discount Code Conditions not fulfilled",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else if (!discountApplied) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Succesfully booked reservation\n Invalid Discount Code",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    } else if (discountApplied) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Succesfully booked reservation\nDiscount Code Applied",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
                 }
 
             }
@@ -219,11 +261,70 @@ public class HRSController implements ActionListener {
                         viewHotelTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
                         viewHotelTemp.showChooseOptionPanel();
                         viewHotelTemp.updateHotelInfoPanel();
+                        SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) ((ViewHotelView) viewHotelView)
+                                .getChooseRoomPanel());
+                        selectRoomTemp.updateRoomListButtons(viewHotelTemp.getChosenHotel().getRoomList());
+                        selectRoomTemp.dynamicSetActionListenerOfHotelButtons(this);
                     }
                 }
-            } else {
+                // Choose Room to display information
+            } else if (e.getActionCommand().equals("Check Room Information")) {
+                SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) ((ViewHotelView) viewHotelView)
+                        .getChooseRoomPanel());
+                for (JButton button : selectRoomTemp.getRoomListButtons()) {
+                    if (e.getSource() == button) {
+                        viewHotelTemp.setChosenRoom(viewHotelTemp.getChosenHotel().getRoom(e.getActionCommand()));
+                    }
+                }
+                viewHotelTemp.showChooseRoomPanel();
 
+            } else if (e.getActionCommand().equals("Check Room Availability")) {
+                viewHotelTemp.showChooseDatePanel();
+            } else if (e.getActionCommand().equals("Check Reservation Information")) {
+                String guestName = JOptionPane.showInputDialog(this.hrsWindow, "Enter Guest Name:",
+                        "Enter Name", JOptionPane.QUESTION_MESSAGE);
+
+                if (!viewHotelTemp.getChosenHotel().guestExists(guestName)) {
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a Reservation",
+                            "Error", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    Reservation reservation = null;
+                    for (Room room : viewHotelTemp.getChosenHotel().getRoomList()) {
+                        reservation = room.getReservation(guestName);
+                        if (reservation != null) {
+                            break;
+                        }
+                    }
+
+                    if (reservation == null) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a Reservation",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        viewHotelTemp.showReservationInfoPanel(reservation);
+                    }
+                }
             }
+
+            else if (e.getActionCommand().equals("See Available Rooms for the Date")) {
+                SelectDatePanel selectDatePanel = (SelectDatePanel) viewHotelTemp.getSelectDatePanel();
+                int checkInDay = selectDatePanel.getCheckInDay();
+                int checkOutDay = selectDatePanel.getCheckOutDay();
+                int checkInHour = selectDatePanel.getCheckInHour();
+                int checkOutHour = selectDatePanel.getCheckOutHour();
+
+                viewHotelTemp.showRoomAvailablePanel(new Date(checkInDay, checkInHour),
+                        new Date(checkOutDay, checkOutHour));
+            }
+            // Choose Room to display information
+            else if (viewHotelTemp.getChosenRoom() == null) {
+                for (JButton button : ((SelectRoomPanel) viewHotelTemp.getSelectRoomPanel()).getRoomListButtons()) {
+                    if (e.getSource() == button) {
+                        viewHotelTemp.setChosenRoom(viewHotelTemp.getChosenHotel().getRoom(e.getActionCommand()));
+                        viewHotelTemp.showRoomInformationPanel();
+                    }
+                }
+            }
+
         }
         //////////////////////////////////////////////
 
