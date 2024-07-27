@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -69,6 +70,10 @@ public class SelectDatePanel extends JPanel {
 
     public JButton getButton() {
         return this.button;
+    }
+
+    public void setActionListener(ActionListener listener) {
+        button.addActionListener(listener);
     }
 
     public int getCheckInDay() {

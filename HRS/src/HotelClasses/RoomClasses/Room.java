@@ -3,6 +3,8 @@ package HotelClasses.RoomClasses;
 import java.util.ArrayList;
 // Room stores its own reservations
 
+import HotelClasses.Date;
+import HotelClasses.Day;
 import HotelClasses.Month;
 import HotelClasses.Reservation;
 
@@ -161,5 +163,18 @@ public class Room {
         }
 
         return result;
+    }
+
+    public boolean isRoomAvailableGivenDate(Date checkIn, Date checkOut) {
+        Day calendar[] = month.getCalendar();
+
+        for (int i = checkIn.getDay() - 1; i < checkOut.getDay(); i++) {
+            if (calendar[i].getIsBooked()) {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 }

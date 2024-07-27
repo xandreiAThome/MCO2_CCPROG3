@@ -57,7 +57,7 @@ public class BookReservationView extends JPanel {
         ///////////////////////////////////////////////
 
         // Choose Room Panel //////////////////////////////
-        selectRoomPanel = new SelectRoomPanel();
+        selectRoomPanel = new SelectRoomPanel("Choose Room");
 
         // Choose Hotel Container ///////////////////////////////
         this.chooseHotelContainer = new JPanel();

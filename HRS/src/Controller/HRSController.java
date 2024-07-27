@@ -262,14 +262,8 @@ public class HRSController implements ActionListener {
                         selectRoomTemp.dynamicSetActionListenerOfHotelButtons(this);
                     }
                 }
+                // Choose Room to display information
             } else if (e.getActionCommand().equals("Check Room Information")) {
-                viewHotelTemp.showChooseRoomPanel();
-
-            } else if (e.getActionCommand().equals("Check Room Availability")) {
-                viewHotelTemp.showChooseDatePanel();
-            }
-            // Choose Room to display Information
-            else if (viewHotelTemp.getChosenRoom() == null) {
                 SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) ((ViewHotelView) viewHotelView)
                         .getChooseRoomPanel());
                 for (JButton button : selectRoomTemp.getRoomListButtons()) {
@@ -277,7 +271,30 @@ public class HRSController implements ActionListener {
                         viewHotelTemp.setChosenRoom(viewHotelTemp.getChosenHotel().getRoom(e.getActionCommand()));
                     }
                 }
+                viewHotelTemp.showChooseRoomPanel();
+
+            } else if (e.getActionCommand().equals("Check Room Availability")) {
+                viewHotelTemp.showChooseDatePanel();
+            } else if (e.getActionCommand().equals("See Available Rooms for the Date")) {
+                SelectDatePanel selectDatePanel = (SelectDatePanel) viewHotelTemp.getSelectDatePanel();
+                int checkInDay = selectDatePanel.getCheckInDay();
+                int checkOutDay = selectDatePanel.getCheckOutDay();
+                int checkInHour = selectDatePanel.getCheckInHour();
+                int checkOutHour = selectDatePanel.getCheckOutHour();
+
+                viewHotelTemp.showRoomAvailablePanel(new Date(checkInDay, checkInHour),
+                        new Date(checkOutDay, checkOutHour));
             }
+            // Choose Room to display information
+            else if (viewHotelTemp.getChosenRoom() == null) {
+                for (JButton button : ((SelectRoomPanel) viewHotelTemp.getSelectRoomPanel()).getRoomListButtons()) {
+                    if (e.getSource() == button) {
+                        viewHotelTemp.setChosenRoom(viewHotelTemp.getChosenHotel().getRoom(e.getActionCommand()));
+                        viewHotelTemp.showRoomInformationPanel();
+                    }
+                }
+            }
+
         }
         //////////////////////////////////////////////
     }
