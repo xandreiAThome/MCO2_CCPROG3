@@ -200,7 +200,7 @@ public class HRSController implements ActionListener {
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
                     hrsWindow.invalidate();
                     hrsWindow.validate();
-                    JOptionPane.showMessageDialog(this.hrsWindow, "Succesfully booked reservation",
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Successfully booked reservation",
                             "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
 
@@ -252,15 +252,28 @@ public class HRSController implements ActionListener {
                             manageHotelTemp.getChosenHotel().setName(newHotelName);
                             manageHotelTemp.updateHotelInfoPanel();
                             JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name changed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            //REFRESH OPTIONS PANEL SO THAT THE NEW NAME WILL ALSO BE UPDATED
                         }
                     }
                 }
 
-            //Not yet working figuring out how select room pannel works pa
             } else if (e.getActionCommand().equals("Modify Room Type")){
-                String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
-            
+                //String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
+                //manageHotelTemp.showChooseRoomPanel();
 
+                if (((ManageHotelView) manageHotelView).getChosenRoom() == null) {
+                    for (JButton button : ((SelectRoomPanel) ((ManageHotelView) manageHotelView)
+                            .getSelectRoomPanel())
+                            .getRoomListButtons()) {
+                        if (e.getSource() == button) {
+                            ((ManageHotelView) manageHotelView)
+                                    .setChosenRoom((((ManageHotelView) manageHotelView)
+                                            .getChosenHotel().getRoom(e.getActionCommand())));
+                        }
+                    }
+                }
+                
+            
             //Remove hotel working, with confirmation
             } else if (e.getActionCommand().equals("Remove Hotel")) {
                 int confirm = JOptionPane.showConfirmDialog(this.hrsWindow, "Are you sure you want to remove the hotel " + manageHotelTemp.getChosenHotel().getName() + "?", "Confirm", JOptionPane.YES_NO_OPTION);

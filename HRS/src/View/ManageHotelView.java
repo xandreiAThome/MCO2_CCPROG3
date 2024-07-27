@@ -164,9 +164,14 @@ public class ManageHotelView extends JPanel {
         clayout.show(cardContainer, "chooseHotel");
     }
 
+    public void showChooseRoomPanel() {
+        clayout.show(cardContainer, "room");
+    }
+
     public void resetEntries() {
         showChooseHotelPanel();
         chosenHotel = null;
+        chosenRoom = null;
     }
 
     public JPanel getSelectRoomPanel() {
