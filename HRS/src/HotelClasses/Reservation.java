@@ -11,6 +11,7 @@ public class Reservation {
     private Date checkOut;
     private Room chosenRoom;
     private double totalPrice;
+    private String discountCodeList[] = { "PAYDAY", "STAY4_GET1", "I_WORK_HERE" };
 
     /**
      * Initializes a Reservation object with the provided guest name, check-in date,
@@ -27,34 +28,6 @@ public class Reservation {
         this.checkOut = checkOut;
         this.chosenRoom = chosenRoom;
         this.totalPrice = chosenRoom.getPriceGivenDateRange(checkIn.getDay(), checkOut.getDay());
-    }
-
-    public Reservation(String guest, Date checkIn, Date checkOut, Room chosenRoom, String discountCode) {
-        this.guest = guest;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.chosenRoom = chosenRoom;
-        this.totalPrice = chosenRoom.getPriceGivenDateRange(checkIn.getDay(), checkOut.getDay());
-
-        switch (discountCode) {
-            case "I_WORK_HERE":
-                this.totalPrice = this.totalPrice - (this.totalPrice * 0.1);
-                break;
-            case "STAY4_GET1":
-                if (reservationDuration() >= 5) {
-                    this.totalPrice -= chosenRoom.getBasePrice()
-                            * chosenRoom.getMonth().getDay(checkIn.getDay()).getPriceRate();
-                }
-                break;
-            case "PAYDAY":
-                if (this.chosenRoom.getMonth().isPayDay(checkIn.getDay(), checkOut.getDay())) {
-                    this.totalPrice = totalPrice - (totalPrice * 0.07);
-                }
-                break;
-
-            default:
-                break;
-        }
     }
 
     // ADD TO NEW UML
@@ -109,5 +82,38 @@ public class Reservation {
      */
     public double getTotalPrice() {
         return this.totalPrice;
+    }
+
+    public String[] getDiscountCodeList() {
+        return this.discountCodeList;
+    }
+
+    public boolean applyDiscount(String discountCode) {
+        boolean applied = false;
+        switch (discountCode) {
+            case "I_WORK_HERE":
+                this.totalPrice = this.totalPrice - (this.totalPrice * 0.1);
+                System.out.println(this.totalPrice);
+                applied = true;
+                break;
+            case "STAY4_GET1":
+                if (reservationDuration() >= 5) {
+                    this.totalPrice -= chosenRoom.getBasePrice()
+                            * chosenRoom.getMonth().getDay(checkIn.getDay()).getPriceRate();
+                    applied = true;
+                }
+                break;
+            case "PAYDAY":
+                if (this.chosenRoom.getMonth().isPayDay(checkIn.getDay(), checkOut.getDay())) {
+                    this.totalPrice = totalPrice - (totalPrice * 0.07);
+                    applied = true;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        return applied;
     }
 }

@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import CustomJPanels.SelectDatePanel;
+import CustomJPanels.SelectDatePanelWithDiscount;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
@@ -82,7 +83,7 @@ public class BookReservationView extends JPanel {
 
         // Choose Date Panel
 
-        selectDatePanel = new SelectDatePanel("Book");
+        selectDatePanel = new SelectDatePanelWithDiscount("Book");
 
         ////////////////////////////////////////
 

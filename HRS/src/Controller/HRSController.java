@@ -2,10 +2,12 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.*;
 
 import CustomJPanels.SelectDatePanel;
+import CustomJPanels.SelectDatePanelWithDiscount;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Date;
@@ -184,12 +186,13 @@ public class HRSController implements ActionListener {
             }
             // choose reservation
             else if (e.getActionCommand().equals("Book")) {
-                SelectDatePanel selectDatePanel = ((SelectDatePanel) ((BookReservationView) bookReservationView)
+                SelectDatePanelWithDiscount selectDatePanel = ((SelectDatePanelWithDiscount) ((BookReservationView) bookReservationView)
                         .getSelectDatePanel());
                 int checkInDay = selectDatePanel.getCheckInDay();
                 int checkOutDay = selectDatePanel.getCheckOutDay();
                 int checkInHour = selectDatePanel.getCheckInHour();
                 int checkOutHour = selectDatePanel.getCheckOutHour();
+                String discountCode = selectDatePanel.getDiscountTextField().getText();
 
                 Room chosenRoom = ((BookReservationView) bookReservationView).getChosenRoom();
 
@@ -203,16 +206,39 @@ public class HRSController implements ActionListener {
                     JOptionPane.showMessageDialog(this.hrsWindow, "Schedule is is conflict with prior Reservations",
                             "Error", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    chosenRoom.addReservation(
-                            new Reservation(((BookReservationView) bookReservationView).getUserNameField(),
-                                    checkIn, checkOut, chosenRoom));
+                    Reservation reservation = new Reservation(
+                            ((BookReservationView) bookReservationView).getUserNameField(),
+                            checkIn, checkOut, chosenRoom);
+
+                    chosenRoom.addReservation(reservation);
+
                     ((BookReservationView) bookReservationView).resetEntries();
 
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
                     hrsWindow.invalidate();
                     hrsWindow.validate();
-                    JOptionPane.showMessageDialog(this.hrsWindow, "Succesfully booked reservation",
-                            "Success", JOptionPane.INFORMATION_MESSAGE);
+                    boolean discountApplied = reservation.applyDiscount(discountCode);
+
+                    if (!discountApplied && discountCode.length() == 0) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Succesfully booked reservation",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else if (!discountApplied
+                            && Arrays.asList(reservation.getDiscountCodeList()).contains(discountCode)) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Succesfully booked reservation\n Discount Code Conditions not fulfilled",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else if (!discountApplied) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Succesfully booked reservation\n Invalid Discount Code",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    } else if (discountApplied) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Succesfully booked reservation\nDiscount Code Applied",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
                 }
 
             }
