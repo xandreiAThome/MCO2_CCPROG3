@@ -2,11 +2,12 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Arrays;
 
 import javax.swing.*;
 
-import CustomJPanels.DisplayRoomPanel;
+import CustomJPanels.JPanelWithBackground;
 import CustomJPanels.SelectDatePanel;
 import CustomJPanels.SelectDatePanelWithDiscount;
 import CustomJPanels.SelectHotelPanel;
@@ -27,12 +28,12 @@ public class HRSController implements ActionListener {
     private HRSModel hrsModel;
 
     private HRSView hrsWindow;
-    private JPanel createHotelView;
+    private JPanelWithBackground createHotelView;
     private JPanel manageHotelView;
-    private JPanel viewHotelView;
-    private JPanel bookReservationView;
+    private JPanelWithBackground viewHotelView;
+    private JPanelWithBackground bookReservationView;
 
-    public HRSController(HRSView hrsWindow, HRSModel hrsModel) {
+    public HRSController(HRSView hrsWindow, HRSModel hrsModel) throws IOException {
         this.hrsModel = hrsModel;
 
         this.hrsWindow = hrsWindow;
@@ -151,6 +152,7 @@ public class HRSController implements ActionListener {
             }
 
         }
+
         // Book Reservation Events /////////////////////////
         // choose hotel
         else if (((JPanel) hrsWindow.getContentPane()) == bookReservationView) {
@@ -218,33 +220,57 @@ public class HRSController implements ActionListener {
                             ((BookReservationView) bookReservationView).getUserNameField(),
                             checkIn, checkOut, chosenRoom);
 
-                    chosenRoom.addReservation(reservation);
-
-                    ((BookReservationView) bookReservationView).resetEntries();
-
-                    hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
-                    hrsWindow.invalidate();
-                    hrsWindow.validate();
                     boolean discountApplied = reservation.applyDiscount(discountCode);
 
-                    if (!discountApplied && discountCode.length() == 0) {
-                        JOptionPane.showMessageDialog(this.hrsWindow,
-                                "Succesfully booked reservation",
-                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    int confirm = 0;
+
+                    if (discountCode.length() == 0 || discountApplied) {
+                        confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                "Total price of booking: " + reservation.getTotalPrice() + "\nConfirm Booking?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION);
                     } else if (!discountApplied
                             && Arrays.asList(reservation.getDiscountCodeList()).contains(discountCode)) {
-                        JOptionPane.showMessageDialog(this.hrsWindow,
-                                "Succesfully booked reservation\n Discount Code Conditions not fulfilled",
-                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                        confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                "Total price of booking: " + reservation.getTotalPrice()
+                                        + "\nDiscount Code Conditions not fulfilled" + "\nConfirm Booking?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION);
                     } else if (!discountApplied) {
-                        JOptionPane.showMessageDialog(this.hrsWindow,
-                                "Succesfully booked reservation\n Invalid Discount Code",
-                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                        confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                "Total price of booking: " + reservation.getTotalPrice()
+                                        + "\n Invalid discount code" + "\nConfirm Booking?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION);
+                    }
 
-                    } else if (discountApplied) {
-                        JOptionPane.showMessageDialog(this.hrsWindow,
-                                "Succesfully booked reservation\nDiscount Code Applied",
-                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        chosenRoom.addReservation(reservation);
+
+                        ((BookReservationView) bookReservationView).resetEntries();
+
+                        hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
+                        hrsWindow.invalidate();
+                        hrsWindow.validate();
+                        if (!discountApplied && discountCode.length() == 0) {
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Succesfully booked reservation",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (!discountApplied
+                                && Arrays.asList(reservation.getDiscountCodeList()).contains(discountCode)) {
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Succesfully booked reservation\n Discount Code Conditions not fulfilled",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (!discountApplied) {
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Succesfully booked reservation\n Invalid Discount Code",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                        } else if (discountApplied) {
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Succesfully booked reservation\nDiscount Code Applied",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
 
                 }
@@ -319,8 +345,14 @@ public class HRSController implements ActionListener {
                 int checkInHour = selectDatePanel.getCheckInHour();
                 int checkOutHour = selectDatePanel.getCheckOutHour();
 
-                viewHotelTemp.showRoomAvailablePanel(new Date(checkInDay, checkInHour),
-                        new Date(checkOutDay, checkOutHour));
+                if (checkOutDay <= checkInDay) {
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Check Out must not be before Check In",
+                            "Error", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    viewHotelTemp.showRoomAvailablePanel(new Date(checkInDay, checkInHour),
+                            new Date(checkOutDay, checkOutHour));
+                }
+
             }
             // Choose Room to display information
             else if (viewHotelTemp.getChosenRoom() == null) {
@@ -349,7 +381,8 @@ public class HRSController implements ActionListener {
                         SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) manageHotelTemp.getSelectRoomPanel());
                         selectRoomTemp.updateRoomListButtons(manageHotelTemp.getChosenHotel().getRoomList());
                         selectRoomTemp.dynamicSetActionListenerOfHotelButtons(this);
-                        DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp.getDisplayRoomPanel());
+                        DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp
+                                .getDisplayRoomPanel());
                         displayRoomPanelTemp.updateRoomCounts(manageHotelTemp.getChosenHotel().getRoomList());
                         displayRoomPanelTemp.updateRoomList(manageHotelTemp.getChosenHotel().getRoomList());
                     }
@@ -381,16 +414,18 @@ public class HRSController implements ActionListener {
                 // String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
                 manageHotelTemp.showChooseRoomPanel();
 
-            //Add rooms working, with confirmation and check if above 50 rooms
-            } else if (e.getActionCommand().equals("Add Rooms")){
+                // Add rooms working, with confirmation and check if above 50 rooms
+            } else if (e.getActionCommand().equals("Add Rooms")) {
                 manageHotelTemp.showDisplayRoomPanel();
-                String roomType = JOptionPane.showInputDialog(this.hrsWindow, "Enter room type (Standard, Deluxe, Executive):",
+                String roomType = JOptionPane.showInputDialog(this.hrsWindow,
+                        "Enter room type (Standard, Deluxe, Executive):",
                         "Add Rooms", JOptionPane.QUESTION_MESSAGE);
                 if (roomType != null && !roomType.isEmpty()) {
                     int numRooms = 0;
                     try {
-                        numRooms = Integer.parseInt(JOptionPane.showInputDialog(this.hrsWindow, "Enter number of rooms to add:",
-                                "Add Rooms", JOptionPane.QUESTION_MESSAGE));
+                        numRooms = Integer
+                                .parseInt(JOptionPane.showInputDialog(this.hrsWindow, "Enter number of rooms to add:",
+                                        "Add Rooms", JOptionPane.QUESTION_MESSAGE));
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(this.hrsWindow, "Invalid input. Please enter a valid number.",
                                 "Error", JOptionPane.WARNING_MESSAGE);
@@ -440,14 +475,15 @@ public class HRSController implements ActionListener {
                             roomNumber++;
                         }
 
-                        DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp.getDisplayRoomPanel());
+                        DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp
+                                .getDisplayRoomPanel());
                         displayRoomPanelTemp.updateRoomCounts(manageHotelTemp.getChosenHotel().getRoomList());
                         displayRoomPanelTemp.updateRoomList(manageHotelTemp.getChosenHotel().getRoomList());
                         JOptionPane.showMessageDialog(this.hrsWindow, "Rooms added successfully!",
                                 "Success", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
-            } else if (e.getActionCommand().equals("Remove Rooms")){
+            } else if (e.getActionCommand().equals("Remove Rooms")) {
                 if (((ManageHotelView) manageHotelTemp).getChosenRoom() == null) {
                     for (JButton button : ((SelectRoomPanel) ((ManageHotelView) manageHotelTemp)
                             .getSelectRoomPanel())
@@ -456,7 +492,8 @@ public class HRSController implements ActionListener {
                             ((ManageHotelView) manageHotelTemp)
                                     .setChosenRoom((((ManageHotelView) manageHotelTemp)
                                             .getChosenHotel().getRoom(e.getActionCommand())));
-                            //Create a JPanel that will ask if remove the room if yes show an are you sure message then if yes remove
+                            // Create a JPanel that will ask if remove the room if yes show an are you sure
+                            // message then if yes remove
                         }
                     }
                 }

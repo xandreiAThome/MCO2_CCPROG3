@@ -3,18 +3,23 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import CustomJPanels.JPanelWithBackground;
 import CustomJPanels.SelectDatePanel;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
@@ -24,11 +29,11 @@ import HotelClasses.Hotel;
 import HotelClasses.Reservation;
 import HotelClasses.RoomClasses.Room;
 
-public class ViewHotelView extends JPanel {
+public class ViewHotelView extends JPanelWithBackground {
     private JButton returnHomeButton;
     private JPanel chooseHotelContainer;
     private SelectHotelPanel selectHotelPanel;
-    private JPanel cardContainer;
+    private JPanelWithBackground cardContainer;
     private CardLayout clayout;
     private Hotel chosenHotel = null;
     private JPanel chooseOptionPanel;
@@ -38,7 +43,8 @@ public class ViewHotelView extends JPanel {
     private JPanel chooseRoomForInformationPanel, chooseDateForAvailabilityPanel;
     private Reservation chosenReservationToCompare = null;
 
-    public ViewHotelView() {
+    public ViewHotelView() throws IOException {
+        super("View/pics/pages.jpg");
         this.setLayout(new BorderLayout());
 
         this.returnHomeButton = new JButton("Home");
@@ -48,9 +54,9 @@ public class ViewHotelView extends JPanel {
         label.setForeground(Color.WHITE);
 
         JPanel northPanel = new JPanel();
-        northPanel.setBackground(Color.BLUE);
         northPanel.add(this.returnHomeButton);
         northPanel.add(label);
+        northPanel.setBackground(new Color(0, 0, 0, 120));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -59,55 +65,70 @@ public class ViewHotelView extends JPanel {
 
         // Choose Hotel Container///////////////////////////////
         chooseHotelContainer = new JPanel(new BorderLayout());
-
+        chooseHotelContainer.setOpaque(false);
+        JPanel northLabelContainer = new JPanel(new FlowLayout());
+        northLabelContainer.setBackground(new Color(0, 0, 0, 120));
         JLabel chooseHotelLabel = new JLabel("Choose Hotel to View");
+        chooseHotelLabel.setForeground(Color.white);
         chooseHotelLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseHotelLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
-        selectHotelPanel = new SelectHotelPanel();
-        chooseHotelContainer.add(chooseHotelLabel, BorderLayout.NORTH);
+        selectHotelPanel = new SelectHotelPanel(new Color(0, 0, 0, 120));
+        northLabelContainer.add(chooseHotelLabel);
+        chooseHotelContainer.add(northLabelContainer, BorderLayout.NORTH);
         chooseHotelContainer.add(selectHotelPanel, BorderLayout.CENTER);
 
         //////////////////////////////////////////////////
 
         // Choose Option Panel /////////////////////////
         JPanel chooseOptionBorderWrapper = new JPanel(new BorderLayout());
+        chooseOptionBorderWrapper.setOpaque(false);
         chooseOptionPanel = new JPanel(new GridBagLayout());
+        chooseOptionPanel.setBackground(new Color(0, 0, 0, 120));
         checkRoomInfo = new JButton("Check Room Information");
         checkRoomAvail = new JButton("Check Room Availability");
         checkReserveInfo = new JButton("Check Reservation Information");
         chooseOptionPanel.add(checkReserveInfo, gbc);
         chooseOptionPanel.add(checkRoomAvail, gbc);
         chooseOptionPanel.add(checkRoomInfo, gbc);
+        JPanel southPanel = new JPanel(new FlowLayout());
+        southPanel.setBackground(new Color(0, 0, 0, 120));
         JLabel chooseOptionLabel = new JLabel("Choose Option");
+        chooseOptionLabel.setForeground(Color.white);
         chooseOptionLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseOptionLabel.setVerticalAlignment(JLabel.TOP);
         chooseOptionLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseOptionLabel.setBorder(new EmptyBorder(0, 0, 20, 0));
-        chooseOptionBorderWrapper.add(chooseOptionLabel, BorderLayout.SOUTH);
+        southPanel.add(chooseOptionLabel);
+        chooseOptionBorderWrapper.add(southPanel, BorderLayout.SOUTH);
         chooseOptionBorderWrapper.add(chooseOptionPanel, BorderLayout.CENTER);
 
         hotelInfoPanel = new JPanel(new GridBagLayout());
+        hotelInfoPanel.setBackground(new Color(0, 0, 0, 120));
         chooseOptionBorderWrapper.add(hotelInfoPanel, BorderLayout.NORTH);
 
         /////////////////////////////////////////////////
 
         // Choose Room for to view Room Information
-        chooseRoomForInformationPanel = new SelectRoomPanel("Choose Room");
+        chooseRoomForInformationPanel = new SelectRoomPanel("Choose Room", Color.WHITE, new Color(0, 0, 0, 120));
 
         // Room Information Panel
         roomInfoPanel = new JPanel(new BorderLayout());
+        roomInfoPanel.setOpaque(false);
 
         // Available Rooms Panel
         roomAvailPanelContainer = new JPanel(new BorderLayout());
+        roomAvailPanelContainer.setOpaque(false);
 
         // Choose Date to see available rooms
-        chooseDateForAvailabilityPanel = new SelectDatePanel("See Available Rooms for the Date");
+        chooseDateForAvailabilityPanel = new SelectDatePanel("See Available Rooms for the Date", Color.white,
+                new Color(0, 0, 0, 120));
 
         // Reservation Information panel
         reserveInfoPanel = new JPanel(new BorderLayout());
+        reserveInfoPanel.setOpaque(false);
 
-        cardContainer = new JPanel();
+        cardContainer = new JPanelWithBackground("View/pics/pages.jpg");
         clayout = new CardLayout();
         cardContainer.setLayout(clayout);
         cardContainer.add(chooseHotelContainer, "chooseHotel");
@@ -143,11 +164,14 @@ public class ViewHotelView extends JPanel {
 
         JLabel hotelName = new JLabel("Hotel " + chosenHotel.getName());
         hotelName.setHorizontalAlignment(JLabel.CENTER);
+        hotelName.setForeground(Color.white);
         hotelName.setFont(new Font("Verdana", Font.BOLD, 16));
         JLabel numOfRoom = new JLabel("Number of Rooms: " + chosenHotel.getRoomAmt());
+        numOfRoom.setForeground(Color.white);
         numOfRoom.setHorizontalAlignment(JLabel.CENTER);
         numOfRoom.setFont(new Font("Verdana", Font.BOLD, 16));
         JLabel earningForMonth = new JLabel("Estimated earnings for the Month: " + chosenHotel.earningForMonth());
+        earningForMonth.setForeground(Color.white);
         earningForMonth.setHorizontalAlignment(JLabel.CENTER);
         earningForMonth.setFont(new Font("Verdana", Font.BOLD, 16));
 
@@ -210,6 +234,7 @@ public class ViewHotelView extends JPanel {
 
     public void resetEntries() {
         showChooseHotelPanel();
+        ((SelectDatePanel) chooseDateForAvailabilityPanel).resetEntries();
         chosenHotel = null;
         chosenRoom = null;
     }
@@ -225,7 +250,8 @@ public class ViewHotelView extends JPanel {
     public void showRoomAvailablePanel(Date checkIn, Date checkOut) {
         roomAvailPanelContainer.removeAll();
         roomAvailPanel = new SelectRoomPanel("Available Rooms from day " + checkIn.getDay() + "-" + checkIn.getHour()
-                + "HH to day " + checkOut.getDay() + "-" + checkOut.getHour() + "HH");
+                + "HH to day " + checkOut.getDay() + "-" + checkOut.getHour() + "HH", Color.white,
+                new Color(0, 0, 0, 120));
 
         roomAvailPanelContainer.add(roomAvailPanel);
         ((SelectRoomPanel) roomAvailPanel).updateRoomListButtonsAvailableGivenDate(chosenHotel.getRoomList(), checkIn,
@@ -243,18 +269,22 @@ public class ViewHotelView extends JPanel {
         gbc.insets = new Insets(15, 0, 7, 0);
 
         JPanel roomInfoLabelContainer = new JPanel(new GridBagLayout());
+        roomInfoLabelContainer.setBackground(new Color(0, 0, 0, 120));
 
         JLabel roomInfoLabel = new JLabel("Room Name: " + chosenRoom.getName());
         roomInfoLabel.setHorizontalAlignment(JLabel.CENTER);
         roomInfoLabel.setVerticalAlignment(JLabel.TOP);
+        roomInfoLabel.setForeground(Color.white);
         roomInfoLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
 
         JLabel roomInfoPrice = new JLabel("Price per night: " + chosenRoom.getBasePrice());
+        roomInfoPrice.setForeground(Color.white);
         roomInfoPrice.setHorizontalAlignment(JLabel.CENTER);
         roomInfoPrice.setVerticalAlignment(JLabel.TOP);
         roomInfoPrice.setFont(new Font("Verdana", Font.PLAIN, 20));
 
         JLabel roomAvailLabel = new JLabel("Room Availability for the month");
+        roomAvailLabel.setForeground(Color.white);
         roomAvailLabel.setHorizontalAlignment(JLabel.CENTER);
         roomAvailLabel.setVerticalAlignment(JLabel.TOP);
         roomAvailLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -266,6 +296,7 @@ public class ViewHotelView extends JPanel {
         Day roomCalendar[] = chosenRoom.getMonth().getCalendar();
 
         JPanel calendarContainer = new JPanel(new GridLayout(4, 10, 5, 5));
+        calendarContainer.setBackground(new Color(0, 0, 0, 120));
         calendarContainer.setBorder(new EmptyBorder(80, 250, 80, 250));
 
         GridBagConstraints gbc2 = new GridBagConstraints();
@@ -301,36 +332,43 @@ public class ViewHotelView extends JPanel {
         gbc.insets = new Insets(10, 0, 10, 0);
 
         JPanel labelContainer = new JPanel(new GridBagLayout());
+        labelContainer.setBackground(new Color(0, 0, 0, 120));
 
         JLabel guestName = new JLabel("Guest name: " + reservation.getGuestName());
+        guestName.setForeground(Color.white);
         guestName.setHorizontalAlignment(JLabel.CENTER);
         guestName.setVerticalAlignment(JLabel.TOP);
         guestName.setFont(new Font("Verdana", Font.PLAIN, 16));
 
         JLabel checkInLabel = new JLabel("Check-in Date: Day " + reservation.getCheckInDate().getDay() + " - "
                 + reservation.getCheckInDate().getHour() + "HH");
+        checkInLabel.setForeground(Color.white);
         checkInLabel.setHorizontalAlignment(JLabel.CENTER);
         checkInLabel.setVerticalAlignment(JLabel.TOP);
         checkInLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
 
-        JLabel checkOutLabel = new JLabel("Check-in Date: Day " + reservation.getCheckInDate().getDay() + " - "
-                + reservation.getCheckInDate().getHour() + "HH");
+        JLabel checkOutLabel = new JLabel("Check-out Date: Day " + reservation.getCheckOutDate().getDay() + " - "
+                + reservation.getCheckOutDate().getHour() + "HH");
+        checkOutLabel.setForeground(Color.white);
         checkOutLabel.setHorizontalAlignment(JLabel.CENTER);
         checkOutLabel.setVerticalAlignment(JLabel.TOP);
         checkOutLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
 
         JLabel totalPriceLabel = new JLabel("Total price: " + reservation.getTotalPrice());
+        totalPriceLabel.setForeground(Color.white);
         totalPriceLabel.setHorizontalAlignment(JLabel.CENTER);
         totalPriceLabel.setVerticalAlignment(JLabel.TOP);
         totalPriceLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
 
         JLabel roomInfoLabel = new JLabel("Room name: " + reservation.getChosenRoom().getName()
                 + "    Price per night: " + reservation.getChosenRoom().getBasePrice());
+        roomInfoLabel.setForeground(Color.white);
         roomInfoLabel.setHorizontalAlignment(JLabel.CENTER);
         roomInfoLabel.setVerticalAlignment(JLabel.TOP);
         roomInfoLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
 
         JLabel roomAvailLabel = new JLabel("Room availabilty for the month");
+        roomAvailLabel.setForeground(Color.white);
         roomAvailLabel.setHorizontalAlignment(JLabel.CENTER);
         roomAvailLabel.setVerticalAlignment(JLabel.TOP);
         roomAvailLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -345,6 +383,7 @@ public class ViewHotelView extends JPanel {
         Day roomCalendar[] = reservation.getChosenRoom().getMonth().getCalendar();
 
         JPanel calendarContainer = new JPanel(new GridLayout(4, 10, 5, 5));
+        calendarContainer.setBackground(new Color(0, 0, 0, 120));
         calendarContainer.setBorder(new EmptyBorder(40, 250, 40, 250));
 
         GridBagConstraints gbc2 = new GridBagConstraints();

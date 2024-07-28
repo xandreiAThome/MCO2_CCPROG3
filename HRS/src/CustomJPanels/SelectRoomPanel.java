@@ -23,21 +23,32 @@ public class SelectRoomPanel extends JPanel {
     private JPanel chooseRoomButtonContainer;
     private ArrayList<JButton> roomListButtons = new ArrayList<JButton>();
 
-    public SelectRoomPanel(String label) {
+    private JPanel wrapper;
+
+    public SelectRoomPanel(String label, Color fontColor, Color backgroundColor) {
         this.setLayout(new BorderLayout());
+        this.setOpaque(false);
+
+        wrapper = new JPanel(new BorderLayout());
+        wrapper.setBackground(backgroundColor);
 
         JLabel chooseRoomLabel = new JLabel(label);
         chooseRoomLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseRoomLabel.setBorder(new EmptyBorder(20, 0, 80, 0));
+        chooseRoomLabel.setForeground(fontColor);
         chooseRoomLabel.setHorizontalAlignment(JLabel.CENTER);
-        this.add(chooseRoomLabel, BorderLayout.NORTH);
+        wrapper.add(chooseRoomLabel, BorderLayout.NORTH);
         chooseRoomButtonContainer = new JPanel();
         chooseRoomButtonContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        this.add(chooseRoomButtonContainer, BorderLayout.CENTER);
+        chooseRoomButtonContainer.setOpaque(false);
+        wrapper.add(chooseRoomButtonContainer, BorderLayout.CENTER);
         JLabel legendLabel = new JLabel(
                 "Legend: White - Standard Room    Purple - Deluxe Room    Gold - Executive Room");
         legendLabel.setHorizontalAlignment(JLabel.CENTER);
-        this.add(legendLabel, BorderLayout.SOUTH);
+        legendLabel.setForeground(fontColor);
+        wrapper.add(legendLabel, BorderLayout.SOUTH);
+
+        this.add(wrapper, BorderLayout.CENTER);
     }
 
     /**

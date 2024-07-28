@@ -1,5 +1,7 @@
 package CustomJPanels;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,13 +15,19 @@ import HotelClasses.Hotel;
 
 public class SelectHotelPanel extends JPanel {
     private ArrayList<JButton> hotelListButtons = new ArrayList<JButton>();
+    private JPanel wrapper;
 
-    public SelectHotelPanel() {
+    public SelectHotelPanel(Color backgroundColor) {
+        wrapper = new JPanel(new GridBagLayout());
+        wrapper.setBackground(backgroundColor);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        this.setLayout(new GridBagLayout());
+        this.setLayout(new BorderLayout());
+        this.setOpaque(false);
+        this.add(wrapper, BorderLayout.CENTER);
+
     }
 
     /**
@@ -37,7 +45,7 @@ public class SelectHotelPanel extends JPanel {
         // done this way so for when editing hotel name is implemented, the option names
         // are also updated
         for (JButton hotelOption : this.hotelListButtons) {
-            this.remove(hotelOption);
+            wrapper.remove(hotelOption);
         }
         this.hotelListButtons.clear();
         if (hotelList.size() > 0) {
@@ -46,7 +54,7 @@ public class SelectHotelPanel extends JPanel {
             }
 
             for (JButton hotelDisplay : this.hotelListButtons) {
-                this.add(hotelDisplay, gbc);
+                wrapper.add(hotelDisplay, gbc);
             }
         }
     }

@@ -55,7 +55,7 @@ public class ManageHotelView extends JPanel {
         gbc.insets = new Insets(10, 0, 10, 0);
 
         // Choose Room Panel //////////////////////////////
-        selectRoomPanel = new SelectRoomPanel("Choose Room");
+        selectRoomPanel = new SelectRoomPanel("Choose Room", Color.BLACK, new Color(0, 0, 0, 0));
 
         // Room display Panel /////////////////////////////
         displayRoomPanel = new DisplayRoomPanel();
@@ -69,7 +69,7 @@ public class ManageHotelView extends JPanel {
         chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseHotelLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
 
-        selectHotelPanel = new SelectHotelPanel();
+        selectHotelPanel = new SelectHotelPanel(new Color(0, 0, 0, 0));
 
         chooseHotelContainer.add(chooseHotelLabel, BorderLayout.NORTH);
         chooseHotelContainer.add(selectHotelPanel, BorderLayout.CENTER);

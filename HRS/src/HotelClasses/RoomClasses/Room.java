@@ -169,7 +169,15 @@ public class Room {
         Day calendar[] = month.getCalendar();
 
         for (int i = checkIn.getDay() - 1; i < checkOut.getDay(); i++) {
-            if (calendar[i].getIsBooked()) {
+            if (calendar[i].getIsCheckOut()
+                    && calendar[i].getReservation().getCheckOutDate().getDay() == checkIn.getDay()
+                    && calendar[i].getReservation().getCheckOutDate().getHour() < checkIn.getHour()) {
+                continue;
+            } else if (calendar[i].getIsCheckIn()
+                    && calendar[i].getReservation().getCheckInDate().getDay() == checkOut.getDay()
+                    && calendar[i].getReservation().getCheckInDate().getHour() > checkOut.getHour()) {
+                continue;
+            } else if (calendar[i].getIsBooked()) {
                 return false;
             }
         }
