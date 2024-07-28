@@ -2,7 +2,6 @@ package CustomJPanels;
 
 import java.awt.Color;
 
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;

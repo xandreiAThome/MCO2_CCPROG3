@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import HotelClasses.RoomClasses.DeluxeRoom;
 import HotelClasses.RoomClasses.ExecutiveRoom;
@@ -47,7 +46,7 @@ public class DisplayRoomPanel extends JPanel {
         this.add(roomListPanel, BorderLayout.CENTER);
 
         JLabel legendLabel = new JLabel(
-            "Legend: White - Standard Room    Purple - Deluxe Room    Gold - Executive Room");
+                "Legend: White - Standard Room    Purple - Deluxe Room    Gold - Executive Room");
         legendLabel.setHorizontalAlignment(JLabel.CENTER);
         this.add(legendLabel, BorderLayout.SOUTH);
     }
