@@ -130,6 +130,8 @@ public class ManageHotelView extends JPanel {
         this.removeHotel.addActionListener(listener);
         this.modifyRoomType.addActionListener(listener);
         this.addRooms.addActionListener(listener);
+        this.removeRooms.addActionListener(listener);
+
 
 
     }

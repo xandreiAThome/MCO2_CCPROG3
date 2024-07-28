@@ -485,6 +485,7 @@ public class HRSController implements ActionListener {
                     }
                 }
             } else if (e.getActionCommand().equals("Remove Rooms")) {
+                manageHotelTemp.showChooseRoomPanel();
                 if (((ManageHotelView) manageHotelTemp).getChosenRoom() == null) {
                     for (JButton button : ((SelectRoomPanel) ((ManageHotelView) manageHotelTemp)
                             .getSelectRoomPanel())
@@ -493,11 +494,11 @@ public class HRSController implements ActionListener {
                             ((ManageHotelView) manageHotelTemp)
                                     .setChosenRoom((((ManageHotelView) manageHotelTemp)
                                             .getChosenHotel().getRoom(e.getActionCommand())));
-                            // Create a JPanel that will ask if remove the room if yes show an are you sure
-                            // message then if yes remove
+                            ((ManageHotelView) manageHotelTemp).showDisplayRoomPanel();
                         }
                     }
                 }
+
                 // Remove hotel working, with confirmation
             } else if (e.getActionCommand().equals("Remove Hotel")) {
                 int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,

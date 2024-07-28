@@ -175,6 +175,10 @@ public class Hotel {
         }
     }
 
+    public void removeRoom(Room room){
+        this.roomList.remove(room);
+    }
+
     /**
      * Retrieves a Room object from roomList based on its index.
      * 
