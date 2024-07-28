@@ -396,7 +396,7 @@ public class HRSController implements ActionListener {
                         displayPricesTemp.updatePrices(manageHotelTemp.getChosenHotel().getRoom(0).getBasePrice());
                     }
                 }
-            // Change Hotel Name working, with confirmation, with dup checker
+                // Change Hotel Name working, with confirmation, with dup checker
             } else if (e.getActionCommand().equals("Change Hotel Name")) {
                 String newHotelName = JOptionPane.showInputDialog(this.hrsWindow, "Enter new hotel name:",
                         "Change Hotel Name", JOptionPane.QUESTION_MESSAGE);
@@ -412,6 +412,7 @@ public class HRSController implements ActionListener {
                         if (confirm == JOptionPane.YES_OPTION) {
                             manageHotelTemp.getChosenHotel().setName(newHotelName);
                             manageHotelTemp.updateHotelInfoPanel();
+                            manageHotelTemp.validate();
 
                             JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name changed successfully", "Success",
                                     JOptionPane.INFORMATION_MESSAGE);
@@ -454,7 +455,7 @@ public class HRSController implements ActionListener {
                             JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         String hotelName = manageHotelTemp.getChosenHotel().getName();
-                        int roomNumber = manageHotelTemp.getChosenHotel().getTotalRoomAmt()+1;
+                        int roomNumber = manageHotelTemp.getChosenHotel().getTotalRoomAmt() + 1;
 
                         for (int i = 0; i < numRooms; i++) {
                             String roomName = "";
@@ -535,8 +536,8 @@ public class HRSController implements ActionListener {
 
             } else if (e.getActionCommand().equals("Remove Reservation")) {
                 String guestName = JOptionPane.showInputDialog(this.hrsWindow,
-                "Enter the guest name of the reservation to be removed:",
-                "Remove Reservation", JOptionPane.QUESTION_MESSAGE);
+                        "Enter the guest name of the reservation to be removed:",
+                        "Remove Reservation", JOptionPane.QUESTION_MESSAGE);
                 if (guestName != null && !guestName.isEmpty()) {
                     if (!manageHotelTemp.getChosenHotel().guestExists(guestName)) {
                         JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a reservation",
