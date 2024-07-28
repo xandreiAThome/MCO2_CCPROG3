@@ -1,4 +1,4 @@
-## Continue with displaying buttons with color depending with the type of the room
+## Make removing room to display room choices
 
 ### Images used
 

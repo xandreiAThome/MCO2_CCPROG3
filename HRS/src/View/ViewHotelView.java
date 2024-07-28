@@ -296,7 +296,7 @@ public class ViewHotelView extends JPanelWithBackground {
 
         JPanel calendarContainer = new JPanel(new GridLayout(4, 10, 5, 5));
         calendarContainer.setBackground(new Color(0, 0, 0, 120));
-        calendarContainer.setBorder(new EmptyBorder(80, 250, 80, 250));
+        calendarContainer.setBorder(new EmptyBorder(80, 180, 80, 180));
 
         GridBagConstraints gbc2 = new GridBagConstraints();
         gbc2.gridwidth = GridBagConstraints.REMAINDER;
@@ -307,13 +307,20 @@ public class ViewHotelView extends JPanelWithBackground {
             dayContainer.setBorder(new LineBorder(Color.BLACK, 2, true));
             JLabel day = new JLabel("" + i);
             day.setHorizontalAlignment(JLabel.CENTER);
+            dayContainer.add(day, gbc2);
+            JLabel statusLabel = new JLabel();
+            statusLabel.setHorizontalAlignment(JLabel.CENTER);
             if (roomCalendar[i - 1].getIsBooked()) {
-                dayContainer.add(day, gbc2);
-                dayContainer.add(new JLabel("Booked"), gbc2);
+                statusLabel.setText("Booked");
+                dayContainer.add(statusLabel, gbc2);
             } else {
-                dayContainer.add(day, gbc2);
-                dayContainer.add(new JLabel("Available"), gbc2);
+                statusLabel.setText("Available");
+                dayContainer.add(statusLabel, gbc2);
             }
+
+            JLabel priceRateLabel = new JLabel((roomCalendar[i - 1].getPriceRate() * 100) + "% of base price");
+            priceRateLabel.setFont(new Font("Verdana", Font.PLAIN, 8));
+            dayContainer.add(priceRateLabel, gbc2);
             calendarContainer.add(dayContainer);
         }
 
@@ -353,7 +360,7 @@ public class ViewHotelView extends JPanelWithBackground {
         checkOutLabel.setVerticalAlignment(JLabel.TOP);
         checkOutLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
 
-        JLabel totalPriceLabel = new JLabel("Total price: " + reservation.getTotalPrice());
+        JLabel totalPriceLabel = new JLabel("Total price of reservation: " + reservation.getTotalPrice());
         totalPriceLabel.setForeground(Color.white);
         totalPriceLabel.setHorizontalAlignment(JLabel.CENTER);
         totalPriceLabel.setVerticalAlignment(JLabel.TOP);
@@ -383,7 +390,7 @@ public class ViewHotelView extends JPanelWithBackground {
 
         JPanel calendarContainer = new JPanel(new GridLayout(4, 10, 5, 5));
         calendarContainer.setBackground(new Color(0, 0, 0, 120));
-        calendarContainer.setBorder(new EmptyBorder(40, 250, 40, 250));
+        calendarContainer.setBorder(new EmptyBorder(40, 180, 40, 180));
 
         GridBagConstraints gbc2 = new GridBagConstraints();
         gbc2.gridwidth = GridBagConstraints.REMAINDER;
@@ -394,13 +401,19 @@ public class ViewHotelView extends JPanelWithBackground {
             dayContainer.setBorder(new LineBorder(Color.BLACK, 2, true));
             JLabel day = new JLabel("" + i);
             day.setHorizontalAlignment(JLabel.CENTER);
+            dayContainer.add(day, gbc2);
+            JLabel statusLabel = new JLabel();
+            statusLabel.setHorizontalAlignment(JLabel.CENTER);
             if (roomCalendar[i - 1].getIsBooked()) {
-                dayContainer.add(day, gbc2);
-                dayContainer.add(new JLabel("Booked"), gbc2);
+                statusLabel.setText("Booked");
+                dayContainer.add(statusLabel, gbc2);
             } else {
-                dayContainer.add(day, gbc2);
-                dayContainer.add(new JLabel("Available"), gbc2);
+                statusLabel.setText("Available");
+                dayContainer.add(statusLabel, gbc2);
             }
+            JLabel priceRateLabel = new JLabel((roomCalendar[i - 1].getPriceRate() * 100) + "% of base price");
+            priceRateLabel.setFont(new Font("Verdana", Font.PLAIN, 8));
+            dayContainer.add(priceRateLabel, gbc2);
             calendarContainer.add(dayContainer);
         }
 
