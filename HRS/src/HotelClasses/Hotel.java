@@ -215,4 +215,22 @@ public class Hotel {
         
         return false;
     }
+
+    public void setPriceRate(int day, double newRate){
+        for (Room room : this.roomList) {
+            room.getMonth().getDay(day).setPriceRate(newRate);
+            }
+    }
+
+    public boolean hasReservationDay(int day){
+        for (Room room : this.roomList) {
+            if (room.getMonth().getDay(day).getIsBooked()){
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
 }
