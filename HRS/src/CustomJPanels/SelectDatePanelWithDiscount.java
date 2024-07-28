@@ -1,5 +1,7 @@
 package CustomJPanels;
 
+import java.awt.Color;
+
 import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,18 +11,21 @@ import javax.swing.border.EmptyBorder;
 public class SelectDatePanelWithDiscount extends SelectDatePanel {
     private JTextField discountTextField;
 
-    public SelectDatePanelWithDiscount(String buttonAction) {
-        super(buttonAction);
+    public SelectDatePanelWithDiscount(String buttonAction, Color fontColor, Color backgroundColor) {
+        super(buttonAction, fontColor, backgroundColor);
 
         JPanel textFieldContainer = new JPanel();
-        textFieldContainer.add(new JLabel("Enter Discount Code"));
+        JLabel discountLabel = new JLabel("Enter Discount Code");
+        discountLabel.setForeground(fontColor);
+        textFieldContainer.add(discountLabel);
         textFieldContainer.setBorder(new EmptyBorder(20, 0, 0, 0));
+        textFieldContainer.setOpaque(false);
 
         discountTextField = new JTextField();
         discountTextField.setColumns(10);
         textFieldContainer.add(discountTextField);
 
-        this.add(textFieldContainer);
+        super.getWrapper().add(textFieldContainer);
     }
 
     public JTextField getDiscountTextField() {

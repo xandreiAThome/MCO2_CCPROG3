@@ -2,10 +2,12 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Arrays;
 
 import javax.swing.*;
 
+import CustomJPanels.JPanelWithBackground;
 import CustomJPanels.SelectDatePanel;
 import CustomJPanels.SelectDatePanelWithDiscount;
 import CustomJPanels.SelectHotelPanel;
@@ -24,12 +26,12 @@ public class HRSController implements ActionListener {
     private HRSModel hrsModel;
 
     private HRSView hrsWindow;
-    private JPanel createHotelView;
+    private JPanelWithBackground createHotelView;
     private JPanel manageHotelView;
-    private JPanel viewHotelView;
-    private JPanel bookReservationView;
+    private JPanelWithBackground viewHotelView;
+    private JPanelWithBackground bookReservationView;
 
-    public HRSController(HRSView hrsWindow, HRSModel hrsModel) {
+    public HRSController(HRSView hrsWindow, HRSModel hrsModel) throws IOException {
         this.hrsModel = hrsModel;
 
         this.hrsWindow = hrsWindow;
@@ -148,6 +150,7 @@ public class HRSController implements ActionListener {
             }
 
         }
+
         // Book Reservation Events /////////////////////////
         // choose hotel
         else if (((JPanel) hrsWindow.getContentPane()) == bookReservationView) {
@@ -215,9 +218,29 @@ public class HRSController implements ActionListener {
                             ((BookReservationView) bookReservationView).getUserNameField(),
                             checkIn, checkOut, chosenRoom);
 
-                    int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
-                            "Total price of booking: " + reservation.getTotalPrice() + "\nConfirm Booking?", "Confirm",
-                            JOptionPane.YES_NO_OPTION);
+                    boolean discountApplied = reservation.applyDiscount(discountCode);
+
+                    int confirm = 0;
+
+                    if (discountCode.length() == 0 || discountApplied) {
+                        confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                "Total price of booking: " + reservation.getTotalPrice() + "\nConfirm Booking?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION);
+                    } else if (!discountApplied
+                            && Arrays.asList(reservation.getDiscountCodeList()).contains(discountCode)) {
+                        confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                "Total price of booking: " + reservation.getTotalPrice()
+                                        + "\nDiscount Code Conditions not fulfilled" + "\nConfirm Booking?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION);
+                    } else if (!discountApplied) {
+                        confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                "Total price of booking: " + reservation.getTotalPrice()
+                                        + "\n Invalid discount code" + "\nConfirm Booking?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION);
+                    }
 
                     if (confirm == JOptionPane.YES_OPTION) {
                         chosenRoom.addReservation(reservation);
@@ -227,7 +250,6 @@ public class HRSController implements ActionListener {
                         hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
                         hrsWindow.invalidate();
                         hrsWindow.validate();
-                        boolean discountApplied = reservation.applyDiscount(discountCode);
                         if (!discountApplied && discountCode.length() == 0) {
                             JOptionPane.showMessageDialog(this.hrsWindow,
                                     "Succesfully booked reservation",

@@ -1,5 +1,7 @@
 package CustomJPanels;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -19,13 +21,17 @@ public class SelectDatePanel extends JPanel {
     private JSpinner checkOutTimeSpinner;
     private JSpinner checkOutDaySpinner;
     private JButton button;
+    private JPanel wrapper;
 
-    public SelectDatePanel(String buttonAction) {
+    public SelectDatePanel(String buttonAction, Color fontColor, Color backgroundColor) {
+        wrapper = new JPanel(new GridBagLayout());
+        wrapper.setBackground(backgroundColor);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        this.setLayout(new GridBagLayout());
+        this.setLayout(new BorderLayout());
+        this.setOpaque(false);
         checkInTimeSpinner = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
         checkInTimeSpinner.setPreferredSize(new Dimension(60, 30));
         checkInDaySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 30, 1));
@@ -36,36 +42,51 @@ public class SelectDatePanel extends JPanel {
         checkOutDaySpinner.setPreferredSize(new Dimension(60, 30));
 
         JPanel checkInContainer = new JPanel();
+        checkInContainer.setOpaque(false);
         JPanel checkOutContainer = new JPanel();
-        JLabel checkInHourFormatLabel = new JLabel("24HH");
-        JLabel checkOutHourFormatLabel = new JLabel("24HH");
+        checkOutContainer.setOpaque(false);
+        JLabel pickHourIn = new JLabel("24HH");
+        JLabel pickHourOut = new JLabel("24HH");
+        pickHourIn.setForeground(fontColor);
+        pickHourOut.setForeground(fontColor);
+        JLabel checkInHourFormatLabel = pickHourIn;
+        JLabel checkOutHourFormatLabel = pickHourOut;
         checkInHourFormatLabel.setBorder(new EmptyBorder(0, 0, 0, 30));
         checkOutHourFormatLabel.setBorder(new EmptyBorder(0, 0, 0, 30));
         checkInContainer.add(checkInTimeSpinner);
         checkInContainer.add(checkInHourFormatLabel);
         checkInContainer.add(checkInDaySpinner);
-        checkInContainer.add(new JLabel("Pick Day"));
+        JLabel pickDayIn = new JLabel("Pick Day");
+        pickDayIn.setForeground(fontColor);
+        checkInContainer.add(pickDayIn);
 
         checkOutContainer.add(checkOutTimeSpinner);
         checkOutContainer.add(checkOutHourFormatLabel);
         checkOutContainer.add(checkOutDaySpinner);
-        checkOutContainer.add(new JLabel("Pick Day"));
+        JLabel pickDayOut = new JLabel("Pick Day");
+        pickDayOut.setForeground(fontColor);
+        checkOutContainer.add(pickDayOut);
         JLabel pickCheckInLabel = new JLabel("Pick Check-in Date");
         JLabel pickCheckOutLabel = new JLabel("Pick Check-out Date");
+        pickCheckInLabel.setForeground(fontColor);
+        pickCheckOutLabel.setForeground(fontColor);
         pickCheckInLabel.setFont(new Font("Verdana", Font.BOLD, 16));
         pickCheckOutLabel.setFont(new Font("Verdana", Font.BOLD, 16));
         pickCheckInLabel.setHorizontalAlignment(JLabel.CENTER);
         pickCheckOutLabel.setHorizontalAlignment(JLabel.CENTER);
         pickCheckOutLabel.setBorder(new EmptyBorder(30, 0, 0, 0));
-        this.add(pickCheckInLabel, gbc);
-        this.add(checkInContainer, gbc);
-        this.add(pickCheckOutLabel, gbc);
-        this.add(checkOutContainer, gbc);
+        wrapper.add(pickCheckInLabel, gbc);
+        wrapper.add(checkInContainer, gbc);
+        wrapper.add(pickCheckOutLabel, gbc);
+        wrapper.add(checkOutContainer, gbc);
         JPanel buttonContainer = new JPanel();
         buttonContainer.setBorder(new EmptyBorder(30, 0, 0, 0));
+        buttonContainer.setOpaque(false);
         button = new JButton(buttonAction);
         buttonContainer.add(button);
-        this.add(buttonContainer, gbc);
+        wrapper.add(buttonContainer, gbc);
+
+        this.add(wrapper, BorderLayout.CENTER);
     }
 
     public JButton getButton() {
@@ -100,6 +121,10 @@ public class SelectDatePanel extends JPanel {
         checkOutDaySpinner.setValue(2);
         checkInTimeSpinner.setValue(12);
         checkOutTimeSpinner.setValue(12);
+    }
+
+    public JPanel getWrapper() {
+        return wrapper;
     }
 
 }

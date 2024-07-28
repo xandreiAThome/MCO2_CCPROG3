@@ -28,7 +28,7 @@ public class HRSView extends JFrame {
     public HRSView() {
         super("Hotel Reservation System");
         setLayout(new BorderLayout());
-        setSize(1380, 621);
+        setSize(1280, 720);
 
         init();
 
@@ -44,7 +44,7 @@ public class HRSView extends JFrame {
 
         // HomeScreen /////////
         try {
-            homeScreen = new JPanelWithBackground("View/hotelReception.jpg");
+            homeScreen = new JPanelWithBackground("View/pics/hotelReception.jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }

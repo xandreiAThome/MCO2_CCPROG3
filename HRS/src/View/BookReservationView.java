@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,6 +17,7 @@ import javax.swing.JTextField;
 
 import javax.swing.border.EmptyBorder;
 
+import CustomJPanels.JPanelWithBackground;
 import CustomJPanels.SelectDatePanel;
 import CustomJPanels.SelectDatePanelWithDiscount;
 import CustomJPanels.SelectHotelPanel;
@@ -22,7 +25,7 @@ import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
 import HotelClasses.RoomClasses.Room;
 
-public class BookReservationView extends JPanel {
+public class BookReservationView extends JPanelWithBackground {
     private JPanel chooseHotelContainer;
     private Hotel chosenHotel = null;
     private JTextField userNameTextField;
@@ -35,7 +38,8 @@ public class BookReservationView extends JPanel {
 
     private JButton returnHomeButton;
 
-    public BookReservationView() {
+    public BookReservationView() throws IOException {
+        super("View/pics/door.png");
 
         this.setLayout(new BorderLayout());
 
@@ -53,25 +57,34 @@ public class BookReservationView extends JPanel {
         JPanel northPanel = new JPanel();
         northPanel.setBackground(Color.BLUE);
         northPanel.add(this.returnHomeButton);
+        northPanel.setOpaque(false);
         northPanel.add(label);
         ///////////////////////////////////////////////
 
         // Choose Room Panel //////////////////////////////
-        selectRoomPanel = new SelectRoomPanel("Choose Room");
+        selectRoomPanel = new SelectRoomPanel("Choose Room", Color.WHITE, new Color(0, 0, 0, 0));
 
         // Choose Hotel Container ///////////////////////////////
         this.chooseHotelContainer = new JPanel();
         this.chooseHotelContainer.setLayout(new BorderLayout());
+        chooseHotelContainer.setOpaque(false);
         userNameTextField = new JTextField();
         userNameTextField.setColumns(20);
-        selectHotelPanel = new SelectHotelPanel();
+        selectHotelPanel = new SelectHotelPanel(new Color(0, 0, 0, 0));
+        selectHotelPanel.setOpaque(false);
+
         JPanel northContainer = new JPanel();
+        northContainer.setOpaque(false);
         northContainer.setLayout(new GridBagLayout());
-        northContainer.add(new JLabel("Enter Guest Name"), gbc);
+        JLabel enterNameLabel = new JLabel("Enter Guest Name");
+        enterNameLabel.setForeground(Color.WHITE);
+        northContainer.add(enterNameLabel, gbc);
+
         northContainer.add(userNameTextField, gbc);
         northContainer.setBorder(new EmptyBorder(20, 0, 0, 0));
 
         JLabel chooseHotelLabel = new JLabel("Choose Hotel to Book in");
+        chooseHotelLabel.setForeground(Color.WHITE);
         chooseHotelLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseHotelLabel.setBorder(new EmptyBorder(0, 0, 100, 0));
@@ -83,11 +96,12 @@ public class BookReservationView extends JPanel {
 
         // Choose Date Panel
 
-        selectDatePanel = new SelectDatePanelWithDiscount("Book");
+        selectDatePanel = new SelectDatePanelWithDiscount("Book", Color.white, new Color(0, 0, 0, 0));
 
         ////////////////////////////////////////
 
         cardContainer = new JPanel();
+        cardContainer.setOpaque(false);
         clayout = new CardLayout();
         cardContainer.setLayout(clayout);
         cardContainer.add(chooseHotelContainer, "chooseHotel");
