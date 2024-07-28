@@ -147,7 +147,7 @@ public class HRSController implements ActionListener {
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
                     hrsWindow.invalidate();
                     hrsWindow.validate();
-                    JOptionPane.showMessageDialog(this.hrsWindow, "Failed to created Hotel",
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Failed to create Hotel",
                             "Error", JOptionPane.WARNING_MESSAGE);
                 }
 
