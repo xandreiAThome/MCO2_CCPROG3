@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import CustomJPanels.DisplayPrices;
 import CustomJPanels.DisplayRoomPanel;
@@ -221,6 +223,49 @@ public class ManageHotelView extends JPanel {
 
     public JPanel getDisplayPrices() {
         return displayPrices;
+    }
+
+    public void showDatePriceModifierPanel(){    
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(15, 0, 7, 0);
+    
+        JLabel roomAvailLabel = new JLabel("Price Rate Modifier");
+        roomAvailLabel.setForeground(Color.white);
+        roomAvailLabel.setHorizontalAlignment(JLabel.CENTER);
+        roomAvailLabel.setVerticalAlignment(JLabel.TOP);
+        roomAvailLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
+        
+        JPanel calendarContainer = new JPanel(new GridLayout(4, 10, 5, 5));
+        calendarContainer.setBackground(new Color(0, 0, 0, 120));
+        calendarContainer.setBorder(new EmptyBorder(80, 250, 80, 250));
+    
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        gbc2.gridwidth = GridBagConstraints.REMAINDER;
+        gbc2.fill = GridBagConstraints.HORIZONTAL;
+    
+        for (int i = 1; i <= 31; i++) {
+            JPanel dayContainer = new JPanel(new GridBagLayout());
+            dayContainer.setBorder(new LineBorder(Color.BLACK, 2, true));
+            JLabel day = new JLabel("" + i);
+            day.setHorizontalAlignment(JLabel.CENTER);
+            double priceRateOfDay = chosenHotel.getRoom(0).getMonth().getDay(i).getPriceRate();
+            dayContainer.add(day, gbc2);
+            dayContainer.add(new JLabel(String.valueOf(priceRateOfDay)), gbc2);
+            calendarContainer.add(dayContainer);
+        }
+    
+        // Create a new panel to hold the price rate modifier information
+        JPanel priceRateModifierPanel = new JPanel(new BorderLayout());
+        priceRateModifierPanel.add(roomAvailLabel, BorderLayout.NORTH);
+        priceRateModifierPanel.add(calendarContainer, BorderLayout.CENTER);
+    
+        // Add the priceRateModifierPanel to the cardContainer
+        cardContainer.add(priceRateModifierPanel, "roomInformation");
+    
+        // Show the roomInformation panel
+        clayout.show(cardContainer, "roomInformation");
     }
 
 }
