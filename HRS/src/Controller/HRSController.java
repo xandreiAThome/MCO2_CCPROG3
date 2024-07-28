@@ -459,7 +459,7 @@ public class HRSController implements ActionListener {
                             JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         String hotelName = manageHotelTemp.getChosenHotel().getName();
-                        int roomNumber = manageHotelTemp.getChosenHotel().getRoomList().size() + 1;
+                        int roomNumber = manageHotelTemp.getChosenHotel().getTotalRoomAmt()+1;
 
                         for (int i = 0; i < numRooms; i++) {
                             String roomName = "";
@@ -483,6 +483,8 @@ public class HRSController implements ActionListener {
                             }
                             roomNumber++;
                         }
+
+                        manageHotelTemp.getChosenHotel().setTotalRoomAmt(roomNumber);
 
                         DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp
                                 .getDisplayRoomPanel());
