@@ -215,33 +215,38 @@ public class HRSController implements ActionListener {
                             ((BookReservationView) bookReservationView).getUserNameField(),
                             checkIn, checkOut, chosenRoom);
 
-                    chosenRoom.addReservation(reservation);
+                    int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                            "Total price of booking: " + reservation.getTotalPrice() + "\nConfirm Booking?", "Confirm",
+                            JOptionPane.YES_NO_OPTION);
 
-                    ((BookReservationView) bookReservationView).resetEntries();
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        chosenRoom.addReservation(reservation);
 
-                    hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
-                    hrsWindow.invalidate();
-                    hrsWindow.validate();
-                    boolean discountApplied = reservation.applyDiscount(discountCode);
+                        ((BookReservationView) bookReservationView).resetEntries();
 
-                    if (!discountApplied && discountCode.length() == 0) {
-                        JOptionPane.showMessageDialog(this.hrsWindow,
-                                "Succesfully booked reservation",
-                                "Success", JOptionPane.INFORMATION_MESSAGE);
-                    } else if (!discountApplied
-                            && Arrays.asList(reservation.getDiscountCodeList()).contains(discountCode)) {
-                        JOptionPane.showMessageDialog(this.hrsWindow,
-                                "Succesfully booked reservation\n Discount Code Conditions not fulfilled",
-                                "Success", JOptionPane.INFORMATION_MESSAGE);
-                    } else if (!discountApplied) {
-                        JOptionPane.showMessageDialog(this.hrsWindow,
-                                "Succesfully booked reservation\n Invalid Discount Code",
-                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                        hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
+                        hrsWindow.invalidate();
+                        hrsWindow.validate();
+                        boolean discountApplied = reservation.applyDiscount(discountCode);
+                        if (!discountApplied && discountCode.length() == 0) {
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Succesfully booked reservation",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (!discountApplied
+                                && Arrays.asList(reservation.getDiscountCodeList()).contains(discountCode)) {
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Succesfully booked reservation\n Discount Code Conditions not fulfilled",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (!discountApplied) {
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Succesfully booked reservation\n Invalid Discount Code",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                    } else if (discountApplied) {
-                        JOptionPane.showMessageDialog(this.hrsWindow,
-                                "Succesfully booked reservation\nDiscount Code Applied",
-                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (discountApplied) {
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Succesfully booked reservation\nDiscount Code Applied",
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
 
                 }
