@@ -487,8 +487,7 @@ public class HRSController implements ActionListener {
                     }
                 }
             } else if (e.getActionCommand().equals("Remove Rooms")) {
-                manageHotelTemp.showDisplayRoomPanel();
-                
+                manageHotelTemp.showDisplayRoomPanel(); 
 
                 String roomName = JOptionPane.showInputDialog(this.hrsWindow,
                 "Enter room name:",
