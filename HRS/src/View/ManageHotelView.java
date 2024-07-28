@@ -34,8 +34,8 @@ public class ManageHotelView extends JPanel {
     private JButton changeHotelName, addRooms, removeRooms, updateBasePrice, removeReservation, removeHotel,
             dateModifier, modifyRoomType;
     private JPanel hotelInfoPanel;
-    private SelectRoomPanel selectRoomPanel;
-    private Room chosenRoom = null;
+    private SelectRoomPanel selectRoomPanelToRemove, selectRoomPanelToModify;
+    private Room chosenRoomToRemove = null, chosenRoomToModify = null;
     private DisplayRoomPanel displayRoomPanel;
     private DisplayPrices displayPrices;
 
@@ -58,13 +58,16 @@ public class ManageHotelView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 0);
 
-        // Choose Room Panel //////////////////////////////
-        selectRoomPanel = new SelectRoomPanel("Choose Room", Color.BLACK, new Color(0, 0, 0, 0));
+        // Choose Room Panel to remove //////////////////////////////
+        selectRoomPanelToRemove = new SelectRoomPanel("Choose Room to Remove", Color.BLACK, new Color(0, 0, 0, 0));
+
+        // Choose Room Panel to modify
+        selectRoomPanelToModify = new SelectRoomPanel("Choose Room to modify", Color.BLACK, new Color(0, 0, 0, 0));
 
         // Room display Panel /////////////////////////////
         displayRoomPanel = new DisplayRoomPanel();
 
-        //Display Price Panel /////////////////////////////
+        // Display Price Panel /////////////////////////////
         displayPrices = new DisplayPrices();
 
         // Choose Hotel Container///////////////////////////////
@@ -119,11 +122,9 @@ public class ManageHotelView extends JPanel {
         cardContainer.setLayout(clayout);
         cardContainer.add(chooseHotelContainer, "chooseHotel");
         cardContainer.add(chooseOptionBorderWrapper, "chooseOption");
-        cardContainer.add(selectRoomPanel, "room");
-        cardContainer.add(displayRoomPanel, "room2");
+        cardContainer.add(selectRoomPanelToRemove, "roomToRemove");
+        cardContainer.add(selectRoomPanelToModify, "roomToModify");
         cardContainer.add(displayPrices, "prices");
-
-
 
         clayout.show(cardContainer, "chooseHotel");
 
@@ -187,29 +188,46 @@ public class ManageHotelView extends JPanel {
         clayout.show(cardContainer, "chooseHotel");
     }
 
-    public void showChooseRoomPanel() {
-        clayout.show(cardContainer, "room");
+    public void showChooseRoomPanelToRemove() {
+        clayout.show(cardContainer, "roomToRemove");
+    }
+
+    public void showChooseRoomPanelToModify() {
+        clayout.show(cardContainer, "roomToModify");
     }
 
     public void resetEntries() {
         showChooseHotelPanel();
         chosenHotel = null;
-        chosenRoom = null;
+        chosenRoomToRemove = null;
+        chosenRoomToModify = null;
     }
 
-    public JPanel getSelectRoomPanel() {
-        return selectRoomPanel;
+    public JPanel getSelectRoomPanelToRemove() {
+        return selectRoomPanelToRemove;
     }
 
-    public void setChosenRoom(Room room) {
-        this.chosenRoom = room;
+    public JPanel getSelectRoomPanelToModify() {
+        return selectRoomPanelToModify;
     }
 
-    public Room getChosenRoom() {
-        return this.chosenRoom;
+    public void setChosenRoomToRemove(Room room) {
+        this.chosenRoomToRemove = room;
     }
 
-    public void showDisplayRoomPanel(){
+    public void setChosenRoomToModify(Room room) {
+        this.chosenRoomToModify = room;
+    }
+
+    public Room getChosenRoomToRemove() {
+        return this.chosenRoomToRemove;
+    }
+
+    public Room getChosenRoomToModify() {
+        return this.chosenRoomToModify;
+    }
+
+    public void showDisplayRoomPanel() {
         clayout.show(cardContainer, "room2");
     }
 
@@ -217,7 +235,7 @@ public class ManageHotelView extends JPanel {
         return displayRoomPanel;
     }
 
-    public void showPriceDisplay(){
+    public void showPriceDisplay() {
         clayout.show(cardContainer, "prices");
     }
 
@@ -225,26 +243,26 @@ public class ManageHotelView extends JPanel {
         return displayPrices;
     }
 
-    public void showDatePriceModifierPanel(){    
+    public void showDatePriceModifierPanel() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(15, 0, 7, 0);
-    
+
         JLabel roomAvailLabel = new JLabel("Price Rate Modifier");
         roomAvailLabel.setForeground(Color.white);
         roomAvailLabel.setHorizontalAlignment(JLabel.CENTER);
         roomAvailLabel.setVerticalAlignment(JLabel.TOP);
         roomAvailLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
-        
+
         JPanel calendarContainer = new JPanel(new GridLayout(4, 10, 5, 5));
         calendarContainer.setBackground(new Color(0, 0, 0, 120));
         calendarContainer.setBorder(new EmptyBorder(80, 250, 80, 250));
-    
+
         GridBagConstraints gbc2 = new GridBagConstraints();
         gbc2.gridwidth = GridBagConstraints.REMAINDER;
         gbc2.fill = GridBagConstraints.HORIZONTAL;
-    
+
         for (int i = 1; i <= 31; i++) {
             JPanel dayContainer = new JPanel(new GridBagLayout());
             dayContainer.setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -255,15 +273,15 @@ public class ManageHotelView extends JPanel {
             dayContainer.add(new JLabel(String.valueOf(priceRateOfDay)), gbc2);
             calendarContainer.add(dayContainer);
         }
-    
+
         // Create a new panel to hold the price rate modifier information
         JPanel priceRateModifierPanel = new JPanel(new BorderLayout());
         priceRateModifierPanel.add(roomAvailLabel, BorderLayout.NORTH);
         priceRateModifierPanel.add(calendarContainer, BorderLayout.CENTER);
-    
+
         // Add the priceRateModifierPanel to the cardContainer
         cardContainer.add(priceRateModifierPanel, "roomInformation");
-    
+
         // Show the roomInformation panel
         clayout.show(cardContainer, "roomInformation");
     }
