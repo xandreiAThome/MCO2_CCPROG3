@@ -6,12 +6,15 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
+import CustomJPanels.DisplayRoomPanel;
 import CustomJPanels.SelectDatePanel;
 import CustomJPanels.SelectDatePanelWithDiscount;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Date;
 import HotelClasses.Reservation;
+import HotelClasses.RoomClasses.DeluxeRoom;
+import HotelClasses.RoomClasses.ExecutiveRoom;
 import HotelClasses.RoomClasses.Room;
 import Model.HRSModel;
 import View.BookReservationView;
@@ -346,6 +349,9 @@ public class HRSController implements ActionListener {
                         SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) manageHotelTemp.getSelectRoomPanel());
                         selectRoomTemp.updateRoomListButtons(manageHotelTemp.getChosenHotel().getRoomList());
                         selectRoomTemp.dynamicSetActionListenerOfHotelButtons(this);
+                        DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp.getDisplayRoomPanel());
+                        displayRoomPanelTemp.updateRoomCounts(manageHotelTemp.getChosenHotel().getRoomList());
+                        displayRoomPanelTemp.updateRoomList(manageHotelTemp.getChosenHotel().getRoomList());
                     }
                 }
                 // Change Hotel Name working, with confirmation, with dup checker
@@ -375,6 +381,83 @@ public class HRSController implements ActionListener {
                 // String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
                 manageHotelTemp.showChooseRoomPanel();
 
+            //TO DO: Fix updating, count of rooms should not exceed 50
+            } else if (e.getActionCommand().equals("Add Rooms")){
+                manageHotelTemp.showDisplayRoomPanel();
+                SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) manageHotelTemp.getSelectRoomPanel());
+                String roomType = JOptionPane.showInputDialog(this.hrsWindow, "Enter room type (Standard, Deluxe, Executive):",
+                        "Add Rooms", JOptionPane.QUESTION_MESSAGE);
+                if (roomType != null && !roomType.isEmpty()) {
+                    int numRooms = 0;
+                    try {
+                        numRooms = Integer.parseInt(JOptionPane.showInputDialog(this.hrsWindow, "Enter number of rooms to add:",
+                                "Add Rooms", JOptionPane.QUESTION_MESSAGE));
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Invalid input. Please enter a valid number.",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    if (numRooms <= 0) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Number of rooms must be greater than 0.",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    if (numRooms > 50) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Number of rooms cannot exceed 50.",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                            "Are you sure you want to add " + numRooms + " " + roomType + " rooms?", "Confirm",
+                            JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        String hotelName = manageHotelTemp.getChosenHotel().getName();
+                        int roomNumber = manageHotelTemp.getChosenHotel().getRoomList().size() + 1;
+
+                        for (int i = 0; i < numRooms; i++) {
+                            String roomName = "";
+                            switch (roomType) {
+                                case "Standard":
+                                    roomName = hotelName + "00" + roomNumber;
+                                    manageHotelTemp.getChosenHotel().addRoom(new Room(roomName));
+                                    break;
+                                case "Deluxe":
+                                    roomName = hotelName + "55" + roomNumber;
+                                    manageHotelTemp.getChosenHotel().addRoom(new DeluxeRoom(roomName));
+                                    break;
+                                case "Executive":
+                                    roomName = hotelName + "77" + roomNumber;
+                                    manageHotelTemp.getChosenHotel().addRoom(new ExecutiveRoom(roomName));
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(this.hrsWindow, "Invalid room type.",
+                                            "Error", JOptionPane.WARNING_MESSAGE);
+                                    return;
+                            }
+                            roomNumber++;
+                        }
+
+                        selectRoomTemp.updateRoomListButtons(manageHotelTemp.getChosenHotel().getRoomList());
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Rooms added successfully!",
+                                "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            } else if (e.getActionCommand().equals("Remove Rooms")){
+                if (((ManageHotelView) manageHotelTemp).getChosenRoom() == null) {
+                    for (JButton button : ((SelectRoomPanel) ((ManageHotelView) manageHotelTemp)
+                            .getSelectRoomPanel())
+                            .getRoomListButtons()) {
+                        if (e.getSource() == button) {
+                            ((ManageHotelView) manageHotelTemp)
+                                    .setChosenRoom((((ManageHotelView) manageHotelTemp)
+                                            .getChosenHotel().getRoom(e.getActionCommand())));
+                            //Create a JPanel that will ask if remove the room if yes show an are you sure message then if yes remove
+                        }
+                    }
+                }
                 // Remove hotel working, with confirmation
             } else if (e.getActionCommand().equals("Remove Hotel")) {
                 int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,

@@ -136,12 +136,8 @@ public class Hotel {
      * 
      * @param newAmt
      */
-    public void addRooms(int newAmt) {
-
-        int currentAmt = this.roomList.size();
-        for (int i = currentAmt; i < currentAmt + newAmt; i++) {
-            this.roomList.add(new Room(name + "00" + (i + 1)));
-        }
+    public void addRoom(Room room) {
+        this.roomList.add(room);
     }
 
     /**

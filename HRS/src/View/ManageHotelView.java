@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import CustomJPanels.DisplayRoomPanel;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
@@ -31,7 +33,7 @@ public class ManageHotelView extends JPanel {
     private JPanel hotelInfoPanel;
     private SelectRoomPanel selectRoomPanel;
     private Room chosenRoom = null;
-    private JPanel roomPanel;
+    private DisplayRoomPanel displayRoomPanel;
 
     public ManageHotelView() {
         this.setLayout(new BorderLayout());
@@ -54,6 +56,10 @@ public class ManageHotelView extends JPanel {
 
         // Choose Room Panel //////////////////////////////
         selectRoomPanel = new SelectRoomPanel("Choose Room");
+
+        // Room display Panel /////////////////////////////
+        displayRoomPanel = new DisplayRoomPanel();
+
 
         // Choose Hotel Container///////////////////////////////
         chooseHotelContainer = new JPanel(new BorderLayout());
@@ -108,6 +114,8 @@ public class ManageHotelView extends JPanel {
         cardContainer.add(chooseHotelContainer, "chooseHotel");
         cardContainer.add(chooseOptionBorderWrapper, "chooseOption");
         cardContainer.add(selectRoomPanel, "room");
+        cardContainer.add(displayRoomPanel, "room2");
+
 
         clayout.show(cardContainer, "chooseHotel");
 
@@ -121,6 +129,8 @@ public class ManageHotelView extends JPanel {
         this.changeHotelName.addActionListener(listener);
         this.removeHotel.addActionListener(listener);
         this.modifyRoomType.addActionListener(listener);
+        this.addRooms.addActionListener(listener);
+
 
     }
 
@@ -188,4 +198,13 @@ public class ManageHotelView extends JPanel {
     public Room getChosenRoom() {
         return this.chosenRoom;
     }
+
+    public void showDisplayRoomPanel(){
+        clayout.show(cardContainer, "room2");
+    }
+
+    public JPanel getDisplayRoomPanel() {
+        return displayRoomPanel;
+    }
+
 }

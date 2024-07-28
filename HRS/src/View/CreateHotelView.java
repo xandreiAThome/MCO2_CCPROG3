@@ -70,7 +70,7 @@ public class CreateHotelView extends JPanel {
 
         // How many Executive rooms
         JPanel executiveQuantiPanel = new JPanel();
-        JLabel executiveQuantiLabel = new JLabel("How many are Deluxe Rooms?");
+        JLabel executiveQuantiLabel = new JLabel("How many are Executive Rooms?");
         NumberFormatter executiveNumberFormatter = new NumberFormatterChild(integerFormat);
         executiveNumberFormatter.setAllowsInvalid(false);
         executiveNumberFormatter.setMinimum(0);
