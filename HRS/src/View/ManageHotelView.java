@@ -32,7 +32,7 @@ public class ManageHotelView extends JPanel {
     private Hotel chosenHotel = null;
     private JPanel chooseOptionPanel;
     private JButton changeHotelName, addRooms, removeRooms, updateBasePrice, removeReservation, removeHotel,
-            dateModifier, modifyRoomType;
+            dateModifier;
     private JPanel hotelInfoPanel;
     private SelectRoomPanel selectRoomPanelToRemove, selectRoomPanelToModify;
     private Room chosenRoomToRemove = null, chosenRoomToModify = null;
@@ -89,7 +89,7 @@ public class ManageHotelView extends JPanel {
 
         // Choose Option Panel /////////////////////////
         changeHotelName = new JButton("Change Hotel Name");
-        modifyRoomType = new JButton("Modify Room Type");
+        //modifyRoomType = new JButton("Modify Room Type");
         addRooms = new JButton("Add Rooms");
         removeRooms = new JButton("Remove Rooms");
         updateBasePrice = new JButton("Update Base Price");
@@ -97,7 +97,7 @@ public class ManageHotelView extends JPanel {
         dateModifier = new JButton("Price Rate Modifier");
         removeHotel = new JButton("Remove Hotel");
         chooseOptionPanel.add(changeHotelName, gbc);
-        chooseOptionPanel.add(modifyRoomType, gbc);
+        //chooseOptionPanel.add(modifyRoomType, gbc);
         chooseOptionPanel.add(addRooms, gbc);
         chooseOptionPanel.add(removeRooms, gbc);
         chooseOptionPanel.add(updateBasePrice, gbc);
@@ -137,7 +137,7 @@ public class ManageHotelView extends JPanel {
         this.returnHomeButton.addActionListener(listener);
         this.changeHotelName.addActionListener(listener);
         this.removeHotel.addActionListener(listener);
-        this.modifyRoomType.addActionListener(listener);
+        //this.modifyRoomType.addActionListener(listener);
         this.addRooms.addActionListener(listener);
         this.removeRooms.addActionListener(listener);
         this.updateBasePrice.addActionListener(listener);

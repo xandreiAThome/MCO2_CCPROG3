@@ -12,7 +12,7 @@ import HotelClasses.RoomClasses.Room;
 public class Hotel {
     private String name;
     private ArrayList<Room> roomList;
-    private int totalRoomAmt;
+    private int totalRoomAmt = 0;
 
     /**
      * Constructs a Hotel object with a specified name and a number of rooms.
@@ -242,6 +242,12 @@ public class Hotel {
 
     public void setTotalRoomAmt(int totalRoomAmt) {
         this.totalRoomAmt = totalRoomAmt;
+    }
+
+    public void removeReservationHotel(String name){
+        for (Room room : this.roomList) {
+           room.removeReservation(name);
+        }
     }
 
 }

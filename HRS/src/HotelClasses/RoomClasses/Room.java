@@ -109,7 +109,7 @@ public class Room {
     }
 
     /**
-     * RRemoves a reservation made by a specific guest and updates availability.
+     * Removes a reservation made by a specific guest and updates availability.
      * 
      * @param guest
      */

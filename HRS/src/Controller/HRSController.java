@@ -396,7 +396,7 @@ public class HRSController implements ActionListener {
                         displayPricesTemp.updatePrices(manageHotelTemp.getChosenHotel().getRoom(0).getBasePrice());
                     }
                 }
-                // Change Hotel Name working, with confirmation, with dup checker
+            // Change Hotel Name working, with confirmation, with dup checker
             } else if (e.getActionCommand().equals("Change Hotel Name")) {
                 String newHotelName = JOptionPane.showInputDialog(this.hrsWindow, "Enter new hotel name:",
                         "Change Hotel Name", JOptionPane.QUESTION_MESSAGE);
@@ -412,17 +412,12 @@ public class HRSController implements ActionListener {
                         if (confirm == JOptionPane.YES_OPTION) {
                             manageHotelTemp.getChosenHotel().setName(newHotelName);
                             manageHotelTemp.updateHotelInfoPanel();
+
                             JOptionPane.showMessageDialog(this.hrsWindow, "Hotel name changed successfully", "Success",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            // REFRESH OPTIONS PANEL SO THAT THE NEW NAME WILL ALSO BE UPDATED
                         }
                     }
                 }
-
-            } else if (e.getActionCommand().equals("Modify Room Type")) {
-                // String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
-                manageHotelTemp.showChooseRoomPanelToModify();
-
                 // Add rooms working, with confirmation and check if above 50 rooms
             } else if (e.getActionCommand().equals("Add Rooms")) {
                 manageHotelTemp.showDisplayRoomPanel();
@@ -539,8 +534,36 @@ public class HRSController implements ActionListener {
                 }
 
             } else if (e.getActionCommand().equals("Remove Reservation")) {
-                manageHotelTemp.showChooseRoomPanelToRemove();
-
+                String guestName = JOptionPane.showInputDialog(this.hrsWindow,
+                "Enter the guest name of the reservation to be removed:",
+                "Remove Reservation", JOptionPane.QUESTION_MESSAGE);
+                if (guestName != null && !guestName.isEmpty()) {
+                    if (!manageHotelTemp.getChosenHotel().guestExists(guestName)) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a reservation",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        Reservation reservation = null;
+                        for (Room room : manageHotelTemp.getChosenHotel().getRoomList()) {
+                            reservation = room.getReservation(guestName);
+                            if (reservation != null) {
+                                break;
+                            }
+                        }
+                        if (reservation == null) {
+                            JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a reservation",
+                                    "Error", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                    "Are you sure you want to remove the reservation for " + guestName + "?",
+                                    "Confirm", JOptionPane.YES_NO_OPTION);
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                manageHotelTemp.getChosenHotel().removeReservationHotel(guestName);
+                                JOptionPane.showMessageDialog(this.hrsWindow, "Reservation removed successfully",
+                                        "Success", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        }
+                    }
+                }
             } else if (e.getActionCommand().equals("Price Rate Modifier")) {
                 manageHotelTemp.showDatePriceModifierPanel();
 
