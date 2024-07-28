@@ -381,10 +381,9 @@ public class HRSController implements ActionListener {
                 // String temp = JOptionPane.showInputDialog(this.hrsWindow, "Test");
                 manageHotelTemp.showChooseRoomPanel();
 
-            //TO DO: Fix updating, count of rooms should not exceed 50
+            //Add rooms working, with confirmation and check if above 50 rooms
             } else if (e.getActionCommand().equals("Add Rooms")){
                 manageHotelTemp.showDisplayRoomPanel();
-                SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) manageHotelTemp.getSelectRoomPanel());
                 String roomType = JOptionPane.showInputDialog(this.hrsWindow, "Enter room type (Standard, Deluxe, Executive):",
                         "Add Rooms", JOptionPane.QUESTION_MESSAGE);
                 if (roomType != null && !roomType.isEmpty()) {
@@ -404,8 +403,9 @@ public class HRSController implements ActionListener {
                         return;
                     }
 
-                    if (numRooms > 50) {
-                        JOptionPane.showMessageDialog(this.hrsWindow, "Number of rooms cannot exceed 50.",
+                    int currentRoomCount = manageHotelTemp.getChosenHotel().getRoomList().size();
+                    if (currentRoomCount + numRooms > 50) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Total number of rooms cannot exceed 50.",
                                 "Error", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
@@ -440,7 +440,9 @@ public class HRSController implements ActionListener {
                             roomNumber++;
                         }
 
-                        selectRoomTemp.updateRoomListButtons(manageHotelTemp.getChosenHotel().getRoomList());
+                        DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp.getDisplayRoomPanel());
+                        displayRoomPanelTemp.updateRoomCounts(manageHotelTemp.getChosenHotel().getRoomList());
+                        displayRoomPanelTemp.updateRoomList(manageHotelTemp.getChosenHotel().getRoomList());
                         JOptionPane.showMessageDialog(this.hrsWindow, "Rooms added successfully!",
                                 "Success", JOptionPane.INFORMATION_MESSAGE);
                     }
