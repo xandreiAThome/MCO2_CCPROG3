@@ -532,6 +532,41 @@ public class HRSController implements ActionListener {
                                         "Error", JOptionPane.WARNING_MESSAGE);
                             }
                         }
+                        
+            } else if (e.getActionCommand().equals("Remove Reservation")){
+                manageHotelTemp.showChooseRoomPanel();
+                SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) manageHotelTemp.getSelectRoomPanel());
+                for (JButton button : selectRoomTemp.getRoomListButtons()) {
+                    if (e.getSource() == button) {
+                        Room chosenRoom = manageHotelTemp.getChosenHotel().getRoom(e.getActionCommand());
+                        if (!chosenRoom.hasReservation()) {
+                            JOptionPane.showMessageDialog(this.hrsWindow, "No reservations to remove in this room.",
+                                    "Error", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+                        String guestName = JOptionPane.showInputDialog(this.hrsWindow, "Enter guest name:",
+                                "Remove Reservation", JOptionPane.QUESTION_MESSAGE);
+                        if (guestName != null) {
+                            Reservation reservation = chosenRoom.getReservation(guestName);
+                            if (reservation == null) {
+                                JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a reservation in this room.",
+                                        "Error", JOptionPane.WARNING_MESSAGE);
+                            } else {
+                                int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                        "Are you sure you want to remove the reservation for " + guestName + "?",
+                                        "Confirm", JOptionPane.YES_NO_OPTION);
+                                if (confirm == JOptionPane.YES_OPTION) {
+                                    chosenRoom.removeReservation(guestName);
+                                    JOptionPane.showMessageDialog(this.hrsWindow, "Reservation removed successfully!",
+                                            "Success", JOptionPane.INFORMATION_MESSAGE);
+                                }
+                            }
+                        }
+                    }
+                }
+
+            } else if (e.getActionCommand().equals("Price Rate Modifier")){
+                
             } else if (e.getActionCommand().equals("Remove Hotel")) {
                 int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
                         "Are you sure you want to remove the hotel " + manageHotelTemp.getChosenHotel().getName() + "?",

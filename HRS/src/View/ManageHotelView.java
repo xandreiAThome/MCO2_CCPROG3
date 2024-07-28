@@ -89,7 +89,7 @@ public class ManageHotelView extends JPanel {
         removeRooms = new JButton("Remove Rooms");
         updateBasePrice = new JButton("Update Base Price");
         removeReservation = new JButton("Remove Reservation");
-        dateModifier = new JButton("Modify Date");
+        dateModifier = new JButton("Price Rate Modifier");
         removeHotel = new JButton("Remove Hotel");
         chooseOptionPanel.add(changeHotelName, gbc);
         chooseOptionPanel.add(modifyRoomType, gbc);
@@ -138,6 +138,8 @@ public class ManageHotelView extends JPanel {
         this.addRooms.addActionListener(listener);
         this.removeRooms.addActionListener(listener);
         this.updateBasePrice.addActionListener(listener);
+        this.removeReservation.addActionListener(listener);
+        this.dateModifier.addActionListener(listener);
     }
 
     public void updateHotelInfoPanel() {
