@@ -343,8 +343,14 @@ public class HRSController implements ActionListener {
                 int checkInHour = selectDatePanel.getCheckInHour();
                 int checkOutHour = selectDatePanel.getCheckOutHour();
 
-                viewHotelTemp.showRoomAvailablePanel(new Date(checkInDay, checkInHour),
-                        new Date(checkOutDay, checkOutHour));
+                if (checkOutDay <= checkInDay) {
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Check Out must not be before Check In",
+                            "Error", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    viewHotelTemp.showRoomAvailablePanel(new Date(checkInDay, checkInHour),
+                            new Date(checkOutDay, checkOutHour));
+                }
+
             }
             // Choose Room to display information
             else if (viewHotelTemp.getChosenRoom() == null) {
