@@ -12,6 +12,7 @@ import HotelClasses.RoomClasses.Room;
 public class Hotel {
     private String name;
     private ArrayList<Room> roomList;
+    private int totalRoomAmt;
 
     /**
      * Constructs a Hotel object with a specified name and a number of rooms.
@@ -26,6 +27,8 @@ public class Hotel {
         for (int i = 1; i <= roomAmount; i++) {
             this.roomList.add(new Room(name + "00" + i));
         }
+
+        this.totalRoomAmt = roomAmount;
     }
 
     /**
@@ -231,6 +234,14 @@ public class Hotel {
 
         return false;
 
+    }
+
+    public int getTotalRoomAmt() {
+        return totalRoomAmt;
+    }
+
+    public void setTotalRoomAmt(int totalRoomAmt) {
+        this.totalRoomAmt = totalRoomAmt;
     }
 
 }
