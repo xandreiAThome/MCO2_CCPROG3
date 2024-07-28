@@ -563,6 +563,8 @@ public class HRSController implements ActionListener {
                     hrsWindow.validate();
                     JOptionPane.showMessageDialog(this.hrsWindow, "Room removed successfully", "Success",
                             JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    manageHotelTemp.setChosenRoomToRemove(null);
                 }
             }
 
