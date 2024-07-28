@@ -488,16 +488,17 @@ public class HRSController implements ActionListener {
                     }
                 }
             } else if (e.getActionCommand().equals("Remove Rooms")) {
-                manageHotelTemp.showDisplayRoomPanel(); 
+                manageHotelTemp.showDisplayRoomPanel();
 
                 String roomName = JOptionPane.showInputDialog(this.hrsWindow,
-                "Enter room name:",
-                "Remove Rooms", JOptionPane.QUESTION_MESSAGE);
+                        "Enter room name:",
+                        "Remove Rooms", JOptionPane.QUESTION_MESSAGE);
                 if (roomName != null && !roomName.isEmpty()) {
                     Room roomToRemove = manageHotelTemp.getChosenHotel().getRoom(roomName);
                     if (roomToRemove != null) {
                         if (roomToRemove.hasReservation()) {
-                            JOptionPane.showMessageDialog(this.hrsWindow, "Cannot remove room: there are existing reservations.",
+                            JOptionPane.showMessageDialog(this.hrsWindow,
+                                    "Cannot remove room: there are existing reservations.",
                                     "Error", JOptionPane.WARNING_MESSAGE);
                             return;
                         }
@@ -520,11 +521,9 @@ public class HRSController implements ActionListener {
                 }
 
                 DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp
-                                .getDisplayRoomPanel());
+                        .getDisplayRoomPanel());
                 displayRoomPanelTemp.updateRoomCounts(manageHotelTemp.getChosenHotel().getRoomList());
                 displayRoomPanelTemp.updateRoomList(manageHotelTemp.getChosenHotel().getRoomList());
-                
-                
 
                 // Remove hotel working, with confirmation
             } else if (e.getActionCommand().equals("Update Base Price")) {
@@ -573,27 +572,51 @@ public class HRSController implements ActionListener {
 
             } else if (e.getActionCommand().equals("Remove Reservation")) {
                 manageHotelTemp.showChooseRoomPanel();
-                SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) manageHotelTemp.getSelectRoomPanel());
-                for (JButton button : selectRoomTemp.getRoomListButtons()) {
-                    if (e.getSource() == button) {
-                        Room chosenRoom = manageHotelTemp.getChosenHotel().getRoom(e.getActionCommand());
-                        if (!chosenRoom.hasReservation()) {
-                            JOptionPane.showMessageDialog(this.hrsWindow, "No reservations to remove in this room.",
+
+            } else if (e.getActionCommand().equals("Price Rate Modifier")) {
+                manageHotelTemp.showDatePriceModifierPanel();
+
+                String dayStr = JOptionPane.showInputDialog(this.hrsWindow,
+                        "Enter the day you want to modify the price rate (1-31):",
+                        "Modify Price Rate", JOptionPane.QUESTION_MESSAGE);
+                if (dayStr != null && !dayStr.isEmpty()) {
+                    int day = 0;
+                    try {
+                        day = Integer.parseInt(dayStr);
+                        if (day < 1 || day > 31) {
+                            JOptionPane.showMessageDialog(this.hrsWindow, "Day must be between 1 and 30.",
                                     "Error", JOptionPane.WARNING_MESSAGE);
                             return;
                         }
-                        String guestName = JOptionPane.showInputDialog(this.hrsWindow, "Enter guest name:",
-                                "Remove Reservation", JOptionPane.QUESTION_MESSAGE);
-                        if (guestName != null) {
-                            Reservation reservation = chosenRoom.getReservation(guestName);
-                            if (reservation == null) {
-                                JOptionPane.showMessageDialog(this.hrsWindow, "Guest does not have a reservation in this room.",
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(this.hrsWindow, "Invalid input. Please enter a valid number.",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    if (manageHotelTemp.getChosenHotel().hasReservationDay(day)) {
+                        JOptionPane.showMessageDialog(this.hrsWindow,
+                                "Cannot modify price rate on this day: there are existing reservations.",
+                                "Error", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
+                    String newPriceRateStr = JOptionPane.showInputDialog(this.hrsWindow,
+                            "Enter the new price rate percentage (e.g. 10 for 10%):",
+                            "Modify Price Rate", JOptionPane.QUESTION_MESSAGE);
+                    if (newPriceRateStr != null && !newPriceRateStr.isEmpty()) {
+                        try {
+                            double newPriceRate = Double.parseDouble(newPriceRateStr);
+                            if (newPriceRate < 0) {
+                                JOptionPane.showMessageDialog(this.hrsWindow,
+                                        "Price rate percentage must be greater than or equal to 0.",
                                         "Error", JOptionPane.WARNING_MESSAGE);
                                 return;
                             }
-            
+
                             int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
-                                    "Are you sure you want to modify the price rate on day " + day + " to " + newPriceRate + "%?",
+                                    "Are you sure you want to modify the price rate on day " + day + " to "
+                                            + newPriceRate + "%?",
                                     "Confirm", JOptionPane.YES_NO_OPTION);
                             if (confirm == JOptionPane.YES_OPTION) {
                                 manageHotelTemp.getChosenHotel().setPriceRate(day, newPriceRate);
@@ -607,8 +630,7 @@ public class HRSController implements ActionListener {
                     }
                 }
 
-            } else if (e.getActionCommand().equals("Price Rate Modifier")){
-                
+                manageHotelTemp.showDatePriceModifierPanel();
             } else if (e.getActionCommand().equals("Remove Hotel")) {
                 int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
                         "Are you sure you want to remove the hotel " + manageHotelTemp.getChosenHotel().getName() + "?",
