@@ -205,4 +205,14 @@ public class Hotel {
 
         return null;
     }
+
+    public boolean hasReservations(){
+        for (Room room : this.roomList) {
+            if (room.hasReservation()){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

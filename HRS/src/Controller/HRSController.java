@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
+import CustomJPanels.DisplayPrices;
 import CustomJPanels.DisplayRoomPanel;
 import CustomJPanels.JPanelWithBackground;
 import CustomJPanels.SelectDatePanel;
@@ -382,10 +383,11 @@ public class HRSController implements ActionListener {
                         SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) manageHotelTemp.getSelectRoomPanel());
                         selectRoomTemp.updateRoomListButtons(manageHotelTemp.getChosenHotel().getRoomList());
                         selectRoomTemp.dynamicSetActionListenerOfHotelButtons(this);
-                        DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp
-                                .getDisplayRoomPanel());
+                        DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp.getDisplayRoomPanel());
                         displayRoomPanelTemp.updateRoomCounts(manageHotelTemp.getChosenHotel().getRoomList());
                         displayRoomPanelTemp.updateRoomList(manageHotelTemp.getChosenHotel().getRoomList());
+                        DisplayPrices displayPricesTemp = ((DisplayPrices) manageHotelTemp.getDisplayPrices());
+                        displayPricesTemp.updatePrices(manageHotelTemp.getChosenHotel().getRoom(0).getBasePrice());
                     }
                 }
                 // Change Hotel Name working, with confirmation, with dup checker
@@ -486,20 +488,50 @@ public class HRSController implements ActionListener {
                 }
             } else if (e.getActionCommand().equals("Remove Rooms")) {
                 manageHotelTemp.showChooseRoomPanel();
-                if (((ManageHotelView) manageHotelTemp).getChosenRoom() == null) {
-                    for (JButton button : ((SelectRoomPanel) ((ManageHotelView) manageHotelTemp)
-                            .getSelectRoomPanel())
-                            .getRoomListButtons()) {
-                        if (e.getSource() == button) {
-                            ((ManageHotelView) manageHotelTemp)
-                                    .setChosenRoom((((ManageHotelView) manageHotelTemp)
-                                            .getChosenHotel().getRoom(e.getActionCommand())));
-                            ((ManageHotelView) manageHotelTemp).showDisplayRoomPanel();
-                        }
-                    }
+                //Show choose room panel then it will show the button rooms then theyll click one of them then present a JPanel asking if they want to remove that room if yes then remove if not not
+                
+                // Remove hotel working, with confirmation
+            } else if (e.getActionCommand().equals("Update Base Price")) {
+                manageHotelTemp.showPriceDisplay();
+
+                // Check if there are any reservations in the hotel
+                if (manageHotelTemp.getChosenHotel().hasReservations()) {
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Cannot update base price: there are existing reservations.",
+                            "Error", JOptionPane.WARNING_MESSAGE);
+                    return;
                 }
 
-                // Remove hotel working, with confirmation
+                String newBasePriceStr = JOptionPane.showInputDialog(this.hrsWindow, "Enter new base price (>= 100.0):",
+                        "Update Base Price", JOptionPane.QUESTION_MESSAGE);
+                        if (newBasePriceStr != null && !newBasePriceStr.isEmpty()) {
+                            try {
+                                double newBasePrice = Double.parseDouble(newBasePriceStr);
+                                if (newBasePrice < 100.0) {
+                                    JOptionPane.showMessageDialog(this.hrsWindow, "Base price must be greater than or equal to 100.0.",
+                                            "Error", JOptionPane.WARNING_MESSAGE);
+                                    return;
+                                }
+
+                                int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                        "Are you sure you want to update the base price to " + newBasePrice + "?",
+                                        "Confirm", JOptionPane.YES_NO_OPTION);
+                                if (confirm == JOptionPane.YES_OPTION) {
+                                    for (Room room : manageHotelTemp.getChosenHotel().getRoomList()) {
+                                        room.setPrice(newBasePrice);
+                                    }
+
+                                DisplayPrices displayPricesTemp = ((DisplayPrices) manageHotelTemp.getDisplayPrices());
+                                displayPricesTemp.updatePrices(manageHotelTemp.getChosenHotel().getRoom(0).getBasePrice());
+
+                                JOptionPane.showMessageDialog(this.hrsWindow, "Base price updated successfully!",
+                                        "Success", JOptionPane.INFORMATION_MESSAGE);
+                                }
+
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(this.hrsWindow, "Invalid input. Please enter a valid number.",
+                                        "Error", JOptionPane.WARNING_MESSAGE);
+                            }
+                        }
             } else if (e.getActionCommand().equals("Remove Hotel")) {
                 int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
                         "Are you sure you want to remove the hotel " + manageHotelTemp.getChosenHotel().getName() + "?",
@@ -514,5 +546,4 @@ public class HRSController implements ActionListener {
             }
         }
     }
-
 }

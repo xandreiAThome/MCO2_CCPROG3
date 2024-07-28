@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import CustomJPanels.DisplayPrices;
 import CustomJPanels.DisplayRoomPanel;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
@@ -34,6 +35,7 @@ public class ManageHotelView extends JPanel {
     private SelectRoomPanel selectRoomPanel;
     private Room chosenRoom = null;
     private DisplayRoomPanel displayRoomPanel;
+    private DisplayPrices displayPrices;
 
     public ManageHotelView() {
         this.setLayout(new BorderLayout());
@@ -60,6 +62,8 @@ public class ManageHotelView extends JPanel {
         // Room display Panel /////////////////////////////
         displayRoomPanel = new DisplayRoomPanel();
 
+        //Display Price Panel /////////////////////////////
+        displayPrices = new DisplayPrices();
 
         // Choose Hotel Container///////////////////////////////
         chooseHotelContainer = new JPanel(new BorderLayout());
@@ -115,6 +119,8 @@ public class ManageHotelView extends JPanel {
         cardContainer.add(chooseOptionBorderWrapper, "chooseOption");
         cardContainer.add(selectRoomPanel, "room");
         cardContainer.add(displayRoomPanel, "room2");
+        cardContainer.add(displayPrices, "prices");
+
 
 
         clayout.show(cardContainer, "chooseHotel");
@@ -131,9 +137,7 @@ public class ManageHotelView extends JPanel {
         this.modifyRoomType.addActionListener(listener);
         this.addRooms.addActionListener(listener);
         this.removeRooms.addActionListener(listener);
-
-
-
+        this.updateBasePrice.addActionListener(listener);
     }
 
     public void updateHotelInfoPanel() {
@@ -207,6 +211,14 @@ public class ManageHotelView extends JPanel {
 
     public JPanel getDisplayRoomPanel() {
         return displayRoomPanel;
+    }
+
+    public void showPriceDisplay(){
+        clayout.show(cardContainer, "prices");
+    }
+
+    public JPanel getDisplayPrices() {
+        return displayPrices;
     }
 
 }
