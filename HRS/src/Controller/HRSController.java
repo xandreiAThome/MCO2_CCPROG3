@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
+import CustomJPanels.DisplayRoomPanel;
 import CustomJPanels.JPanelWithBackground;
 import CustomJPanels.SelectDatePanel;
 import CustomJPanels.SelectDatePanelWithDiscount;
