@@ -1,3 +1,7 @@
+/**
+ * The CreateHotelView class represents a view for creating a hotel.
+ * It extends JPanelWithBackground class to display a background image.
+ */
 package View;
 
 import java.awt.*;
@@ -126,6 +130,9 @@ public class CreateHotelView extends JPanelWithBackground {
         return this.hotelNameField;
     }
 
+    /**
+     * Resets the text entries
+     */
     public void resetTextFields() {
         this.hotelNameField.setText("");
         this.roomQuantiField.setText("");

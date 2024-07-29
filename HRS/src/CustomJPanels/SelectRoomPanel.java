@@ -19,6 +19,9 @@ import HotelClasses.RoomClasses.DeluxeRoom;
 import HotelClasses.RoomClasses.ExecutiveRoom;
 import HotelClasses.RoomClasses.Room;
 
+/**
+ * A custom JPanel that displays a list of available rooms for selection.
+ */
 public class SelectRoomPanel extends JPanel {
     private JPanel chooseRoomButtonContainer;
     private ArrayList<JButton> roomListButtons = new ArrayList<JButton>();
@@ -26,6 +29,14 @@ public class SelectRoomPanel extends JPanel {
 
     private JPanel wrapper;
 
+    /**
+     * Constructs a SelectRoomPanel with the specified label, font color, and
+     * background color.
+     * 
+     * @param label           the label to be displayed at the top of the panel
+     * @param fontColor       the color of the text
+     * @param backgroundColor the background color of the panel
+     */
     public SelectRoomPanel(String label, Color fontColor, Color backgroundColor) {
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
@@ -55,9 +66,10 @@ public class SelectRoomPanel extends JPanel {
     }
 
     /**
-     * Call when the selectRoomPanel will be displayed
+     * Sets the action listener for the room buttons.
+     * call when room is chosen
      * 
-     * @param listener
+     * @param listener the action listener to be set
      */
     public void dynamicSetActionListenerOfHotelButtons(ActionListener listener) {
         for (JButton button : roomListButtons) {
@@ -66,9 +78,10 @@ public class SelectRoomPanel extends JPanel {
     }
 
     /**
-     * Call when the selectRoomPanel will be displayed
+     * Updates the list of room buttons based on the given list of rooms.
+     * Call when room is chosen
      * 
-     * @param rooms
+     * @param rooms the list of rooms to be displayed as buttons
      */
     public void updateRoomListButtons(ArrayList<Room> rooms) {
         for (JButton roomOption : this.roomListButtons) {
@@ -101,9 +114,12 @@ public class SelectRoomPanel extends JPanel {
     }
 
     /**
-     * Call when the selectRoomPanel will be displayed
+     * Updates the list of room buttons based on the given list of rooms and the
+     * specified check-in and check-out dates.
      * 
-     * @param rooms
+     * @param rooms    the list of rooms to be displayed as buttons
+     * @param checkIn  the check-in date
+     * @param checkOut the check-out date
      */
     public void updateRoomListButtonsAvailableGivenDate(ArrayList<Room> rooms, Date checkIn, Date checkOut) {
         this.chooseRoomButtonContainer.removeAll();
@@ -144,6 +160,11 @@ public class SelectRoomPanel extends JPanel {
         }
     }
 
+    /**
+     * Returns the list of room buttons.
+     * 
+     * @return the list of room buttons
+     */
     public ArrayList<JButton> getRoomListButtons() {
         return this.roomListButtons;
     }

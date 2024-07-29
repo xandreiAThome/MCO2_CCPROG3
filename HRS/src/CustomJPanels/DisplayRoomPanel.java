@@ -1,3 +1,7 @@
+/**
+ * This class represents a custom JPanel used to display room information.
+ * It includes labels for room counts and a panel for displaying the room list.
+ */
 package CustomJPanels;
 
 import java.awt.BorderLayout;
@@ -22,10 +26,15 @@ public class DisplayRoomPanel extends JPanel {
     private JLabel deluxeRoomCountLabel;
     private JLabel executiveRoomCountLabel;
 
+    /**
+     * Constructs a new DisplayRoomPanel object.
+     * Sets the layout, initializes the room count labels, and sets the background
+     * color.
+     */
     public DisplayRoomPanel() {
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
-        
+
         roomCountPanel = new JPanel();
         roomCountPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         this.add(roomCountPanel, BorderLayout.NORTH);
@@ -46,7 +55,7 @@ public class DisplayRoomPanel extends JPanel {
         standardRoomCountLabel.setForeground(Color.WHITE);
         deluxeRoomCountLabel.setForeground(Color.WHITE);
         executiveRoomCountLabel.setForeground(Color.WHITE);
-        
+
         roomListPanel = new JPanel();
         roomListPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         this.add(roomListPanel, BorderLayout.CENTER);
@@ -58,6 +67,11 @@ public class DisplayRoomPanel extends JPanel {
         this.add(legendLabel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Updates the room counts based on the given list of rooms.
+     * 
+     * @param rooms The list of rooms to update the counts from.
+     */
     public void updateRoomCounts(ArrayList<Room> rooms) {
         int standardRoomCount = 0;
         int deluxeRoomCount = 0;
@@ -78,6 +92,11 @@ public class DisplayRoomPanel extends JPanel {
         executiveRoomCountLabel.setText("Executive Rooms: " + executiveRoomCount);
     }
 
+    /**
+     * Updates the room list based on the given list of rooms.
+     * 
+     * @param rooms The list of rooms to update the room list from.
+     */
     public void updateRoomList(ArrayList<Room> rooms) {
         roomListPanel.removeAll();
 

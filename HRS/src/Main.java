@@ -1,4 +1,8 @@
 
+/**
+ * The Main class is the entry point of the HRS (Hotel Reservation System) application.
+ * It initializes the HRSView, HRSModel, and HRSController objects and starts the application.
+ */
 import java.io.IOException;
 
 import Controller.HRSController;

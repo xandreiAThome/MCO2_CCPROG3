@@ -1,3 +1,9 @@
+/**
+ * The BookReservationView class represents the view for booking a reservation in a hotel.
+ * It extends the JPanelWithBackground class to display a background image.
+ * The class contains various panels and components for selecting a hotel, room, and date for the reservation.
+ * It also provides methods for setting action listeners, getting and setting chosen hotel and room, and resetting entries.
+ */
 package View;
 
 import java.awt.BorderLayout;
@@ -35,6 +41,7 @@ public class BookReservationView extends JPanelWithBackground {
     private SelectRoomPanel selectRoomPanel;
     private SelectDatePanel selectDatePanel;
     private SelectHotelPanel selectHotelPanel;
+    private String currentCardPanel;
 
     private JButton returnHomeButton;
 
@@ -109,6 +116,7 @@ public class BookReservationView extends JPanelWithBackground {
         cardContainer.add(selectRoomPanel, "room");
 
         clayout.show(cardContainer, "chooseHotel");
+        currentCardPanel = "chooseHotel";
 
         this.add(northPanel, BorderLayout.NORTH);
         this.add(cardContainer, BorderLayout.CENTER);
@@ -123,6 +131,10 @@ public class BookReservationView extends JPanelWithBackground {
         this.chosenHotel = hotel;
     }
 
+    public String getCurrentCardPanel() {
+        return currentCardPanel;
+    }
+
     public Hotel getChosenHotel() {
         return this.chosenHotel;
     }
@@ -135,6 +147,9 @@ public class BookReservationView extends JPanelWithBackground {
         return this.selectDatePanel;
     }
 
+    /**
+     * Resets the text entries and chosen rooms and hotel for the panel
+     */
     public void resetEntries() {
         ((SelectDatePanel) selectDatePanel).resetEntries();
         userNameTextField.setText("");
@@ -149,14 +164,17 @@ public class BookReservationView extends JPanelWithBackground {
 
     public void showDefaultCenterPanel() {
         clayout.show(cardContainer, "chooseHotel");
+        currentCardPanel = "chooseHotel";
     }
 
     public void showChooseDatePanel() {
         clayout.show(cardContainer, "date");
+        currentCardPanel = "date";
     }
 
     public void showChooseRoomPanel() {
         clayout.show(cardContainer, "room");
+        currentCardPanel = "room";
     }
 
     public void setChosenRoom(Room room) {

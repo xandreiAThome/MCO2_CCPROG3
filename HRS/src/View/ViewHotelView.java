@@ -28,6 +28,10 @@ import HotelClasses.Hotel;
 import HotelClasses.Reservation;
 import HotelClasses.RoomClasses.Room;
 
+/**
+ * ViewHotel is the panel for viewing room information, available rooms given a
+ * range of date, and the information of a reservation
+ */
 public class ViewHotelView extends JPanelWithBackground {
     private JButton returnHomeButton;
     private JPanel chooseHotelContainer;
@@ -41,6 +45,7 @@ public class ViewHotelView extends JPanelWithBackground {
     private Room chosenRoom = null;
     private JPanel chooseRoomForInformationPanel, chooseDateForAvailabilityPanel;
     private Reservation chosenReservationToCompare = null;
+    private String currentCardPanel;
 
     public ViewHotelView() throws IOException {
         super("View/pics/pages.jpg");
@@ -139,6 +144,7 @@ public class ViewHotelView extends JPanelWithBackground {
         cardContainer.add(reserveInfoPanel, "reservationInformation");
 
         clayout.show(cardContainer, "chooseHotel");
+        currentCardPanel = "chooseHotel";
 
         this.add(northPanel, BorderLayout.NORTH);
         this.add(cardContainer, BorderLayout.CENTER);
@@ -195,16 +201,20 @@ public class ViewHotelView extends JPanelWithBackground {
         return this.chosenHotel;
     }
 
+    public Room getChosenRoom() {
+        return this.chosenRoom;
+    }
+
+    public String getCurrentCardPanel() {
+        return currentCardPanel;
+    }
+
     public void setChosenHotel(Hotel hotel) {
         this.chosenHotel = hotel;
     }
 
     public void setChosenRoom(Room room) {
         this.chosenRoom = room;
-    }
-
-    public Room getChosenRoom() {
-        return this.chosenRoom;
     }
 
     public Reservation getChosenReservation() {
@@ -217,18 +227,22 @@ public class ViewHotelView extends JPanelWithBackground {
 
     public void showChooseOptionPanel() {
         clayout.show(cardContainer, "chooseOption");
+        currentCardPanel = "chooseOption";
     }
 
     public void showChooseHotelPanel() {
         clayout.show(cardContainer, "chooseHotel");
+        currentCardPanel = "chooseHotel";
     }
 
     public void showChooseRoomPanel() {
         clayout.show(cardContainer, "chooseRoom");
+        currentCardPanel = "chooseRoom";
     }
 
     public void showChooseDatePanel() {
         clayout.show(cardContainer, "chooseDate");
+        currentCardPanel = "chooseDate";
     }
 
     public void resetEntries() {

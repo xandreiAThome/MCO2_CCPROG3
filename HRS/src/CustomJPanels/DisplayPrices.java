@@ -1,3 +1,7 @@
+/**
+ * This class represents a custom JPanel that displays room prices.
+ * It extends the JPanel class and provides methods to update the prices.
+ */
 package CustomJPanels;
 
 import java.awt.BorderLayout;
@@ -62,6 +66,11 @@ public class DisplayPrices extends JPanel {
         this.add(wrapper, BorderLayout.CENTER);
     }
 
+    /**
+     * Updates the prices displayed in the panel
+     * 
+     * @param standardPrice
+     */
     public void updatePrices(double standardPrice) {
         double deluxePrice = standardPrice * 0.2 + standardPrice;
         double executivePrice = standardPrice * 0.35 + standardPrice;

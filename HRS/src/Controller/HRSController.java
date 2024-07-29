@@ -26,6 +26,11 @@ import View.HRSView;
 import View.ManageHotelView;
 import View.ViewHotelView;
 
+/**
+ * This class represents the controller for the Hotel Reservation System (HRS).
+ * It handles user actions and updates the model and view accordingly.
+ * The controller implements the ActionListener interface to handle events.
+ */
 public class HRSController implements ActionListener {
     private HRSModel hrsModel;
 
@@ -35,6 +40,13 @@ public class HRSController implements ActionListener {
     private JPanelWithBackground viewHotelView;
     private JPanelWithBackground bookReservationView;
 
+    /**
+     * Constructs the class
+     * 
+     * @param hrsWindow
+     * @param hrsModel
+     * @throws IOException
+     */
     public HRSController(HRSView hrsWindow, HRSModel hrsModel) throws IOException {
         this.hrsModel = hrsModel;
 
@@ -53,6 +65,9 @@ public class HRSController implements ActionListener {
 
     }
 
+    /**
+     * Event handler
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -118,7 +133,7 @@ public class HRSController implements ActionListener {
                 deluxeAmount = Integer.valueOf(deluxeQuantiField.getText());
                 executiveAmount = Integer.valueOf(executiveQuantiField.getText());
             } catch (Exception err) {
-                System.out.println(err.getMessage());
+
             }
 
             if (amount < 1 || amount > 50) {
@@ -158,9 +173,9 @@ public class HRSController implements ActionListener {
         // Book Reservation Events /////////////////////////
         // choose hotel
         else if (((JPanel) hrsWindow.getContentPane()) == bookReservationView) {
-            if (((BookReservationView) bookReservationView).getChosenHotel() == null) {
-                SelectHotelPanel selectHotelPanel = ((SelectHotelPanel) ((BookReservationView) bookReservationView)
-                        .getSelectHotelPanel());
+            BookReservationView bookReservationTemp = ((BookReservationView) bookReservationView);
+            if (bookReservationTemp.getCurrentCardPanel().equals("chooseHotel")) {
+                SelectHotelPanel selectHotelPanel = ((SelectHotelPanel) bookReservationTemp.getSelectHotelPanel());
                 for (JButton button : selectHotelPanel.getHotelListButtons()) {
                     if (e.getSource() == button) {
                         if (((BookReservationView) bookReservationView).getUserNameField().length() == 0) {
@@ -171,12 +186,12 @@ public class HRSController implements ActionListener {
                             JOptionPane.showMessageDialog(this.hrsWindow, "Guest already has prior reservation",
                                     "Error", JOptionPane.WARNING_MESSAGE);
                         } else {
-                            BookReservationView bookViewTemp = ((BookReservationView) bookReservationView);
-                            bookViewTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
-                            bookViewTemp.showChooseRoomPanel();
+                            bookReservationTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
+                            bookReservationTemp.showChooseRoomPanel();
 
-                            SelectRoomPanel roomPanelTemp = ((SelectRoomPanel) bookViewTemp.getSelectRoomPanel());
-                            roomPanelTemp.updateRoomListButtons((bookViewTemp.getChosenHotel().getRoomList()));
+                            SelectRoomPanel roomPanelTemp = ((SelectRoomPanel) bookReservationTemp
+                                    .getSelectRoomPanel());
+                            roomPanelTemp.updateRoomListButtons((bookReservationTemp.getChosenHotel().getRoomList()));
                             roomPanelTemp.dynamicSetActionListenerOfHotelButtons(this);
                             // Update action listener for rooms here because hotel is chosen at this moment
                         }
@@ -184,15 +199,14 @@ public class HRSController implements ActionListener {
                     }
                 }
                 // choose room
-            } else if (((BookReservationView) bookReservationView).getChosenRoom() == null) {
+            } else if (bookReservationTemp.getCurrentCardPanel().equals("room")) {
                 for (JButton button : ((SelectRoomPanel) ((BookReservationView) bookReservationView)
                         .getSelectRoomPanel())
                         .getRoomListButtons()) {
                     if (e.getSource() == button) {
-                        ((BookReservationView) bookReservationView)
-                                .setChosenRoom((((BookReservationView) bookReservationView)
-                                        .getChosenHotel().getRoom(e.getActionCommand())));
-                        ((BookReservationView) bookReservationView).showChooseDatePanel();
+                        bookReservationTemp
+                                .setChosenRoom(bookReservationTemp.getChosenHotel().getRoom(e.getActionCommand()));
+                        bookReservationTemp.showChooseDatePanel();
                     }
                 }
             }
@@ -219,7 +233,7 @@ public class HRSController implements ActionListener {
                             "Error", JOptionPane.WARNING_MESSAGE);
                 } else {
                     Reservation reservation = new Reservation(
-                            ((BookReservationView) bookReservationView).getUserNameField(),
+                            bookReservationTemp.getUserNameField(),
                             checkIn, checkOut, chosenRoom);
 
                     boolean discountApplied = reservation.applyDiscount(discountCode);
@@ -249,7 +263,7 @@ public class HRSController implements ActionListener {
                     if (confirm == JOptionPane.YES_OPTION) {
                         chosenRoom.addReservation(reservation);
 
-                        ((BookReservationView) bookReservationView).resetEntries();
+                        bookReservationTemp.resetEntries();
 
                         hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
                         hrsWindow.invalidate();
@@ -286,7 +300,7 @@ public class HRSController implements ActionListener {
         else if (((JPanel) hrsWindow.getContentPane()) == viewHotelView) {
             ViewHotelView viewHotelTemp = ((ViewHotelView) viewHotelView);
             SelectHotelPanel selectHotelTemp = ((SelectHotelPanel) viewHotelTemp.getSelectHotelPanel());
-            if (viewHotelTemp.getChosenHotel() == null) {
+            if (viewHotelTemp.getCurrentCardPanel().equals("chooseHotel")) {
                 for (JButton button : selectHotelTemp.getHotelListButtons()) {
                     if (e.getSource() == button) {
                         viewHotelTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
@@ -298,17 +312,10 @@ public class HRSController implements ActionListener {
                         selectRoomTemp.dynamicSetActionListenerOfHotelButtons(this);
                     }
                 }
-                // Choose Room to display information
+                // Go to select room panel
             } else if (e.getActionCommand().equals("Check Room Information")) {
-                SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) ((ViewHotelView) viewHotelView)
-                        .getChooseRoomPanel());
-                for (JButton button : selectRoomTemp.getRoomListButtons()) {
-                    if (e.getSource() == button) {
-                        viewHotelTemp.setChosenRoom(viewHotelTemp.getChosenHotel().getRoom(e.getActionCommand()));
-                    }
-                }
                 viewHotelTemp.showChooseRoomPanel();
-
+                // Choose date to display room availability
             } else if (e.getActionCommand().equals("Check Room Availability")) {
                 viewHotelTemp.showChooseDatePanel();
             }
@@ -339,7 +346,7 @@ public class HRSController implements ActionListener {
                     }
                 }
             }
-
+            // Display avaialble rooms for the date
             else if (e.getActionCommand().equals("See Available Rooms for the Date")) {
                 SelectDatePanel selectDatePanel = (SelectDatePanel) viewHotelTemp.getSelectDatePanel();
                 int checkInDay = selectDatePanel.getCheckInDay();
@@ -358,7 +365,9 @@ public class HRSController implements ActionListener {
             }
             // Choose Room to display information
             else if (viewHotelTemp.getChosenRoom() == null) {
-                for (JButton button : ((SelectRoomPanel) viewHotelTemp.getSelectRoomPanel()).getRoomListButtons()) {
+                SelectRoomPanel selectRoomTemp = ((SelectRoomPanel) ((ViewHotelView) viewHotelView)
+                        .getChooseRoomPanel());
+                for (JButton button : selectRoomTemp.getRoomListButtons()) {
                     if (e.getSource() == button) {
                         viewHotelTemp.setChosenRoom(viewHotelTemp.getChosenHotel().getRoom(e.getActionCommand()));
                         viewHotelTemp.showRoomInformationPanel();
@@ -374,7 +383,7 @@ public class HRSController implements ActionListener {
         else if (((JPanel) hrsWindow.getContentPane()) == manageHotelView) {
             ManageHotelView manageHotelTemp = ((ManageHotelView) manageHotelView);
             SelectHotelPanel selectHotelTemp = ((SelectHotelPanel) manageHotelTemp.getSelectHotelPanel());
-            if (manageHotelTemp.getChosenHotel() == null) {
+            if (manageHotelTemp.getCurrentCardPanel().equals("chooseHotel")) {
                 for (JButton button : selectHotelTemp.getHotelListButtons()) {
                     if (e.getSource() == button) {
                         manageHotelTemp.setChosenHotel(hrsModel.getHotelGivenName(e.getActionCommand()));
@@ -493,15 +502,15 @@ public class HRSController implements ActionListener {
                                 .getDisplayRoomPanel());
                         displayRoomPanelTemp.updateRoomCounts(manageHotelTemp.getChosenHotel().getRoomList());
                         displayRoomPanelTemp.updateRoomList(manageHotelTemp.getChosenHotel().getRoomList());
+
+                        manageHotelTemp.updateHotelInfoPanel();
+                        manageHotelTemp.validate();
+                        hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
+                        hrsWindow.invalidate();
+                        hrsWindow.validate();
                         JOptionPane.showMessageDialog(this.hrsWindow, "Rooms added successfully!",
                                 "Success", JOptionPane.INFORMATION_MESSAGE);
                     }
-
-                    manageHotelTemp.updateHotelInfoPanel();
-                    manageHotelTemp.validate();
-                    hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
-                    hrsWindow.invalidate();
-                    hrsWindow.validate();
                 }
             } else if (e.getActionCommand().equals("Update Base Price")) {
                 manageHotelTemp.showPriceDisplay();
@@ -534,6 +543,10 @@ public class HRSController implements ActionListener {
 
                             DisplayPrices displayPricesTemp = ((DisplayPrices) manageHotelTemp.getDisplayPrices());
                             displayPricesTemp.updatePrices(newBasePrice);
+
+                            hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
+                            hrsWindow.invalidate();
+                            hrsWindow.validate();
 
                             JOptionPane.showMessageDialog(this.hrsWindow, "Base price updated successfully!",
                                     "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -661,7 +674,7 @@ public class HRSController implements ActionListener {
                 }
             }
             // Choose room to remove
-            else if (manageHotelTemp.getChosenRoomToRemove() == null) {
+            else if (manageHotelTemp.getCurrentCardPanel().equals("roomToRemove")) {
                 SelectRoomPanel selectRoomTemp = (SelectRoomPanel) manageHotelTemp.getSelectRoomPanelToRemove();
                 for (JButton button : selectRoomTemp.getRoomListButtons()) {
                     if (e.getSource() == button) {

@@ -1,3 +1,7 @@
+/**
+ * The HRSView class represents the graphical user interface for the Hotel Reservation System.
+ * It extends the JFrame class and provides methods to initialize and set up the different screens of the system.
+ */
 package View;
 
 import javax.swing.JButton;

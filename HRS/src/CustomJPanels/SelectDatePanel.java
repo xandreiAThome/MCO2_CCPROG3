@@ -15,6 +15,12 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * A custom JPanel that allows the user to select a check-in and check-out date.
+ * It provides spinners for selecting the hour and day of the check-in and
+ * check-out dates.
+ * The panel also includes a button for performing a specific action.
+ */
 public class SelectDatePanel extends JPanel {
     private JSpinner checkInTimeSpinner;
     private JSpinner checkInDaySpinner;

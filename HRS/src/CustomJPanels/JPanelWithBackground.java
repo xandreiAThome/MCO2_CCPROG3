@@ -7,17 +7,29 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * A custom JPanel that displays a background image.
+ */
 public class JPanelWithBackground extends JPanel {
 
     private Image backgroundImage;
 
-    // Some code to initialize the background image.
-    // Here, we use the constructor to load the image. This
-    // can vary depending on the use case of the panel.
+    /**
+     * Constructs a JPanelWithBackground with the specified image file as the
+     * background.
+     *
+     * @param fileName the path to the image file
+     * @throws IOException if there is an error reading the image file
+     */
     public JPanelWithBackground(String fileName) throws IOException {
         backgroundImage = ImageIO.read(new File(fileName));
     }
 
+    /**
+     * Paints the component with the background image.
+     *
+     * @param g the Graphics object to paint on
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 

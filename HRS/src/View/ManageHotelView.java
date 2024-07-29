@@ -41,6 +41,7 @@ public class ManageHotelView extends JPanelWithBackground {
     private DisplayRoomPanel displayRoomPanel;
     private DisplayPrices displayPrices;
     private JPanelWithBackground cardContainer;
+    private String currentCardPanel;
 
     public ManageHotelView() throws IOException {
         super("View/pics/ManageHotelBackground.jpg");
@@ -137,6 +138,7 @@ public class ManageHotelView extends JPanelWithBackground {
         cardContainer.add(displayRoomPanel, "room2");
 
         clayout.show(cardContainer, "chooseHotel");
+        currentCardPanel = "chooseHotel";
 
         this.add(northPanel, BorderLayout.NORTH);
         this.add(cardContainer, BorderLayout.CENTER);
@@ -197,18 +199,32 @@ public class ManageHotelView extends JPanelWithBackground {
 
     public void showChooseOptionPanel() {
         clayout.show(cardContainer, "chooseOption");
+        currentCardPanel = "chooseOption";
     }
 
     public void showChooseHotelPanel() {
         clayout.show(cardContainer, "chooseHotel");
+        currentCardPanel = "chooseHotel";
     }
 
     public void showChooseRoomPanelToRemove() {
         clayout.show(cardContainer, "roomToRemove");
+        currentCardPanel = "roomToRemove";
     }
 
     public void showChooseRoomPanelToModify() {
         clayout.show(cardContainer, "roomToModify");
+        currentCardPanel = "roomToModify";
+    }
+
+    public void showPriceDisplay() {
+        clayout.show(cardContainer, "prices");
+        currentCardPanel = "prices";
+    }
+
+    public void showDisplayRoomPanel() {
+        clayout.show(cardContainer, "room2");
+        currentCardPanel = "room2";
     }
 
     public void resetEntries() {
@@ -242,16 +258,12 @@ public class ManageHotelView extends JPanelWithBackground {
         return this.chosenRoomToModify;
     }
 
-    public void showDisplayRoomPanel() {
-        clayout.show(cardContainer, "room2");
-    }
-
     public JPanel getDisplayRoomPanel() {
         return displayRoomPanel;
     }
 
-    public void showPriceDisplay() {
-        clayout.show(cardContainer, "prices");
+    public String getCurrentCardPanel() {
+        return currentCardPanel;
     }
 
     public JPanel getDisplayPrices() {
