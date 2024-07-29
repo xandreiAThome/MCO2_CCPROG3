@@ -13,7 +13,7 @@ import HotelClasses.Reservation;
  */
 public class Room {
     private String name;
-    private double price = 1299;
+    private double price;
     private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
     private Month month;
 
@@ -23,9 +23,10 @@ public class Room {
      * 
      * @param name
      */
-    public Room(String name) {
+    public Room(String name, double basePrice) {
         this.name = name;
         this.month = new Month(31);
+        this.price = basePrice;
     }
 
     /**

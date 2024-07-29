@@ -15,7 +15,7 @@ public class Hotel {
     private int totalStandardRoom = 0;
     private int totalDeluxeRoom = 0;
     private int totalExecutiveRoom = 0;
-
+    private double basePrice = 1299;
 
     /**
      * Constructs a Hotel object with a specified name and a number of rooms.
@@ -28,7 +28,7 @@ public class Hotel {
         this.roomList = new ArrayList<Room>();
 
         for (int i = 1; i <= roomAmount; i++) {
-            this.roomList.add(new Room(name + "00" + i));
+            this.roomList.add(new Room(name + "00" + i, basePrice));
         }
 
         this.totalStandardRoom = roomAmount;
@@ -49,18 +49,18 @@ public class Hotel {
         this.roomList = new ArrayList<Room>();
 
         for (int i = 1; i <= roomAmount - deluxeAmount - executiveAmount; i++) {
-            this.roomList.add(new Room(name + "00" + i));
+            this.roomList.add(new Room(name + "00" + i, basePrice));
         }
 
         for (int i = 1; i <= deluxeAmount; i++) {
-            this.roomList.add(new DeluxeRoom(name + "55" + i));
+            this.roomList.add(new DeluxeRoom(name + "55" + i, basePrice));
         }
 
         for (int i = 1; i <= executiveAmount; i++) {
-            this.roomList.add(new ExecutiveRoom(name + "77" + i));
+            this.roomList.add(new ExecutiveRoom(name + "77" + i, basePrice));
         }
 
-        this.totalStandardRoom = roomAmount-deluxeAmount-executiveAmount;
+        this.totalStandardRoom = roomAmount - deluxeAmount - executiveAmount;
         this.totalDeluxeRoom = deluxeAmount;
         this.totalExecutiveRoom = executiveAmount;
     }
@@ -184,7 +184,7 @@ public class Hotel {
         }
     }
 
-    public void removeRoom(Room room){
+    public void removeRoom(Room room) {
         this.roomList.remove(room);
     }
 
@@ -215,25 +215,36 @@ public class Hotel {
         return null;
     }
 
-    public boolean hasReservations(){
+    public boolean hasReservations() {
         for (Room room : this.roomList) {
-            if (room.hasReservation()){
+            if (room.hasReservation()) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
-    public void setPriceRate(int day, double newRate){
+    public void setPriceRate(int day, double newRate) {
         for (Room room : this.roomList) {
             room.getMonth().getDay(day).setPriceRate(newRate);
-            }
+        }
     }
 
-    public boolean hasReservationDay(int day){
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+        for (Room room : roomList) {
+            room.setPrice(basePrice);
+        }
+    }
+
+    public double getBasePrice() {
+        return this.basePrice;
+    }
+
+    public boolean hasReservationDay(int day) {
         for (Room room : this.roomList) {
-            if (room.getMonth().getDay(day).getIsBooked()){
+            if (room.getMonth().getDay(day).getIsBooked()) {
                 return true;
             }
         }
@@ -249,21 +260,26 @@ public class Hotel {
     public int getTotalExecutiveRoom() {
         return totalExecutiveRoom;
     }
+
     public int getTotalStandardRoom() {
         return totalStandardRoom;
     }
+
     public void setTotalDeluxeRoom(int totalDeluxeRoom) {
         this.totalDeluxeRoom = totalDeluxeRoom;
     }
+
     public void setTotalExecutiveRoom(int totalExecutiveRoom) {
         this.totalExecutiveRoom = totalExecutiveRoom;
     }
+
     public void setTotalStandardRoom(int totalStandardRoom) {
         this.totalStandardRoom = totalStandardRoom;
     }
-    public void removeReservationHotel(String name){
+
+    public void removeReservationHotel(String name) {
         for (Room room : this.roomList) {
-           room.removeReservation(name);
+            room.removeReservation(name);
         }
     }
 

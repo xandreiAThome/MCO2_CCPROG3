@@ -461,22 +461,24 @@ public class HRSController implements ActionListener {
 
                         for (int i = 0; i < numRooms; i++) {
                             String roomName = "";
+                            double basePriceTemp = manageHotelTemp.getChosenHotel().getBasePrice();
                             switch (roomType) {
                                 case "Standard":
                                     roomName = hotelName + "00" + standardRoomNumber;
-                                    manageHotelTemp.getChosenHotel().addRoom(new Room(roomName));
+                                    manageHotelTemp.getChosenHotel().addRoom(new Room(roomName, basePriceTemp));
                                     manageHotelTemp.getChosenHotel().setTotalStandardRoom(standardRoomNumber);
                                     standardRoomNumber++;
                                     break;
                                 case "Deluxe":
                                     roomName = hotelName + "55" + deluxeRoomNumber;
-                                    manageHotelTemp.getChosenHotel().addRoom(new DeluxeRoom(roomName));
+                                    manageHotelTemp.getChosenHotel().addRoom(new DeluxeRoom(roomName, basePriceTemp));
                                     manageHotelTemp.getChosenHotel().setTotalDeluxeRoom(deluxeRoomNumber);
                                     deluxeRoomNumber++;
                                     break;
                                 case "Executive":
                                     roomName = hotelName + "77" + executiveRoomNumber;
-                                    manageHotelTemp.getChosenHotel().addRoom(new ExecutiveRoom(roomName));
+                                    manageHotelTemp.getChosenHotel()
+                                            .addRoom(new ExecutiveRoom(roomName, basePriceTemp));
                                     manageHotelTemp.getChosenHotel().setTotalExecutiveRoom(executiveRoomNumber);
                                     executiveRoomNumber++;
                                     break;
@@ -528,12 +530,10 @@ public class HRSController implements ActionListener {
                                 "Are you sure you want to update the base price to " + newBasePrice + "?",
                                 "Confirm", JOptionPane.YES_NO_OPTION);
                         if (confirm == JOptionPane.YES_OPTION) {
-                            for (Room room : manageHotelTemp.getChosenHotel().getRoomList()) {
-                                room.setPrice(newBasePrice);
-                            }
+                            manageHotelTemp.getChosenHotel().setBasePrice(newBasePrice);
 
                             DisplayPrices displayPricesTemp = ((DisplayPrices) manageHotelTemp.getDisplayPrices());
-                            displayPricesTemp.updatePrices(manageHotelTemp.getChosenHotel().getRoom(0).getBasePrice());
+                            displayPricesTemp.updatePrices(newBasePrice);
 
                             JOptionPane.showMessageDialog(this.hrsWindow, "Base price updated successfully!",
                                     "Success", JOptionPane.INFORMATION_MESSAGE);

@@ -3,8 +3,8 @@ package HotelClasses.RoomClasses;
 public class ExecutiveRoom extends Room {
     private double priceInc;
 
-    public ExecutiveRoom(String name) {
-        super(name);
+    public ExecutiveRoom(String name, double basePrice) {
+        super(name, basePrice);
         this.priceInc = 0.35;
         double temp = super.getBasePrice();
         super.setPrice(temp * priceInc + temp);
