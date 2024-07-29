@@ -458,24 +458,24 @@ public class HRSController implements ActionListener {
                         int standardRoomNumber = manageHotelTemp.getChosenHotel().getTotalStandardRoom() + 1;
                         int deluxeRoomNumber = manageHotelTemp.getChosenHotel().getTotalDeluxeRoom() + 1;
                         int executiveRoomNumber = manageHotelTemp.getChosenHotel().getTotalExecutiveRoom() + 1;
-
+                        String roomTypeInput = roomType.toLowerCase();
                         for (int i = 0; i < numRooms; i++) {
                             String roomName = "";
                             double basePriceTemp = manageHotelTemp.getChosenHotel().getBasePrice();
-                            switch (roomType) {
-                                case "Standard":
+                            switch (roomTypeInput) {
+                                case "standard":
                                     roomName = hotelName + "00" + standardRoomNumber;
                                     manageHotelTemp.getChosenHotel().addRoom(new Room(roomName, basePriceTemp));
                                     manageHotelTemp.getChosenHotel().setTotalStandardRoom(standardRoomNumber);
                                     standardRoomNumber++;
                                     break;
-                                case "Deluxe":
+                                case "deluxe":
                                     roomName = hotelName + "55" + deluxeRoomNumber;
                                     manageHotelTemp.getChosenHotel().addRoom(new DeluxeRoom(roomName, basePriceTemp));
                                     manageHotelTemp.getChosenHotel().setTotalDeluxeRoom(deluxeRoomNumber);
                                     deluxeRoomNumber++;
                                     break;
-                                case "Executive":
+                                case "executive":
                                     roomName = hotelName + "77" + executiveRoomNumber;
                                     manageHotelTemp.getChosenHotel()
                                             .addRoom(new ExecutiveRoom(roomName, basePriceTemp));
