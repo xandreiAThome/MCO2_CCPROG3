@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,16 +19,17 @@ import javax.swing.border.LineBorder;
 
 import CustomJPanels.DisplayPrices;
 import CustomJPanels.DisplayRoomPanel;
+import CustomJPanels.JPanelWithBackground;
 import CustomJPanels.SelectHotelPanel;
 import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
 import HotelClasses.RoomClasses.Room;
 
-public class ManageHotelView extends JPanel {
+public class ManageHotelView extends JPanelWithBackground {
     private JButton returnHomeButton;
     private JPanel chooseHotelContainer;
     private SelectHotelPanel selectHotelPanel;
-    private JPanel cardContainer;
+    //private JPanel cardContainer;
     private CardLayout clayout;
     private Hotel chosenHotel = null;
     private JPanel chooseOptionPanel;
@@ -38,8 +40,12 @@ public class ManageHotelView extends JPanel {
     private Room chosenRoomToRemove = null, chosenRoomToModify = null;
     private DisplayRoomPanel displayRoomPanel;
     private DisplayPrices displayPrices;
+    private JPanelWithBackground cardContainer;
 
-    public ManageHotelView() {
+
+    public ManageHotelView() throws IOException {
+        super("View/pics/ManageHotelBackground.jpg");
+
         this.setLayout(new BorderLayout());
 
         this.returnHomeButton = new JButton("Home");
@@ -117,7 +123,7 @@ public class ManageHotelView extends JPanel {
 
         /////////////////////////////////////////////////
 
-        cardContainer = new JPanel();
+        cardContainer = new JPanelWithBackground("View/pics/ManageHotelBackground.jpg");
         clayout = new CardLayout();
         cardContainer.setLayout(clayout);
         cardContainer.add(chooseHotelContainer, "chooseHotel");
@@ -252,7 +258,7 @@ public class ManageHotelView extends JPanel {
         gbc.insets = new Insets(15, 0, 7, 0);
 
         JLabel roomAvailLabel = new JLabel("Price Rate Modifier");
-        roomAvailLabel.setForeground(Color.white);
+        roomAvailLabel.setForeground(Color.blue);
         roomAvailLabel.setHorizontalAlignment(JLabel.CENTER);
         roomAvailLabel.setVerticalAlignment(JLabel.TOP);
         roomAvailLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
