@@ -52,6 +52,9 @@ public class SelectHotelPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 0);
 
+        // Resource intensive but only thing that I could think of to update the panel
+        // with new set of buttons while making sure that removed hotels do not remain
+        // as choices
         wrapper.removeAll();
         this.hotelListButtons.clear();
         if (hotelList.size() > 0) {
