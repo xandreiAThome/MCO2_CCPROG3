@@ -437,18 +437,21 @@ public class HRSController implements ActionListener {
                 if (roomType != null && !roomType.isEmpty()) {
                     int numRooms = 0;
                     try {
+                        String input = JOptionPane.showInputDialog(this.hrsWindow, "Enter number of rooms to add:",
+                                "Add Rooms", JOptionPane.QUESTION_MESSAGE);
                         numRooms = Integer
-                                .parseInt(JOptionPane.showInputDialog(this.hrsWindow, "Enter number of rooms to add:",
-                                        "Add Rooms", JOptionPane.QUESTION_MESSAGE));
+                                .parseInt(input);
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(this.hrsWindow, "Invalid input. Please enter a valid number.",
                                 "Error", JOptionPane.WARNING_MESSAGE);
+                        manageHotelTemp.showChooseOptionPanel();
                         return;
                     }
 
                     if (numRooms <= 0) {
                         JOptionPane.showMessageDialog(this.hrsWindow, "Number of rooms must be greater than 0.",
                                 "Error", JOptionPane.WARNING_MESSAGE);
+                        manageHotelTemp.showChooseOptionPanel();
                         return;
                     }
 
@@ -456,6 +459,7 @@ public class HRSController implements ActionListener {
                     if (currentRoomCount + numRooms > 50) {
                         JOptionPane.showMessageDialog(this.hrsWindow, "Total number of rooms cannot exceed 50.",
                                 "Error", JOptionPane.WARNING_MESSAGE);
+                        manageHotelTemp.showChooseOptionPanel();
                         return;
                     }
 
@@ -494,6 +498,7 @@ public class HRSController implements ActionListener {
                                 default:
                                     JOptionPane.showMessageDialog(this.hrsWindow, "Invalid room type.",
                                             "Error", JOptionPane.WARNING_MESSAGE);
+                                    manageHotelTemp.showChooseOptionPanel();
                                     return;
                             }
                         }
@@ -510,7 +515,11 @@ public class HRSController implements ActionListener {
                         hrsWindow.validate();
                         JOptionPane.showMessageDialog(this.hrsWindow, "Rooms added successfully!",
                                 "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        manageHotelTemp.showChooseOptionPanel();
                     }
+                } else {
+                    manageHotelTemp.showChooseOptionPanel();
                 }
             } else if (e.getActionCommand().equals("Update Base Price")) {
                 manageHotelTemp.showPriceDisplay();
@@ -532,6 +541,7 @@ public class HRSController implements ActionListener {
                             JOptionPane.showMessageDialog(this.hrsWindow,
                                     "Base price must be greater than or equal to 100.0.",
                                     "Error", JOptionPane.WARNING_MESSAGE);
+                            manageHotelTemp.showChooseOptionPanel();
                             return;
                         }
 
@@ -556,6 +566,8 @@ public class HRSController implements ActionListener {
                         JOptionPane.showMessageDialog(this.hrsWindow, "Invalid input. Please enter a valid number.",
                                 "Error", JOptionPane.WARNING_MESSAGE);
                     }
+                } else {
+                    manageHotelTemp.showChooseOptionPanel();
                 }
 
             } else if (e.getActionCommand().equals("Remove Reservation")) {
@@ -602,11 +614,13 @@ public class HRSController implements ActionListener {
                         if (day < 1 || day > 31) {
                             JOptionPane.showMessageDialog(this.hrsWindow, "Day must be between 1 and 30.",
                                     "Error", JOptionPane.WARNING_MESSAGE);
+                            manageHotelTemp.showChooseOptionPanel();
                             return;
                         }
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(this.hrsWindow, "Invalid input. Please enter a valid number.",
                                 "Error", JOptionPane.WARNING_MESSAGE);
+                        manageHotelTemp.showChooseOptionPanel();
                         return;
                     }
 
@@ -614,6 +628,7 @@ public class HRSController implements ActionListener {
                         JOptionPane.showMessageDialog(this.hrsWindow,
                                 "Cannot modify price rate on this day: there are existing reservations.",
                                 "Error", JOptionPane.WARNING_MESSAGE);
+                        manageHotelTemp.showChooseOptionPanel();
                         return;
                     }
 
@@ -627,6 +642,7 @@ public class HRSController implements ActionListener {
                                 JOptionPane.showMessageDialog(this.hrsWindow,
                                         "Price rate percentage must be greater than or 0%",
                                         "Error", JOptionPane.WARNING_MESSAGE);
+                                manageHotelTemp.showChooseOptionPanel();
                                 return;
                             }
 
@@ -636,19 +652,23 @@ public class HRSController implements ActionListener {
                                     "Confirm", JOptionPane.YES_NO_OPTION);
                             if (confirm == JOptionPane.YES_OPTION) {
                                 manageHotelTemp.getChosenHotel().setPriceRate(day, newPriceRate / 100);
+                                manageHotelTemp.showDatePriceModifierPanel();
                                 JOptionPane.showMessageDialog(this.hrsWindow, "Price rate modified successfully!",
                                         "Success", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                manageHotelTemp.showChooseOptionPanel();
                             }
                         } catch (NumberFormatException ex) {
                             JOptionPane.showMessageDialog(this.hrsWindow, "Invalid input. Please enter a valid number.",
                                     "Error", JOptionPane.WARNING_MESSAGE);
+                            manageHotelTemp.showChooseOptionPanel();
                         }
+                    } else {
+                        manageHotelTemp.showChooseOptionPanel();
                     }
                 } else {
-
+                    manageHotelTemp.showChooseOptionPanel();
                 }
-
-                manageHotelTemp.showDatePriceModifierPanel();
 
             } else if (e.getActionCommand().equals("Remove Hotel")) {
                 int confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
