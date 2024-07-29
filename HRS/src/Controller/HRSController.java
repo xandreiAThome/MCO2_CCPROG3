@@ -553,10 +553,10 @@ public class HRSController implements ActionListener {
 
                             DisplayPrices displayPricesTemp = ((DisplayPrices) manageHotelTemp.getDisplayPrices());
                             displayPricesTemp.updatePrices(newBasePrice);
-
-                            hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
-                            hrsWindow.invalidate();
-                            hrsWindow.validate();
+                            // Hack to make the message dialog not appear in the background after clicking
+                            // it ............. Java, why
+                            manageHotelTemp.showChooseOptionPanel();
+                            manageHotelTemp.showPriceDisplay();
 
                             JOptionPane.showMessageDialog(this.hrsWindow, "Base price updated successfully!",
                                     "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -688,9 +688,7 @@ public class HRSController implements ActionListener {
                 if (manageHotelTemp.getChosenHotel().getRoomList().size() == 1) {
                     JOptionPane.showMessageDialog(this.hrsWindow, "Cannot remove the last room in the hotel.", "Error",
                             JOptionPane.WARNING_MESSAGE);
-                    hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
-                    hrsWindow.invalidate();
-                    hrsWindow.validate();
+                    manageHotelTemp.showChooseOptionPanel();
                 }
             }
             // Choose room to remove
