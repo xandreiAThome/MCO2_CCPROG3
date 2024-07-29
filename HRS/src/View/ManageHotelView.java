@@ -78,7 +78,7 @@ public class ManageHotelView extends JPanelWithBackground {
 
         // Choose Hotel Container///////////////////////////////
         chooseHotelContainer = new JPanel(new BorderLayout());
-
+        chooseHotelContainer.setOpaque(false);
         JLabel chooseHotelLabel = new JLabel("Choose Hotel to Manage");
         chooseHotelLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
@@ -91,7 +91,9 @@ public class ManageHotelView extends JPanelWithBackground {
 
         //////////////////////////////////////////////////
         JPanel chooseOptionBorderWrapper = new JPanel(new BorderLayout());
+        chooseOptionBorderWrapper.setOpaque(false);
         chooseOptionPanel = new JPanel(new GridBagLayout());
+        chooseOptionPanel.setOpaque(false);
 
         // Choose Option Panel /////////////////////////
         changeHotelName = new JButton("Change Hotel Name");
@@ -120,6 +122,7 @@ public class ManageHotelView extends JPanelWithBackground {
 
         hotelInfoPanel = new JPanel(new GridBagLayout());
         chooseOptionBorderWrapper.add(hotelInfoPanel, BorderLayout.NORTH);
+        hotelInfoPanel.setOpaque(false);
 
         /////////////////////////////////////////////////
 
@@ -164,12 +167,17 @@ public class ManageHotelView extends JPanelWithBackground {
         JLabel hotelName = new JLabel("Hotel " + chosenHotel.getName());
         hotelName.setHorizontalAlignment(JLabel.CENTER);
         hotelName.setFont(new Font("Verdana", Font.BOLD, 16));
+        hotelName.setForeground(Color.WHITE); // Set font color to white
+
         JLabel numOfRoom = new JLabel("Number of Rooms: " + chosenHotel.getRoomAmt());
         numOfRoom.setHorizontalAlignment(JLabel.CENTER);
         numOfRoom.setFont(new Font("Verdana", Font.BOLD, 16));
+        numOfRoom.setForeground(Color.WHITE); // Set font color to white
+
         JLabel earningForMonth = new JLabel("Estimated earnings for the Month: " + chosenHotel.earningForMonth());
         earningForMonth.setHorizontalAlignment(JLabel.CENTER);
         earningForMonth.setFont(new Font("Verdana", Font.BOLD, 16));
+        earningForMonth.setForeground(Color.WHITE); // Set font color to white
 
         hotelInfoPanel.add(hotelName, gbc);
         hotelInfoPanel.add(numOfRoom, gbc);

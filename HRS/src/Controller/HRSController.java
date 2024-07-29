@@ -497,7 +497,9 @@ public class HRSController implements ActionListener {
 
                     manageHotelTemp.updateHotelInfoPanel();
                     manageHotelTemp.validate();
-                    manageHotelTemp.showChooseOptionPanel();
+                    hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
+                    hrsWindow.invalidate();
+                    hrsWindow.validate();
                 }
             } else if (e.getActionCommand().equals("Update Base Price")) {
                 manageHotelTemp.showPriceDisplay();
@@ -647,6 +649,13 @@ public class HRSController implements ActionListener {
 
             } else if (e.getActionCommand().equals("Remove Rooms")) {
                 manageHotelTemp.showChooseRoomPanelToRemove();
+
+                if (manageHotelTemp.getChosenHotel().getRoomList().size() == 1) {
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Cannot remove the last room in the hotel.", "Error", JOptionPane.WARNING_MESSAGE);
+                    hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
+                    hrsWindow.invalidate();
+                    hrsWindow.validate();
+                } 
             }
             // Choose room to remove
             else if (manageHotelTemp.getChosenRoomToRemove() == null) {
