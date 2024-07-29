@@ -12,7 +12,10 @@ import HotelClasses.RoomClasses.Room;
 public class Hotel {
     private String name;
     private ArrayList<Room> roomList;
-    private int totalRoomAmt = 0;
+    private int totalStandardRoom = 0;
+    private int totalDeluxeRoom = 0;
+    private int totalExecutiveRoom = 0;
+
 
     /**
      * Constructs a Hotel object with a specified name and a number of rooms.
@@ -28,7 +31,7 @@ public class Hotel {
             this.roomList.add(new Room(name + "00" + i));
         }
 
-        this.totalRoomAmt = roomAmount;
+        this.totalStandardRoom = roomAmount;
     }
 
     /**
@@ -57,6 +60,9 @@ public class Hotel {
             this.roomList.add(new ExecutiveRoom(name + "77" + i));
         }
 
+        this.totalStandardRoom = roomAmount-deluxeAmount-executiveAmount;
+        this.totalDeluxeRoom = deluxeAmount;
+        this.totalExecutiveRoom = executiveAmount;
     }
 
     /**
@@ -236,14 +242,25 @@ public class Hotel {
 
     }
 
-    public int getTotalRoomAmt() {
-        return totalRoomAmt;
+    public int getTotalDeluxeRoom() {
+        return totalDeluxeRoom;
     }
 
-    public void setTotalRoomAmt(int totalRoomAmt) {
-        this.totalRoomAmt = totalRoomAmt;
+    public int getTotalExecutiveRoom() {
+        return totalExecutiveRoom;
     }
-
+    public int getTotalStandardRoom() {
+        return totalStandardRoom;
+    }
+    public void setTotalDeluxeRoom(int totalDeluxeRoom) {
+        this.totalDeluxeRoom = totalDeluxeRoom;
+    }
+    public void setTotalExecutiveRoom(int totalExecutiveRoom) {
+        this.totalExecutiveRoom = totalExecutiveRoom;
+    }
+    public void setTotalStandardRoom(int totalStandardRoom) {
+        this.totalStandardRoom = totalStandardRoom;
+    }
     public void removeReservationHotel(String name){
         for (Room room : this.roomList) {
            room.removeReservation(name);

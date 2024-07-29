@@ -125,6 +125,8 @@ public class ManageHotelView extends JPanel {
         cardContainer.add(selectRoomPanelToRemove, "roomToRemove");
         cardContainer.add(selectRoomPanelToModify, "roomToModify");
         cardContainer.add(displayPrices, "prices");
+        cardContainer.add(displayRoomPanel, "room2");
+
 
         clayout.show(cardContainer, "chooseHotel");
 

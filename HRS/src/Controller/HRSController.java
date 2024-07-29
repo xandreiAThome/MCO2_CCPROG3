@@ -141,7 +141,7 @@ public class HRSController implements ActionListener {
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
                     hrsWindow.invalidate();
                     hrsWindow.validate();
-                    JOptionPane.showMessageDialog(this.hrsWindow, "Succesfully added new Hotel",
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Successfully added new Hotel",
                             "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
@@ -455,32 +455,37 @@ public class HRSController implements ActionListener {
                             JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         String hotelName = manageHotelTemp.getChosenHotel().getName();
-                        int roomNumber = manageHotelTemp.getChosenHotel().getTotalRoomAmt() + 1;
+                        int standardRoomNumber = manageHotelTemp.getChosenHotel().getTotalStandardRoom() + 1;
+                        int deluxeRoomNumber = manageHotelTemp.getChosenHotel().getTotalDeluxeRoom() + 1;
+                        int executiveRoomNumber = manageHotelTemp.getChosenHotel().getTotalExecutiveRoom() + 1;
 
                         for (int i = 0; i < numRooms; i++) {
                             String roomName = "";
                             switch (roomType) {
                                 case "Standard":
-                                    roomName = hotelName + "00" + roomNumber;
+                                    roomName = hotelName + "00" + standardRoomNumber;
                                     manageHotelTemp.getChosenHotel().addRoom(new Room(roomName));
+                                    manageHotelTemp.getChosenHotel().setTotalStandardRoom(standardRoomNumber);
+                                    standardRoomNumber++;
                                     break;
                                 case "Deluxe":
-                                    roomName = hotelName + "55" + roomNumber;
+                                    roomName = hotelName + "55" + deluxeRoomNumber;
                                     manageHotelTemp.getChosenHotel().addRoom(new DeluxeRoom(roomName));
+                                    manageHotelTemp.getChosenHotel().setTotalDeluxeRoom(deluxeRoomNumber);
+                                    deluxeRoomNumber++;
                                     break;
                                 case "Executive":
-                                    roomName = hotelName + "77" + roomNumber;
+                                    roomName = hotelName + "77" + executiveRoomNumber;
                                     manageHotelTemp.getChosenHotel().addRoom(new ExecutiveRoom(roomName));
+                                    manageHotelTemp.getChosenHotel().setTotalExecutiveRoom(executiveRoomNumber);
+                                    executiveRoomNumber++;
                                     break;
                                 default:
                                     JOptionPane.showMessageDialog(this.hrsWindow, "Invalid room type.",
                                             "Error", JOptionPane.WARNING_MESSAGE);
                                     return;
                             }
-                            roomNumber++;
                         }
-
-                        manageHotelTemp.getChosenHotel().setTotalRoomAmt(roomNumber);
 
                         DisplayRoomPanel displayRoomPanelTemp = ((DisplayRoomPanel) manageHotelTemp
                                 .getDisplayRoomPanel());
@@ -489,6 +494,10 @@ public class HRSController implements ActionListener {
                         JOptionPane.showMessageDialog(this.hrsWindow, "Rooms added successfully!",
                                 "Success", JOptionPane.INFORMATION_MESSAGE);
                     }
+
+                    manageHotelTemp.updateHotelInfoPanel();
+                    manageHotelTemp.validate();
+                    manageHotelTemp.showChooseOptionPanel();
                 }
             } else if (e.getActionCommand().equals("Update Base Price")) {
                 manageHotelTemp.showPriceDisplay();
