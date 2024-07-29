@@ -24,7 +24,8 @@ public class DisplayRoomPanel extends JPanel {
 
     public DisplayRoomPanel() {
         this.setLayout(new BorderLayout());
-
+        this.setOpaque(false);
+        
         roomCountPanel = new JPanel();
         roomCountPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         this.add(roomCountPanel, BorderLayout.NORTH);
@@ -41,9 +42,15 @@ public class DisplayRoomPanel extends JPanel {
         executiveRoomCountLabel.setFont(new Font("Verdana", Font.BOLD, 16));
         roomCountPanel.add(executiveRoomCountLabel);
 
+        roomCountPanel.setBackground(new Color(0, 0, 0, 0));
+        standardRoomCountLabel.setForeground(Color.WHITE);
+        deluxeRoomCountLabel.setForeground(Color.WHITE);
+        executiveRoomCountLabel.setForeground(Color.WHITE);
+        
         roomListPanel = new JPanel();
         roomListPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         this.add(roomListPanel, BorderLayout.CENTER);
+        roomListPanel.setBackground(new Color(0, 0, 0, 0));
 
         JLabel legendLabel = new JLabel(
                 "Legend: White - Standard Room    Purple - Deluxe Room    Gold - Executive Room");

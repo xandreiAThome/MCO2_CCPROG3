@@ -21,7 +21,7 @@ public class DisplayPrices extends JPanel {
         this.setOpaque(false);
 
         wrapper = new JPanel(new BorderLayout());
-        wrapper.setBackground(Color.WHITE);
+        wrapper.setBackground(new Color(0, 0, 0, 0));
         wrapper.setBorder(new EmptyBorder(20, 20, 20, 20)); // added border for spacing
 
         JLabel roomPriceLabel = new JLabel("Room Prices");
@@ -38,21 +38,21 @@ public class DisplayPrices extends JPanel {
 
         standardPriceLabel = new JLabel("Standard Room: $0.0");
         standardPriceLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-        standardPriceLabel.setForeground(Color.BLACK);
+        standardPriceLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 0;
         priceContainer.add(standardPriceLabel, gbc);
 
         deluxePriceLabel = new JLabel("Deluxe Room: $0.0");
         deluxePriceLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-        deluxePriceLabel.setForeground(Color.BLACK);
+        deluxePriceLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 1;
         priceContainer.add(deluxePriceLabel, gbc);
 
         executivePriceLabel = new JLabel("Executive Room: $0.0");
         executivePriceLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-        executivePriceLabel.setForeground(Color.BLACK);
+        executivePriceLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 2;
         priceContainer.add(executivePriceLabel, gbc);

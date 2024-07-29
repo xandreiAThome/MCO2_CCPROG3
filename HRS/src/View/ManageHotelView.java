@@ -82,6 +82,7 @@ public class ManageHotelView extends JPanelWithBackground {
         chooseHotelLabel.setHorizontalAlignment(JLabel.CENTER);
         chooseHotelLabel.setFont(new Font("Verdana", Font.BOLD, 20));
         chooseHotelLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
+        chooseHotelLabel.setForeground(Color.WHITE);
 
         selectHotelPanel = new SelectHotelPanel(new Color(0, 0, 0, 0));
 
@@ -264,7 +265,7 @@ public class ManageHotelView extends JPanelWithBackground {
         gbc.insets = new Insets(15, 0, 7, 0);
 
         JLabel roomAvailLabel = new JLabel("Price Rate Modifier");
-        roomAvailLabel.setForeground(Color.blue);
+        roomAvailLabel.setForeground(Color.white);
         roomAvailLabel.setHorizontalAlignment(JLabel.CENTER);
         roomAvailLabel.setVerticalAlignment(JLabel.TOP);
         roomAvailLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -292,6 +293,7 @@ public class ManageHotelView extends JPanelWithBackground {
         JPanel priceRateModifierPanel = new JPanel(new BorderLayout());
         priceRateModifierPanel.add(roomAvailLabel, BorderLayout.NORTH);
         priceRateModifierPanel.add(calendarContainer, BorderLayout.CENTER);
+        priceRateModifierPanel.setOpaque(false);
 
         // Add the priceRateModifierPanel to the cardContainer
         cardContainer.add(priceRateModifierPanel, "roomInformation");
