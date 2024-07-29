@@ -22,12 +22,15 @@ import HotelClasses.RoomClasses.Room;
 public class SelectRoomPanel extends JPanel {
     private JPanel chooseRoomButtonContainer;
     private ArrayList<JButton> roomListButtons = new ArrayList<JButton>();
+    private Color fontColor;
 
     private JPanel wrapper;
 
     public SelectRoomPanel(String label, Color fontColor, Color backgroundColor) {
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
+
+        this.fontColor = fontColor;
 
         wrapper = new JPanel(new BorderLayout());
         wrapper.setBackground(backgroundColor);
@@ -103,10 +106,10 @@ public class SelectRoomPanel extends JPanel {
      * @param rooms
      */
     public void updateRoomListButtonsAvailableGivenDate(ArrayList<Room> rooms, Date checkIn, Date checkOut) {
-        for (JButton roomOption : this.roomListButtons) {
-            this.chooseRoomButtonContainer.remove(roomOption);
-        }
+        this.chooseRoomButtonContainer.removeAll();
         this.roomListButtons.clear();
+
+        boolean roomAvail = false;
 
         for (Room room : rooms) {
             JButton temp = new JButton(room.getName());
@@ -124,6 +127,16 @@ public class SelectRoomPanel extends JPanel {
                 this.roomListButtons.add(temp);
             }
 
+            if (room.isRoomAvailableGivenDate(checkIn, checkOut)) {
+                roomAvail = true;
+            }
+        }
+
+        if (!roomAvail) {
+            JLabel noAvaiLabel = new JLabel("No available rooms for the chosen date");
+            noAvaiLabel.setForeground(fontColor);
+            noAvaiLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+            this.chooseRoomButtonContainer.add(noAvaiLabel);
         }
 
         for (JButton button : this.roomListButtons) {

@@ -612,7 +612,7 @@ public class HRSController implements ActionListener {
                             double newPriceRate = Double.parseDouble(newPriceRateStr);
                             if (newPriceRate < 0) {
                                 JOptionPane.showMessageDialog(this.hrsWindow,
-                                        "Price rate percentage must be greater than or equal to 0.",
+                                        "Price rate percentage must be greater than or 0%",
                                         "Error", JOptionPane.WARNING_MESSAGE);
                                 return;
                             }
@@ -622,7 +622,7 @@ public class HRSController implements ActionListener {
                                             + newPriceRate + "%?",
                                     "Confirm", JOptionPane.YES_NO_OPTION);
                             if (confirm == JOptionPane.YES_OPTION) {
-                                manageHotelTemp.getChosenHotel().setPriceRate(day, newPriceRate);
+                                manageHotelTemp.getChosenHotel().setPriceRate(day, newPriceRate / 100);
                                 JOptionPane.showMessageDialog(this.hrsWindow, "Price rate modified successfully!",
                                         "Success", JOptionPane.INFORMATION_MESSAGE);
                             }
@@ -631,6 +631,8 @@ public class HRSController implements ActionListener {
                                     "Error", JOptionPane.WARNING_MESSAGE);
                         }
                     }
+                } else {
+
                 }
 
                 manageHotelTemp.showDatePriceModifierPanel();
@@ -651,11 +653,12 @@ public class HRSController implements ActionListener {
                 manageHotelTemp.showChooseRoomPanelToRemove();
 
                 if (manageHotelTemp.getChosenHotel().getRoomList().size() == 1) {
-                    JOptionPane.showMessageDialog(this.hrsWindow, "Cannot remove the last room in the hotel.", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this.hrsWindow, "Cannot remove the last room in the hotel.", "Error",
+                            JOptionPane.WARNING_MESSAGE);
                     hrsWindow.setContentPane(hrsWindow.getHomeScreenPanel());
                     hrsWindow.invalidate();
                     hrsWindow.validate();
-                } 
+                }
             }
             // Choose room to remove
             else if (manageHotelTemp.getChosenRoomToRemove() == null) {

@@ -2,6 +2,7 @@ package CustomJPanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import HotelClasses.Hotel;
@@ -44,9 +46,7 @@ public class SelectHotelPanel extends JPanel {
         // fine for now
         // done this way so for when editing hotel name is implemented, the option names
         // are also updated
-        for (JButton hotelOption : this.hotelListButtons) {
-            wrapper.remove(hotelOption);
-        }
+        wrapper.removeAll();
         this.hotelListButtons.clear();
         if (hotelList.size() > 0) {
             for (Hotel hotel : hotelList) {
@@ -56,6 +56,13 @@ public class SelectHotelPanel extends JPanel {
             for (JButton hotelDisplay : this.hotelListButtons) {
                 wrapper.add(hotelDisplay, gbc);
             }
+        }
+
+        if (hotelList.size() == 0) {
+            JLabel noAvaiLabel = new JLabel("No Hotels added yet");
+            noAvaiLabel.setForeground(Color.white);
+            noAvaiLabel.setFont(new Font("Verdana", Font.BOLD, 20));
+            wrapper.add(noAvaiLabel);
         }
     }
 

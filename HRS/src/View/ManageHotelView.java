@@ -29,7 +29,7 @@ public class ManageHotelView extends JPanelWithBackground {
     private JButton returnHomeButton;
     private JPanel chooseHotelContainer;
     private SelectHotelPanel selectHotelPanel;
-    //private JPanel cardContainer;
+    // private JPanel cardContainer;
     private CardLayout clayout;
     private Hotel chosenHotel = null;
     private JPanel chooseOptionPanel;
@@ -41,7 +41,6 @@ public class ManageHotelView extends JPanelWithBackground {
     private DisplayRoomPanel displayRoomPanel;
     private DisplayPrices displayPrices;
     private JPanelWithBackground cardContainer;
-
 
     public ManageHotelView() throws IOException {
         super("View/pics/ManageHotelBackground.jpg");
@@ -97,7 +96,7 @@ public class ManageHotelView extends JPanelWithBackground {
 
         // Choose Option Panel /////////////////////////
         changeHotelName = new JButton("Change Hotel Name");
-        //modifyRoomType = new JButton("Modify Room Type");
+        // modifyRoomType = new JButton("Modify Room Type");
         addRooms = new JButton("Add Rooms");
         removeRooms = new JButton("Remove Rooms");
         updateBasePrice = new JButton("Update Base Price");
@@ -105,7 +104,7 @@ public class ManageHotelView extends JPanelWithBackground {
         dateModifier = new JButton("Price Rate Modifier");
         removeHotel = new JButton("Remove Hotel");
         chooseOptionPanel.add(changeHotelName, gbc);
-        //chooseOptionPanel.add(modifyRoomType, gbc);
+        // chooseOptionPanel.add(modifyRoomType, gbc);
         chooseOptionPanel.add(addRooms, gbc);
         chooseOptionPanel.add(removeRooms, gbc);
         chooseOptionPanel.add(updateBasePrice, gbc);
@@ -136,7 +135,6 @@ public class ManageHotelView extends JPanelWithBackground {
         cardContainer.add(displayPrices, "prices");
         cardContainer.add(displayRoomPanel, "room2");
 
-
         clayout.show(cardContainer, "chooseHotel");
 
         this.add(northPanel, BorderLayout.NORTH);
@@ -148,7 +146,7 @@ public class ManageHotelView extends JPanelWithBackground {
         this.returnHomeButton.addActionListener(listener);
         this.changeHotelName.addActionListener(listener);
         this.removeHotel.addActionListener(listener);
-        //this.modifyRoomType.addActionListener(listener);
+        // this.modifyRoomType.addActionListener(listener);
         this.addRooms.addActionListener(listener);
         this.removeRooms.addActionListener(listener);
         this.updateBasePrice.addActionListener(listener);
@@ -284,9 +282,9 @@ public class ManageHotelView extends JPanelWithBackground {
             dayContainer.setBorder(new LineBorder(Color.BLACK, 2, true));
             JLabel day = new JLabel("" + i);
             day.setHorizontalAlignment(JLabel.CENTER);
-            double priceRateOfDay = chosenHotel.getRoom(0).getMonth().getDay(i).getPriceRate();
+            double priceRateOfDay = chosenHotel.getRoom(0).getMonth().getDay(i).getPriceRate() * 100;
             dayContainer.add(day, gbc2);
-            dayContainer.add(new JLabel(String.valueOf(priceRateOfDay)), gbc2);
+            dayContainer.add(new JLabel(String.valueOf(priceRateOfDay) + "%"), gbc2);
             calendarContainer.add(dayContainer);
         }
 
