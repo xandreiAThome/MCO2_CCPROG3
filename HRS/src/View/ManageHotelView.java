@@ -297,7 +297,7 @@ public class ManageHotelView extends JPanelWithBackground {
             day.setHorizontalAlignment(JLabel.CENTER);
             double priceRateOfDay = chosenHotel.getRoom(0).getMonth().getDay(i).getPriceRate() * 100;
             dayContainer.add(day, gbc2);
-            dayContainer.add(new JLabel(String.valueOf(priceRateOfDay) + "%"), gbc2);
+            dayContainer.add(new JLabel(String.format("%.2f%%",priceRateOfDay)), gbc2);
             calendarContainer.add(dayContainer);
         }
 
