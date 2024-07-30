@@ -93,7 +93,6 @@ public class Reservation {
         switch (discountCode) {
             case "I_WORK_HERE":
                 this.totalPrice = this.totalPrice - (this.totalPrice * 0.1);
-                System.out.println(this.totalPrice);
                 applied = true;
                 break;
             case "STAY4_GET1":

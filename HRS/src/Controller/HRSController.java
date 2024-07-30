@@ -240,9 +240,15 @@ public class HRSController implements ActionListener {
 
                     int confirm = 0;
 
-                    if (discountCode.length() == 0 || discountApplied) {
+                    if (discountCode.length() == 0) {
                         confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
                                 "Total price of booking: " + reservation.getTotalPrice() + "\nConfirm Booking?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION);
+                    } else if (discountApplied) {
+                        confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
+                                "Total price of booking: " + reservation.getTotalPrice() + "\nDiscount code applied"
+                                        + "\nConfirm Booking?",
                                 "Confirm",
                                 JOptionPane.YES_NO_OPTION);
                     } else if (!discountApplied

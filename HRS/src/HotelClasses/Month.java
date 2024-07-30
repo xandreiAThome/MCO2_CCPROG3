@@ -148,7 +148,7 @@ public class Month {
     }
 
     public boolean isPayDay(int checkInDay, int checkOutDay) {
-        if (checkInDay <= 15 && checkOutDay > 15) {
+        if (checkInDay <= 15 && checkOutDay > 15 && checkOutDay != 30) {
             return true;
         } else if (checkInDay <= 30 && checkOutDay > 30) {
             return true;
