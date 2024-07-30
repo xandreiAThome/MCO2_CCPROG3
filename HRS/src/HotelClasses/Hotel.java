@@ -184,6 +184,11 @@ public class Hotel {
         }
     }
 
+    /**
+     * Remove room from hotel
+     * 
+     * @param room
+     */
     public void removeRoom(Room room) {
         this.roomList.remove(room);
     }
@@ -215,6 +220,10 @@ public class Hotel {
         return null;
     }
 
+    /**
+     * 
+     * @return true - if there are reservations in any rooms in the hotel
+     */
     public boolean hasReservations() {
         for (Room room : this.roomList) {
             if (room.hasReservation()) {
@@ -225,12 +234,26 @@ public class Hotel {
         return false;
     }
 
+    /**
+     * Sets the price rate for a specific day of the month
+     * 
+     * @param day
+     * @param newRate
+     */
     public void setPriceRate(int day, double newRate) {
         for (Room room : this.roomList) {
             room.getMonth().getDay(day).setPriceRate(newRate);
         }
     }
 
+    /**
+     * Sets the base price of the rooms in the hotel
+     * All room types base their price on the base price
+     * With deluxe rooms having 20% higher prices and executive rooms having 35%
+     * higher price than the base price
+     * 
+     * @param basePrice
+     */
     public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
         for (Room room : roomList) {
@@ -242,6 +265,11 @@ public class Hotel {
         return this.basePrice;
     }
 
+    /**
+     * 
+     * @param day
+     * @return true - if the specified day is booked;
+     */
     public boolean hasReservationDay(int day) {
         for (Room room : this.roomList) {
             if (room.getMonth().getDay(day).getIsBooked()) {
@@ -277,6 +305,11 @@ public class Hotel {
         this.totalStandardRoom = totalStandardRoom;
     }
 
+    /**
+     * Removes a reservation from the hotel given the guest name
+     * 
+     * @param name
+     */
     public void removeReservationHotel(String name) {
         for (Room room : this.roomList) {
             room.removeReservation(name);
