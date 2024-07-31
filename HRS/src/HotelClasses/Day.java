@@ -10,6 +10,8 @@ public class Day {
     private Reservation reservation, checkInReservation, checkOutReservation;
     // has seperate variable for check in and check out reservations in the day
     // object so as to support same day booking
+    // if checkInReservation and checkOutReservation are null and only reservation
+    // has a value, then it means that the reservation lasts for the whole day
     private double priceRate;
 
     /**
