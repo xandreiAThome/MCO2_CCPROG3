@@ -325,7 +325,23 @@ public class ViewHotelView extends JPanelWithBackground {
             dayContainer.add(day, gbc2);
             JLabel statusLabel = new JLabel();
             statusLabel.setHorizontalAlignment(JLabel.CENTER);
-            if (roomCalendar[i - 1].getIsBooked()) {
+            JLabel untilHourBooked = new JLabel();
+            untilHourBooked.setFont(new Font("Verdana", Font.PLAIN, 8));
+            if (roomCalendar[i - 1].getIsCheckIn() && !roomCalendar[i - 1].getIsCheckOut() && i > 1) {
+                statusLabel.setText("Booked");
+                untilHourBooked
+                        .setText("From " + roomCalendar[i - 1].getCheckInReservation().getCheckInDate().getHour()
+                                + "HH onwards");
+                dayContainer.add(statusLabel, gbc2);
+                dayContainer.add(untilHourBooked, gbc2);
+            } else if (roomCalendar[i - 1].getIsCheckOut() && !roomCalendar[i - 1].getIsCheckIn() && i < 31) {
+                statusLabel.setText("Booked");
+                untilHourBooked
+                        .setText("Until " + roomCalendar[i - 1].getCheckOutReservation().getCheckOutDate().getHour()
+                                + "HH");
+                dayContainer.add(statusLabel, gbc2);
+                dayContainer.add(untilHourBooked, gbc2);
+            } else if (roomCalendar[i - 1].getIsBooked(-1)) {
                 statusLabel.setText("Booked");
                 dayContainer.add(statusLabel, gbc2);
             } else {
@@ -421,7 +437,23 @@ public class ViewHotelView extends JPanelWithBackground {
             dayContainer.add(day, gbc2);
             JLabel statusLabel = new JLabel();
             statusLabel.setHorizontalAlignment(JLabel.CENTER);
-            if (roomCalendar[i - 1].getIsBooked()) {
+            JLabel untilHourBooked = new JLabel();
+            untilHourBooked.setFont(new Font("Verdana", Font.PLAIN, 8));
+            if (roomCalendar[i - 1].getIsCheckIn() && !roomCalendar[i - 1].getIsCheckOut() && i > 1) {
+                statusLabel.setText("Booked");
+                untilHourBooked
+                        .setText("From " + roomCalendar[i - 1].getCheckInReservation().getCheckInDate().getHour()
+                                + "HH onwards");
+                dayContainer.add(statusLabel, gbc2);
+                dayContainer.add(untilHourBooked, gbc2);
+            } else if (roomCalendar[i - 1].getIsCheckOut() && !roomCalendar[i - 1].getIsCheckIn() && i < 31) {
+                statusLabel.setText("Booked");
+                untilHourBooked
+                        .setText("Until " + roomCalendar[i - 1].getCheckOutReservation().getCheckOutDate().getHour()
+                                + "HH");
+                dayContainer.add(statusLabel, gbc2);
+                dayContainer.add(untilHourBooked, gbc2);
+            } else if (roomCalendar[i - 1].getIsBooked(-1)) {
                 statusLabel.setText("Booked");
                 dayContainer.add(statusLabel, gbc2);
             } else {

@@ -272,7 +272,7 @@ public class Hotel {
      */
     public boolean hasReservationDay(int day) {
         for (Room room : this.roomList) {
-            if (room.getMonth().getDay(day).getIsBooked()) {
+            if (room.getMonth().getDay(day).getIsBooked(-1)) {
                 return true;
             }
         }

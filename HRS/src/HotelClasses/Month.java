@@ -38,15 +38,12 @@ public class Month {
         int checkOutDay = reservation.getCheckOutDate().getDay();
         for (int i = checkInDay - 1; i < checkOutDay; i++) {
             if (i == checkInDay - 1) {
-                this.dayList[i].setIsBooked(true);
                 this.dayList[i].setIsCheckIn(true);
-                this.dayList[i].setReservation(reservation);
+                this.dayList[i].setCheckInReservation(reservation);
             } else if (i == checkOutDay - 1) {
-                this.dayList[i].setIsBooked(true);
                 this.dayList[i].setIsCheckOut(true);
-                this.dayList[i].setReservation(reservation);
+                this.dayList[i].setCheckOutReservation(reservation);
             } else {
-                this.dayList[i].setIsBooked(true);
                 this.dayList[i].setReservation(reservation);
             }
         }
@@ -63,15 +60,12 @@ public class Month {
 
         for (int i = checkInDay - 1; i < checkOutDay; i++) {
             if (i == checkInDay - 1) {
-                this.dayList[i].setIsBooked(false);
                 this.dayList[i].setIsCheckIn(false);
-                this.dayList[i].setReservation(null);
+                this.dayList[i].setCheckInReservation(null);
             } else if (i == checkOutDay - 1) {
-                this.dayList[i].setIsBooked(false);
                 this.dayList[i].setIsCheckOut(false);
-                this.dayList[i].setReservation(null);
+                this.dayList[i].setCheckOutReservation(null);
             } else {
-                this.dayList[i].setIsBooked(false);
                 this.dayList[i].setReservation(null);
             }
         }
@@ -86,7 +80,7 @@ public class Month {
             if (i % 10 == 0 && i != 0) {
                 System.out.print("|\n");
             }
-            if (dayList[i].getIsBooked()) {
+            if (dayList[i].getIsBooked(-1)) {
                 if (i < 9) {
                     System.out.print("| " + (i + 1) + " - ");
                 } else {
@@ -119,15 +113,15 @@ public class Month {
         int checkOutDayToIndex = checkOutDay - 1;
         for (int i = checkInDayToIndex; i <= checkOutDayToIndex && !isConflict; i++) {
             if (this.dayList[i].getIsCheckIn() && i == checkOutDayToIndex) {
-                if (this.dayList[i].getReservation().getCheckInDate().getHour() <= checkOutHour) {
+                if (this.dayList[i].getCheckInReservation().getCheckInDate().getHour() <= checkOutHour) {
                     isConflict = true;
                 }
             } else if (this.dayList[i].getIsCheckOut() && i == checkInDayToIndex) {
-                if (this.dayList[i].getReservation().getCheckOutDate().getHour() >= checkInHour) {
+                if (this.dayList[i].getCheckOutReservation().getCheckOutDate().getHour() >= checkInHour) {
                     isConflict = true;
                 }
 
-            } else if (this.dayList[i].getIsBooked()) {
+            } else if (this.dayList[i].getIsBooked(-1)) {
                 isConflict = true;
             }
         }

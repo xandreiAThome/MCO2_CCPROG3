@@ -171,14 +171,14 @@ public class Room {
 
         for (int i = checkIn.getDay() - 1; i < checkOut.getDay(); i++) {
             if (calendar[i].getIsCheckOut()
-                    && calendar[i].getReservation().getCheckOutDate().getDay() == checkIn.getDay()
-                    && calendar[i].getReservation().getCheckOutDate().getHour() < checkIn.getHour()) {
+                    && calendar[i].getCheckOutReservation().getCheckOutDate().getDay() == checkIn.getDay()
+                    && calendar[i].getCheckOutReservation().getCheckOutDate().getHour() < checkIn.getHour()) {
                 continue;
             } else if (calendar[i].getIsCheckIn()
-                    && calendar[i].getReservation().getCheckInDate().getDay() == checkOut.getDay()
-                    && calendar[i].getReservation().getCheckInDate().getHour() > checkOut.getHour()) {
+                    && calendar[i].getCheckInReservation().getCheckInDate().getDay() == checkOut.getDay()
+                    && calendar[i].getCheckInReservation().getCheckInDate().getHour() > checkOut.getHour()) {
                 continue;
-            } else if (calendar[i].getIsBooked()) {
+            } else if (calendar[i].getIsBooked(-1)) {
                 return false;
             }
         }
