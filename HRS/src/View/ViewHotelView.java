@@ -175,7 +175,8 @@ public class ViewHotelView extends JPanelWithBackground {
         numOfRoom.setForeground(Color.white);
         numOfRoom.setHorizontalAlignment(JLabel.CENTER);
         numOfRoom.setFont(new Font("Verdana", Font.BOLD, 16));
-        JLabel earningForMonth = new JLabel("Estimated earnings for the Month: " + chosenHotel.earningForMonth());
+        JLabel earningForMonth = new JLabel(
+                "Estimated earnings for the Month: " + String.format("%.2f", chosenHotel.earningForMonth()));
         earningForMonth.setForeground(Color.white);
         earningForMonth.setHorizontalAlignment(JLabel.CENTER);
         earningForMonth.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -290,7 +291,7 @@ public class ViewHotelView extends JPanelWithBackground {
         roomInfoLabel.setForeground(Color.white);
         roomInfoLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
 
-        JLabel roomInfoPrice = new JLabel("Price per night: " + chosenRoom.getBasePrice());
+        JLabel roomInfoPrice = new JLabel("Price per night: " + String.format("%.2f", chosenRoom.getBasePrice()));
         roomInfoPrice.setForeground(Color.white);
         roomInfoPrice.setHorizontalAlignment(JLabel.CENTER);
         roomInfoPrice.setVerticalAlignment(JLabel.TOP);
@@ -332,7 +333,8 @@ public class ViewHotelView extends JPanelWithBackground {
                 dayContainer.add(statusLabel, gbc2);
             }
 
-            JLabel priceRateLabel = new JLabel((roomCalendar[i - 1].getPriceRate() * 100) + "% of base price");
+            JLabel priceRateLabel = new JLabel(
+                    String.format("%.2f", roomCalendar[i - 1].getPriceRate() * 100) + "% of base price");
             priceRateLabel.setFont(new Font("Verdana", Font.PLAIN, 8));
             dayContainer.add(priceRateLabel, gbc2);
             calendarContainer.add(dayContainer);
@@ -374,14 +376,15 @@ public class ViewHotelView extends JPanelWithBackground {
         checkOutLabel.setVerticalAlignment(JLabel.TOP);
         checkOutLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
 
-        JLabel totalPriceLabel = new JLabel("Total price of reservation: " + reservation.getTotalPrice());
+        JLabel totalPriceLabel = new JLabel(
+                "Total price of reservation: " + String.format("%.2f", reservation.getTotalPrice()));
         totalPriceLabel.setForeground(Color.white);
         totalPriceLabel.setHorizontalAlignment(JLabel.CENTER);
         totalPriceLabel.setVerticalAlignment(JLabel.TOP);
         totalPriceLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
 
         JLabel roomInfoLabel = new JLabel("Room name: " + reservation.getChosenRoom().getName()
-                + "    Price per night: " + reservation.getChosenRoom().getBasePrice());
+                + "    Price per night: " + String.format("%.2f", reservation.getChosenRoom().getBasePrice()));
         roomInfoLabel.setForeground(Color.white);
         roomInfoLabel.setHorizontalAlignment(JLabel.CENTER);
         roomInfoLabel.setVerticalAlignment(JLabel.TOP);
@@ -425,7 +428,8 @@ public class ViewHotelView extends JPanelWithBackground {
                 statusLabel.setText("Available");
                 dayContainer.add(statusLabel, gbc2);
             }
-            JLabel priceRateLabel = new JLabel((roomCalendar[i - 1].getPriceRate() * 100) + "% of base price");
+            JLabel priceRateLabel = new JLabel(
+                    String.format("%.2f", roomCalendar[i - 1].getPriceRate() * 100) + "% of base price");
             priceRateLabel.setFont(new Font("Verdana", Font.PLAIN, 8));
             dayContainer.add(priceRateLabel, gbc2);
             calendarContainer.add(dayContainer);

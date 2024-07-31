@@ -88,6 +88,13 @@ public class Reservation {
         return this.discountCodeList;
     }
 
+    /**
+     * Applies the discount to the total price
+     * 
+     * @param discountCode
+     * @return true: if the conditions to the discount are fulfilled and the
+     *         discount was applied
+     */
     public boolean applyDiscount(String discountCode) {
         boolean applied = false;
         switch (discountCode) {

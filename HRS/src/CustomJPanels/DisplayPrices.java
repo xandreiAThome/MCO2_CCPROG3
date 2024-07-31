@@ -75,8 +75,8 @@ public class DisplayPrices extends JPanel {
         double deluxePrice = standardPrice * 0.2 + standardPrice;
         double executivePrice = standardPrice * 0.35 + standardPrice;
 
-        standardPriceLabel.setText("Standard Room: $" + standardPrice);
-        deluxePriceLabel.setText("Deluxe Room: $" + deluxePrice);
-        executivePriceLabel.setText("Executive Room: $" + executivePrice);
+        standardPriceLabel.setText("Standard Room: $" + String.format("%.2f", standardPrice));
+        deluxePriceLabel.setText("Deluxe Room: $" + String.format("%.2f", deluxePrice));
+        executivePriceLabel.setText("Executive Room: $" + String.format("%.2f", executivePrice));
     }
 }

@@ -239,28 +239,28 @@ public class HRSController implements ActionListener {
                     boolean discountApplied = reservation.applyDiscount(discountCode);
 
                     int confirm = 0;
-
+                    String totalPriceFormatted = String.format("%.2f", reservation.getTotalPrice());
                     if (discountCode.length() == 0) {
                         confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
-                                "Total price of booking: " + reservation.getTotalPrice() + "\nConfirm Booking?",
+                                "Total price of booking: " + totalPriceFormatted + "\nConfirm Booking?",
                                 "Confirm",
                                 JOptionPane.YES_NO_OPTION);
                     } else if (discountApplied) {
                         confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
-                                "Total price of booking: " + reservation.getTotalPrice() + "\nDiscount code applied"
+                                "Total price of booking: " + totalPriceFormatted + "\nDiscount code applied"
                                         + "\nConfirm Booking?",
                                 "Confirm",
                                 JOptionPane.YES_NO_OPTION);
                     } else if (!discountApplied
                             && Arrays.asList(reservation.getDiscountCodeList()).contains(discountCode)) {
                         confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
-                                "Total price of booking: " + reservation.getTotalPrice()
+                                "Total price of booking: " + totalPriceFormatted
                                         + "\nDiscount Code Conditions not fulfilled" + "\nConfirm Booking?",
                                 "Confirm",
                                 JOptionPane.YES_NO_OPTION);
                     } else if (!discountApplied) {
                         confirm = JOptionPane.showConfirmDialog(this.hrsWindow,
-                                "Total price of booking: " + reservation.getTotalPrice()
+                                "Total price of booking: " + totalPriceFormatted
                                         + "\n Invalid discount code" + "\nConfirm Booking?",
                                 "Confirm",
                                 JOptionPane.YES_NO_OPTION);

@@ -147,6 +147,12 @@ public class Month {
         return this.dayList[day - 1];
     }
 
+    /**
+     * 
+     * @param checkInDay
+     * @param checkOutDay
+     * @return true if the conditions for Payday reservation is fulfilled
+     */
     public boolean isPayDay(int checkInDay, int checkOutDay) {
         if (checkInDay <= 15 && checkOutDay > 15 && checkOutDay != 30) {
             return true;
