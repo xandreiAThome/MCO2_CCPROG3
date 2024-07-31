@@ -1,7 +1,3 @@
-/**
- * The CreateHotelView class represents a view for creating a hotel.
- * It extends JPanelWithBackground class to display a background image.
- */
 package View;
 
 import java.awt.*;
@@ -15,6 +11,10 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.NumberFormat;
 
+/**
+ * The CreateHotelView class represents a view for creating a hotel.
+ * It extends JPanelWithBackground class to display a background image.
+ */
 public class CreateHotelView extends JPanelWithBackground {
     private JButton returnHomeButton;
     private JTextField hotelNameField;

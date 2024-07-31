@@ -1,9 +1,3 @@
-/**
- * The BookReservationView class represents the view for booking a reservation in a hotel.
- * It extends the JPanelWithBackground class to display a background image.
- * The class contains various panels and components for selecting a hotel, room, and date for the reservation.
- * It also provides methods for setting action listeners, getting and setting chosen hotel and room, and resetting entries.
- */
 package View;
 
 import java.awt.BorderLayout;
@@ -31,6 +25,15 @@ import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
 import HotelClasses.RoomClasses.Room;
 
+/**
+ * The BookReservationView class represents the view for booking a reservation
+ * in a hotel.
+ * It extends the JPanelWithBackground class to display a background image.
+ * The class contains various panels and components for selecting a hotel, room,
+ * and date for the reservation.
+ * It also provides methods for setting action listeners, getting and setting
+ * chosen hotel and room, and resetting entries.
+ */
 public class BookReservationView extends JPanelWithBackground {
     private JPanel chooseHotelContainer;
     private Hotel chosenHotel = null;

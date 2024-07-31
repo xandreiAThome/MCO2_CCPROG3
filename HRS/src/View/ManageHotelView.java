@@ -1,3 +1,9 @@
+/**
+ * The ManageHotelView class represents the view for managing a hotel in a hotel management system.
+ * It extends the JPanelWithBackground class to provide a background image for the view.
+ * The class contains various components such as buttons, panels, and labels for managing the hotel.
+ * It also includes methods for setting action listeners, updating the hotel information panel, and showing different panels based on user actions.
+ */
 package View;
 
 import java.awt.BorderLayout;
@@ -297,7 +303,7 @@ public class ManageHotelView extends JPanelWithBackground {
             day.setHorizontalAlignment(JLabel.CENTER);
             double priceRateOfDay = chosenHotel.getRoom(0).getMonth().getDay(i).getPriceRate() * 100;
             dayContainer.add(day, gbc2);
-            dayContainer.add(new JLabel(String.format("%.2f%%",priceRateOfDay)), gbc2);
+            dayContainer.add(new JLabel(String.format("%.2f%%", priceRateOfDay)), gbc2);
             calendarContainer.add(dayContainer);
         }
 

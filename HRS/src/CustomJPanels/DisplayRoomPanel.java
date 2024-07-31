@@ -1,7 +1,4 @@
-/**
- * This class represents a custom JPanel used to display room information.
- * It includes labels for room counts and a panel for displaying the room list.
- */
+
 package CustomJPanels;
 
 import java.awt.BorderLayout;
@@ -19,6 +16,10 @@ import HotelClasses.RoomClasses.DeluxeRoom;
 import HotelClasses.RoomClasses.ExecutiveRoom;
 import HotelClasses.RoomClasses.Room;
 
+/**
+ * This class represents a custom JPanel used to display room information.
+ * It includes labels for room counts and a panel for displaying the room list.
+ */
 public class DisplayRoomPanel extends JPanel {
     private JPanel roomCountPanel;
     private JPanel roomListPanel;

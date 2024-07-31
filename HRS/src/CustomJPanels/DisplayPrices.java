@@ -1,7 +1,4 @@
-/**
- * This class represents a custom JPanel that displays room prices.
- * It extends the JPanel class and provides methods to update the prices.
- */
+
 package CustomJPanels;
 
 import java.awt.BorderLayout;
@@ -14,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * This class represents a custom JPanel that displays room prices.
+ * It extends the JPanel class and provides methods to update the prices.
+ */
 public class DisplayPrices extends JPanel {
     private JPanel wrapper;
     private JLabel standardPriceLabel;
