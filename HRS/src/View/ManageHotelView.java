@@ -1,9 +1,3 @@
-/**
- * The ManageHotelView class represents the view for managing a hotel in a hotel management system.
- * It extends the JPanelWithBackground class to provide a background image for the view.
- * The class contains various components such as buttons, panels, and labels for managing the hotel.
- * It also includes methods for setting action listeners, updating the hotel information panel, and showing different panels based on user actions.
- */
 package View;
 
 import java.awt.BorderLayout;
@@ -31,6 +25,16 @@ import CustomJPanels.SelectRoomPanel;
 import HotelClasses.Hotel;
 import HotelClasses.RoomClasses.Room;
 
+/**
+ * The ManageHotelView class represents the view for managing a hotel in a hotel
+ * management system.
+ * It extends the JPanelWithBackground class to provide a background image for
+ * the view.
+ * The class contains various components such as buttons, panels, and labels for
+ * managing the hotel.
+ * It also includes methods for setting action listeners, updating the hotel
+ * information panel, and showing different panels based on user actions.
+ */
 public class ManageHotelView extends JPanelWithBackground {
     private JButton returnHomeButton;
     private JPanel chooseHotelContainer;
